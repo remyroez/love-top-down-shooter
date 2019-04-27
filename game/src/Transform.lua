@@ -80,6 +80,11 @@ function Transform:rotate(rotation)
     end
 end
 
+-- 座標の方向へ回転する
+function Transform:setRotationTo(x, y)
+    self.rotation = math.atan2(y - self.y, x - self.x)
+end
+
 -- トランスフォームを積む
 function Transform:pushTransform(x, y)
     x = x or self.x
