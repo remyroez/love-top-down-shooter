@@ -11,7 +11,9 @@ function Game:load()
     self.state.character = Character{
         spriteSheet = self.spriteSheet,
         spriteName = 'hitman1_gun.png',
-        x = 100, y = 100, h_align = 'center'
+        x = self.width * 0.5,
+        y = self.height * 0.5,
+        h_align = 'center'
     }
 end
 
@@ -27,6 +29,7 @@ end
 
 -- 更新
 function Game:update(dt)
+    self.state.character:setRotationTo(love.mouse.getPosition())
     self.state.character:update(dt)
 end
 
