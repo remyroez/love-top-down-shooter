@@ -1,11 +1,18 @@
 
+-- クラス
 local Scene = require 'Scene'
+local Character = require 'Character'
 
 -- ゲーム
 local Game = Scene:addState('game', Scene)
 
 -- 読み込み
 function Game:load()
+    self.state.character = Character{
+        spriteSheet = self.spriteSheet,
+        spriteName = 'hitman1_gun.png',
+        x = 100, y = 100, h_align = 'center'
+    }
 end
 
 -- ステート開始
@@ -24,6 +31,8 @@ end
 
 -- 描画
 function Game:draw()
+    self.state.character:draw()
+    self.state.character:drawRectangle()
 end
 
 -- キー入力
