@@ -10,7 +10,7 @@ local Boot = Scene:addState('boot', Scene)
 
 -- 次のステートへ
 function Boot:nextState(...)
-    self:gotoState 'splash'
+    self:gotoState 'game'
 end
 
 -- 読み込み
@@ -19,6 +19,9 @@ function Boot:load()
     local width, height = lg.getDimensions()
     self.width = width
     self.height = height
+
+    -- スプライトシートの読み込み
+    self.spriteSheet = sbss:new('assets/spritesheet.xml')
 end
 
 -- 更新
