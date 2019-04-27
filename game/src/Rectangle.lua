@@ -59,13 +59,12 @@ function Rectangle:initializeRectangle(x, y, w, h, h_align, v_align)
     self.width = w or self.width or 0
     self.height = h or self.height or 0
 
-    -- プライベート
-    self._rectangle = {
-        align = {}
-    }
+    local pivotX, pivotY = alignOffsets(self.width, self.height, h_align, v_align)
+    self.pivotX = h_align and pivotX or self.pivotX
+    self.pivotY = (h_align == 'center' or v_align) and pivotY or self.pivotY
 
-    -- アライメント
-    self._rectangle.align.horizonal, self._rectangle.align.vertical = alignOffsets(self.width, self.height, h_align, v_align)
+    -- プライベート
+    self._rectangle = {}
 end
 
 -- 矩形の描画
@@ -75,7 +74,7 @@ end
 
 -- 左端の座標
 function Rectangle:left()
-    return self.x - self._rectangle.align.horizonal
+    return self.x - self.pivotX
 end
 
 -- 右端の座標
@@ -90,7 +89,7 @@ end
 
 -- 上端の座標
 function Rectangle:top()
-    return self.y - self._rectangle.align.vertical
+    return self.y - self.pivotY
 end
 
 -- 下端の座標

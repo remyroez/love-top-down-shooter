@@ -27,6 +27,7 @@ end
 
 -- 更新
 function Game:update(dt)
+    self.state.character:update(dt)
 end
 
 -- 描画

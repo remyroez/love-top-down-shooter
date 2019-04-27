@@ -25,6 +25,8 @@ end
 
 -- スプライトの描画
 function SpriteRenderer:drawSprite(name, x, y)
+    x = x or 0
+    y = y or 0
     self._spriteRenderer.spriteSheet:draw(name, math.ceil(x), math.ceil(y))
 end
 
