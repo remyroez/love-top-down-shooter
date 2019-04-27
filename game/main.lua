@@ -46,6 +46,9 @@ function love.keypressed(key, scancode, isrepeat)
     if key == 'escape' then
         -- 終了
         love.event.quit()
+    elseif key == 'printscreen' then
+        -- スクリーンショット
+        love.graphics.captureScreenshot(os.time() .. ".png")
     elseif key == 'f5' then
         -- リスタート
         love.event.quit('restart')
