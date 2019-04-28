@@ -8,7 +8,7 @@ local o_ten_one = require 'o-ten-one'
 local lg = love.graphics
 
 -- スプラッシュスクリーン
-local Splash = Scene:addState('splash', Scene)
+local Splash = Scene:newState 'splash'
 
 -- 次のステートへ
 function Splash:nextState(...)

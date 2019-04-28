@@ -23,6 +23,12 @@ end
 local Scene = class 'Scene'
 Scene:include(stateful)
 
+-- 新規ステート
+function Scene.static:newState(name)
+    if Scene.static.states[name] then Scene.static.states[name] = nil end
+    return Scene:addState(name, Scene)
+end
+
 -- 初期化
 function Scene:initialize()
     self.stateObjects = {}

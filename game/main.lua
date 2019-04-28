@@ -2,22 +2,28 @@
 -- グローバルに影響があるライブラリ
 require 'autobatch'
 require 'sbss'
-require 'scenes'
+local scenes = require 'scenes'
 
--- シーンクラス
+-- クラス
+local lume = require 'lume'
+local lurker = require 'lurker'
 local Scene = require 'Scene'
 
+lurker.postswap = function (f)
+    if lume.find(scenes, f:match('%/([^%/%.]+).lua$')) then
+        lurker.hotswapfile('main.lua')
+    end
+end
+
 -- シーン
-local scene
+local scene = Scene()
+scene:gotoState 'boot'
 
 -- ステートの描画フラグ
 local printStates = true
 
 -- 読み込み
 function love.load()
-    -- シーンの作成とロード
-    scene = Scene()
-    scene:gotoState 'boot'
 end
 
 -- 更新
@@ -49,6 +55,9 @@ function love.keypressed(key, scancode, isrepeat)
     elseif key == 'printscreen' then
         -- スクリーンショット
         love.graphics.captureScreenshot(os.time() .. ".png")
+    elseif key == 'f1' then
+        -- スキャン
+        lurker.scan()
     elseif key == 'f5' then
         -- リスタート
         love.event.quit('restart')

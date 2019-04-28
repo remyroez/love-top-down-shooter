@@ -141,6 +141,7 @@ local function _getStateName(self, target)
   for name,state in pairs(self.class.static.states) do
     if state == target then return name end
   end
+  return '*error*'
 end
 
 function Stateful:included(klass)
