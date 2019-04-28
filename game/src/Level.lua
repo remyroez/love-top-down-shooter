@@ -7,15 +7,32 @@ local wf = require 'windfield'
 -- レベル
 local Level = class 'Level'
 
+-- コリジョンクラス
+local collisionClasses = {
+    player = {},
+    enemy = {},
+    building = {},
+    object = {},
+}
+
 -- 初期化
 function Level:initialize()
     -- ワールド
     self.world = wf.newWorld(0, 0, true)
-    self.world:addCollisionClass('player')
-    self.world:addCollisionClass('enemy')
+
+    -- コリジョンクラスの追加
+    for name, klass in pairs(collisionClasses) do
+        self.world:addCollisionClass(name, klass)
+    end
 
     -- エンティティ
     self.entities = {}
+end
+
+-- 破棄
+function Level:destroy()
+    self:clearEntities()
+    self.world:destroy()
 end
 
 -- 更新
@@ -46,12 +63,6 @@ end
 function Level:clearEntities()
     lume.each(self.entities, 'destroy')
     lume.clear(self.entities)
-end
-
--- 破棄
-function Level:destroy()
-    self:clearEntities()
-    self.world:destroy()
 end
 
 return Level
