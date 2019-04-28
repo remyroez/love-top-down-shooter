@@ -4,7 +4,7 @@ local Scene = require 'Scene'
 local Character = require 'Character'
 
 -- ゲーム
-local Game = Scene:addState('game', Scene)
+local Game = Scene:newState 'game'
 
 -- 読み込み
 function Game:load()

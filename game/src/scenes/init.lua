@@ -14,4 +14,4 @@ for _, name in ipairs(states) do
     scenes[name] = require(folderOfThisFile .. name)
 end
 
-return scenes
+return states

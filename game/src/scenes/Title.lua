@@ -2,7 +2,7 @@
 local Scene = require 'Scene'
 
 -- タイトル
-local Title = Scene:addState('title', Scene)
+local Title = Scene:newState 'title'
 
 -- 次のステートへ
 function Title:nextState(...)

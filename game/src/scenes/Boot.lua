@@ -6,7 +6,7 @@ local lg = love.graphics
 local la = love.audio
 
 -- ブート
-local Boot = Scene:addState('boot', Scene)
+local Boot = Scene:newState 'boot'
 
 -- 次のステートへ
 function Boot:nextState(...)
