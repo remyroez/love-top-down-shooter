@@ -10,51 +10,54 @@ local lm = love.mouse
 -- クラス
 local Scene = require 'Scene'
 local Character = require 'Character'
+local Level = require 'Level'
 
 -- ゲーム
 local Game = Scene:newState 'game'
 
 -- 読み込み
 function Game:load()
-    self.state.world = wf.newWorld(0, 0, true)
-    self.state.world:addCollisionClass('player')
-    self.state.world:addCollisionClass('enemy')
+    self.state.level = Level()
 
-    self.state.character = Character{
-        spriteSheet = self.spriteSheet,
-        spriteName = 'hitman1_gun.png',
-        x = self.width * 0.5,
-        y = self.height * 0.5,
-        h_align = 'center',
-        collider = self.state.world:newCircleCollider(0, 0, 12)
-    }
+    self.state.character = self.state.level:registerEntity(
+        Character {
+            spriteSheet = self.spriteSheet,
+            spriteName = 'hitman1_gun.png',
+            x = self.width * 0.5,
+            y = self.height * 0.5,
+            h_align = 'center',
+            collider = self.state.level.world:newCircleCollider(0, 0, 12)
+        }
+    )
+    self.state.character.collider:setCollisionClass('player')
 
     self.state.entities = {}
     for i = 0, 5 do
-        local entity = Character{
-            spriteSheet = self.spriteSheet,
-            spriteName = 'zoimbie1_hold.png',
-            x = 300 + i * 50,
-            y = self.height * 0.75,
-            h_align = 'center',
-            collider = self.state.world:newCircleCollider(0, 0, 12)
-        }
+        local entity = self.state.level:registerEntity(
+            Character {
+                spriteSheet = self.spriteSheet,
+                spriteName = 'zoimbie1_hold.png',
+                x = 300 + i * 50,
+                y = self.height * 0.75,
+                h_align = 'center',
+                collider =self.state.level.world:newCircleCollider(0, 0, 12)
+            }
+        )
         entity.collider:setMass(10)
         entity.collider:setLinearDamping(10)
         entity.collider:setAngularDamping(10)
         entity.collider:setCollisionClass('enemy')
-        table.insert(self.state.entities, entity)
     end
 
-    self.state.character.collider:setCollisionClass('player')
-    self.state.box = self.state.world:newRectangleCollider(100, 100, 100, 100)
+    self.state.box = self.state.level.world:newRectangleCollider(100, 100, 100, 100)
     self.state.box:setRestitution(0.8)
     self.state.box:setLinearDamping(20)
     self.state.box:setAngularDamping(10)
     self.state.box:setCollisionClass('enemy')
     --self.state.box:setFixedRotation(true)
     self.state.box:setType('static')
-    self.state.box2 = self.state.world:newRectangleCollider(300, 100, 100, 100)
+
+    self.state.box2 = self.state.level.world:newRectangleCollider(300, 100, 100, 100)
     self.state.box2:setRestitution(0.8)
     self.state.box2:setLinearDamping(10)
     self.state.box2:setAngularDamping(10)
@@ -74,8 +77,7 @@ end
 
 -- 更新
 function Game:update(dt)
-    self.state.world:update(dt)
-
+    -- プレイヤー操作
     local speed = 100
     local x, y = 0, 0
     if lk.isDown('w') or lk.isDown('up') then
@@ -88,23 +90,19 @@ function Game:update(dt)
     elseif lk.isDown('d') or lk.isDown('right') then
         x = 1
     end
-
     self.state.character:setColliderVelocity(x, y, speed)
     self.state.character:setRotationTo(love.mouse.getPosition())
-    self.state.character:update(dt)
 
-    lume.each(self.state.entities, 'update', dt)
+    -- レベル更新
+    self.state.level:update(dt)
 end
 
 -- 描画
 function Game:draw()
-    self.state.character:draw()
-    self.state.character:drawRectangle()
+    -- レベル描画
+    self.state.level:draw()
 
-    lume.each(self.state.entities, 'draw')
-
-    self.state.world:draw()
-
+    -- マウスポインタ描画
     local cx, cy = self.state.character:position()
     local mx, my = lm.getPosition()
     lg.line(cx, cy, mx, my)
@@ -123,7 +121,7 @@ function Game:mousepressed(x, y, button, istouch, presses)
     if button == 1 then
         local cx, cy = self.state.character:position()
         local mx, my = (x - cx) * 10000 + cx, (y - cy) * 10000 + cy
-        local colliders = self.state.world:queryLine(cx, cy, mx, my, { 'All', except = { 'Player' } })
+        local colliders = self.state.level.world:queryLine(cx, cy, mx, my, { 'All', except = { 'Player' } })
         for _, collider in ipairs(colliders) do
             print(tostring(collider))
             collider:applyLinearImpulse(lume.vector(lume.angle(cx, cy, collider:getPosition()), 3000))

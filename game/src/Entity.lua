@@ -8,6 +8,10 @@ local Entity = class 'Entity'
 function Entity:initialize()
 end
 
+-- 破棄
+function Entity:destroy()
+end
+
 -- 更新
 function Entity:update(dt)
 end
