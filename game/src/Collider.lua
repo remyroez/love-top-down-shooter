@@ -15,6 +15,11 @@ function Collider:initializeCollider(collider)
     self:applyPositionToCollider()
 end
 
+-- 破棄
+function Collider:destroyCollider()
+    self.collider:destroy()
+end
+
 -- コライダー座標の更新
 function Collider:setColliderVelocity(x, y, speed)
     if (x == 0 and y == 0) or speed == 0 then
