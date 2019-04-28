@@ -30,16 +30,7 @@ end
 
 -- 更新
 function Character:update(dt)
-    -- 回転テスト
-    --self:rotate(math.pi * 0.5 * dt)
-
-    -- スケールテスト
-    --[[
-    self.scale = self.scale + dt
-    if self.scale > 3 then
-        self.scale = 0
-    end
-    --]]
+    -- コライダの座標を適用する
     self:applyPositionFromCollider()
 end
 

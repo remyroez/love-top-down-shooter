@@ -19,6 +19,11 @@ function Transform:initializeTransform(x, y, rotation, scale, pivotX, pivotY)
     self._transform = {}
 end
 
+-- 座標
+function Transform:position()
+    return self.x, self.y
+end
+
 -- ピボット
 function Transform:setPivot(pivotX, pivotY)
     self.pivotX = pivotX or self.pivotX or 0
