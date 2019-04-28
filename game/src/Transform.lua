@@ -55,7 +55,7 @@ function Transform:pushTransform(x, y)
     y = y or self.y
 
     lg.push()
-    lg.translate(math.ceil(x), math.ceil(y))
+    lg.translate(x, y)
     lg.translate(self.pivotX, self.pivotY)
     lg.rotate(self.rotation)
     lg.scale(self.scale)

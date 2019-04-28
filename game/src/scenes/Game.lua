@@ -20,8 +20,10 @@ local Game = Scene:newState 'game'
 -- 読み込み
 function Game:load()
     self.state.camera = Camera()
-    self.state.camera:setFollowStyle('NO_DEADZONE')
-    self.state.camera.scale = 0.5
+    self.state.camera:setFollowLerp(0.1)
+    self.state.camera:setFollowLead(2)
+    self.state.camera:setFollowStyle('TOPDOWN_TIGHT')
+    self.state.camera.scale = 1
 
     self.state.level = Level()
 
