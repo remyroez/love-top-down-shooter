@@ -28,6 +28,24 @@ function Game:load()
         h_align = 'center',
         collider = self.state.world:newCircleCollider(0, 0, 12)
     }
+
+    self.state.entities = {}
+    for i = 0, 5 do
+        local entity = Character{
+            spriteSheet = self.spriteSheet,
+            spriteName = 'zoimbie1_hold.png',
+            x = 300 + i * 50,
+            y = self.height * 0.75,
+            h_align = 'center',
+            collider = self.state.world:newCircleCollider(0, 0, 12)
+        }
+        entity.collider:setMass(10)
+        entity.collider:setLinearDamping(10)
+        entity.collider:setAngularDamping(10)
+        entity.collider:setCollisionClass('enemy')
+        table.insert(self.state.entities, entity)
+    end
+
     self.state.character.collider:setCollisionClass('player')
     self.state.box = self.state.world:newRectangleCollider(100, 100, 100, 100)
     self.state.box:setRestitution(0.8)
@@ -74,12 +92,17 @@ function Game:update(dt)
     self.state.character:setColliderVelocity(x, y, speed)
     self.state.character:setRotationTo(love.mouse.getPosition())
     self.state.character:update(dt)
+
+    lume.each(self.state.entities, 'update', dt)
 end
 
 -- 描画
 function Game:draw()
     self.state.character:draw()
     self.state.character:drawRectangle()
+
+    lume.each(self.state.entities, 'draw')
+
     self.state.world:draw()
 
     local cx, cy = self.state.character:position()
