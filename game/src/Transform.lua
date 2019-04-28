@@ -1,57 +1,11 @@
 
+local lume = require 'lume'
+
 -- エイリアス
 local lg = love.graphics
 
 -- トランスフォームモジュール
 local Transform = {}
-
--- 横アライメントの割合
-local hAligns = {
-    left = 0,
-    center = 0.5,
-    right = 1
-}
-
--- 縦アライメントの割合
-local vAligns = {
-    top = 0,
-    middle = 0.5,
-    bottom = 1
-}
-
--- アライメントのピボットを取得
-local function alignPivots(h_align, v_align)
-    local x, y = 0, 0
-
-    -- 横アライメントのデフォルトは left
-    h_align = h_align or 'left'
-
-    --横アライメントのみ center が指定されていれば、縦アライメントは middle
-    if h_align == 'center' and v_align == nil then
-        v_align = 'middle'
-    end
-
-    -- 縦アライメントのデフォルトは top
-    v_align = v_align or 'top'
-
-    -- 横アライメント
-    if type(h_align) == 'number' then
-        -- 数値ならそのまま渡す
-        x = h_align
-    else
-        x = hAligns[h_align]
-    end
-
-    -- 縦アライメント
-    if type(v_align) == 'number' then
-        -- 数値ならそのまま渡す
-        y = v_align
-    else
-        y = vAligns[v_align]
-    end
-
-    return x, y
-end
 
 -- 初期化
 function Transform:initializeTransform(x, y, rotation, scale, pivotX, pivotY)
@@ -82,7 +36,12 @@ end
 
 -- 座標の方向へ回転する
 function Transform:setRotationTo(x, y)
-    self.rotation = math.atan2(y - self.y, x - self.x)
+    self.rotation = lume.angle(self.x, self.y, x, y)
+end
+
+-- 前方への正規化ベクトルを返す
+function Transform:forward()
+    return lume.vector(self.rotation, 1)
 end
 
 -- トランスフォームを積む
