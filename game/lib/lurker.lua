@@ -208,7 +208,8 @@ end
 
 
 function lurker.modname(f)
-  return (f:gsub("%.lua$", ""):gsub("[/\\]", "."))
+  return (f:gsub("%.lua$", ""):gsub("[/\\]", "."):gsub('^src.', ''):gsub('^lib.', ''))
+  --return (f:gsub("%.lua$", ""):gsub("[/\\]", "."))
 end
 
 
