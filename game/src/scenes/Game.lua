@@ -21,10 +21,13 @@ local Game = Scene:newState 'game'
 function Game:load()
     self.state.camera = Camera()
     self.state.camera:setFollowStyle('NO_DEADZONE')
+    self.state.camera.scale = 0.5
 
     self.state.level = Level()
 
     self.state.map = sti('assets/levels/prototype.lua')
+    self.state.map:resize(self.width / self.state.camera.scale, self.height / self.state.camera.scale)
+    self.state.map.canvas:setFilter("linear", "nearest")
     --self.state.map:addCustomLayer('entity')
 
     self.state.character = self.state.level:registerEntity(
@@ -142,6 +145,7 @@ end
 
 -- マウス入力
 function Game:mousepressed(x, y, button, istouch, presses)
+    x, y = self.state.camera:toWorldCoords(x, y)
     if button == 1 then
         local cx, cy = self.state.character:position()
         local mx, my = (x - cx) * 10000 + cx, (y - cy) * 10000 + cy
