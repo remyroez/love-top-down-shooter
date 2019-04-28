@@ -123,8 +123,12 @@ function Game:mousepressed(x, y, button, istouch, presses)
         local mx, my = (x - cx) * 10000 + cx, (y - cy) * 10000 + cy
         local colliders = self.state.level.world:queryLine(cx, cy, mx, my, { 'All', except = { 'Player' } })
         for _, collider in ipairs(colliders) do
-            print(tostring(collider))
-            collider:applyLinearImpulse(lume.vector(lume.angle(cx, cy, collider:getPosition()), 3000))
+            --print(tostring(collider))
+            --collider:applyLinearImpulse(lume.vector(lume.angle(cx, cy, collider:getPosition()), 3000))
+            local entity = collider:getObject()
+            if entity then
+                self.state.level:deregisterEntity(entity)
+            end
         end
     end
 end

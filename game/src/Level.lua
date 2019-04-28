@@ -43,9 +43,15 @@ function Level:deregisterEntity(entity)
 end
 
 -- 全エンティティの削除
-function Level:clearEntities(entity)
+function Level:clearEntities()
     lume.each(self.entities, 'destroy')
     lume.clear(self.entities)
+end
+
+-- 破棄
+function Level:destroy()
+    self:clearEntities()
+    self.world:destroy()
 end
 
 return Level

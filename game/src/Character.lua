@@ -28,6 +28,11 @@ function Character:initialize(args)
     self:initializeCollider(args.collider)
 end
 
+-- 破棄
+function Character:destroy()
+    self:destroyCollider()
+end
+
 -- 更新
 function Character:update(dt)
     -- コライダの座標を適用する
