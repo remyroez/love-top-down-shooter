@@ -116,6 +116,9 @@ function lurker.onerror(e, nostacktrace)
     if k == "escape" then
       lurker.print("Exiting...")
       love.event.quit()
+    elseif k == "f5" then
+      lurker.print("Restarting...")
+      love.event.quit('restart')
     end
   end
 
