@@ -27,7 +27,7 @@ end
 -- 描画
 function Level:draw()
     lume.each(self.entities, 'draw')
-    self.world:draw()
+    self.world:draw(0.5)
 end
 
 -- エンティティの追加
