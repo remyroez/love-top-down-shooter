@@ -2,6 +2,12 @@
 -- グローバルに影響があるライブラリ
 require 'autobatch'
 require 'sbss'
+
+-- tick
+local tick = require 'tick'
+tick.framerate = 60
+
+-- シーンステート
 local scenes = require 'scenes'
 
 -- クラス
@@ -9,6 +15,7 @@ local lume = require 'lume'
 local lurker = require 'lurker'
 local Scene = require 'Scene'
 
+-- シーンステートのソースホットスワップ後の対応
 lurker.postswap = function (f)
     if lume.find(scenes, f:match('%/([^%/%.]+).lua$')) then
         lurker.hotswapfile('main.lua')
