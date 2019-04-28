@@ -41,4 +41,23 @@
  <tile id="67" terrain="1,,,"/>
  <tile id="85" terrain="2,2,2,2"/>
  <tile id="92" terrain="1,1,1,1"/>
+ <tile id="128">
+  <objectgroup draworder="index">
+   <object id="1" x="5" y="5" width="54" height="54"/>
+  </objectgroup>
+ </tile>
+ <tile id="180">
+  <objectgroup draworder="index">
+   <object id="1" x="32" y="32" width="64" height="64">
+    <ellipse/>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="181">
+  <objectgroup draworder="index">
+   <object id="1" x="-32" y="32" width="64" height="64">
+    <ellipse/>
+   </object>
+  </objectgroup>
+ </tile>
 </tileset>
