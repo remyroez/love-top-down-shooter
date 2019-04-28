@@ -12,12 +12,16 @@ local lm = love.mouse
 local Scene = require 'Scene'
 local Character = require 'Character'
 local Level = require 'Level'
+local Camera = require 'Camera'
 
 -- ゲーム
 local Game = Scene:newState 'game'
 
 -- 読み込み
 function Game:load()
+    self.state.camera = Camera()
+    self.state.camera:setFollowStyle('NO_DEADZONE')
+
     self.state.level = Level()
 
     self.state.map = sti('assets/levels/prototype.lua')
@@ -82,7 +86,7 @@ end
 -- 更新
 function Game:update(dt)
     -- プレイヤー操作
-    local speed = 100
+    local speed = 300
     local x, y = 0, 0
     if lk.isDown('w') or lk.isDown('up') then
         y = -1
@@ -95,25 +99,37 @@ function Game:update(dt)
         x = 1
     end
     self.state.character:setColliderVelocity(x, y, speed)
-    self.state.character:setRotationTo(love.mouse.getPosition())
+    self.state.character:setRotationTo(self:getMousePosition())
 
     -- レベル更新
     self.state.level:update(dt)
+
+    -- カメラ更新
+    self.state.camera:update(dt)
+    self.state.camera:follow(self.state.character:position())
 
     self.state.map:update(dt)
 end
 
 -- 描画
 function Game:draw()
-    self.state.map:draw()
+    -- カメラ内描画
+    self.state.camera:attach()
+    do
+        self.state.map:draw(-self.state.camera.x, -self.state.camera.y, self.state.camera.scale)
 
-    -- レベル描画
-    self.state.level:draw()
+        -- レベル描画
+        self.state.level:draw()
 
-    -- マウスポインタ描画
-    local cx, cy = self.state.character:position()
-    local mx, my = lm.getPosition()
-    lg.line(cx, cy, mx, my)
+        -- マウスポインタ描画
+        local cx, cy = self.state.character:position()
+        local mx, my = self:getMousePosition()
+        lg.line(cx, cy, mx, my)
+    end
+    self.state.camera:detach()
+
+    -- カメラ描画
+    self.state.camera:draw()
 end
 
 -- キー入力
@@ -139,6 +155,11 @@ function Game:mousepressed(x, y, button, istouch, presses)
             end
         end
     end
+end
+
+-- マウスのワールド座標を返す
+function Game:getMousePosition()
+    return self.state.camera:toWorldCoords(lm.getPosition())
 end
 
 return Game
