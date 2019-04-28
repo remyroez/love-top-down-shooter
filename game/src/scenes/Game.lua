@@ -1,6 +1,7 @@
 
 local lume = require 'lume'
 local wf = require 'windfield'
+local sti = require 'sti'
 
 -- エイリアス
 local lg = love.graphics
@@ -18,6 +19,9 @@ local Game = Scene:newState 'game'
 -- 読み込み
 function Game:load()
     self.state.level = Level()
+
+    self.state.map = sti('assets/levels/prototype.lua')
+    --self.state.map:addCustomLayer('entity')
 
     self.state.character = self.state.level:registerEntity(
         Character {
@@ -95,10 +99,14 @@ function Game:update(dt)
 
     -- レベル更新
     self.state.level:update(dt)
+
+    self.state.map:update(dt)
 end
 
 -- 描画
 function Game:draw()
+    self.state.map:draw()
+
     -- レベル描画
     self.state.level:draw()
 
