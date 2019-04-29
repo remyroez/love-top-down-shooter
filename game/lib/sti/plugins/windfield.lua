@@ -74,7 +74,7 @@ return {
 				w       = object.width,
 				h       = object.height,
 				polygon = object.polygon or object.polyline or object.ellipse or object.rectangle,
-				r       = object.rotation or 0,
+				r       = object.drotation or object.rotation or 0,
 				oy      = object.oy or 0,
 				t       = object.tile,
 				sub     = object.sub
@@ -86,8 +86,6 @@ return {
 			}
 
 			if o.shape == "rectangle" then
-				local cos = math.cos(math.rad(o.r))
-				local sin = math.sin(math.rad(o.r))
 				local oy  = 0
 
 				if object.gid then
@@ -110,8 +108,10 @@ return {
 						for _, obj in ipairs(t.objectGroup.objects) do
 							local tileobj = {
 								shape      = obj.shape,
-								x          = obj.x + object.x,
-								y          = obj.y + object.y,
+								x          = obj.x,
+								y          = obj.y,
+								dx         = obj.x + object.x,
+								dy         = obj.y + object.y,
 								width      = obj.width,
 								height     = obj.height,
 								polygon    = obj.polygon,
@@ -119,7 +119,9 @@ return {
 								ellipse    = obj.ellipse,
 								rectangle  = obj.rectangle,
 								properties = obj.properties,
-								rotation   = obj.rotation + o.r,
+								rotation   = obj.rotation,
+								drotation  = obj.rotation + o.r,
+								original = obj,
 								oy = o.h,
 								tile = tile,
 								sub = true,
@@ -136,30 +138,73 @@ return {
 					end
 				end
 
-				if o.sub and not o.t then
+				-- local coords
+				local baseX = 0
+				local baseY = 0
+				local baseR = 0
+				local o_x = o.x
+				local o_y = o.y
+				local o_r = o.r
+				local ofs = 0
+				if o.sub and not o.t and tile then
+					baseX, baseY, baseR = object.x, object.y, object.rotation
+					o_x, o_y, o_r = tile.x, tile.y, tile.rotation
 					oy = tile.height
+					ofs = -tile.height
 				end
 
 				local polygon = {
-					{ x=o.x+0,   y=o.y+0   },
-					{ x=o.x+o.w, y=o.y+0   },
-					{ x=o.x+o.w, y=o.y+o.h },
-					{ x=o.x+0,   y=o.y+o.h }
+					{ x=baseX+0,   y=baseY+0   },
+					{ x=baseX+o.w, y=baseY+0   },
+					{ x=baseX+o.w, y=baseY+o.h },
+					{ x=baseX+0,   y=baseY+o.h }
 				}
 
+				-- local rotate
+				if baseR ~= 0 then
+					local bcos = math.cos(math.rad(baseR))
+					local bsin = math.sin(math.rad(baseR))
+					for _, vertex in ipairs(polygon) do
+						vertex.x, vertex.y = utils.rotate_vertex(map, vertex, 0, 0, bcos, bsin)
+					end
+				end
+
+				local cos = math.cos(math.rad(o_r))
+				local sin = math.sin(math.rad(o_r))
 				for _, vertex in ipairs(polygon) do
-					vertex.x, vertex.y = utils.rotate_vertex(map, vertex, o.x, o.y, cos, sin, oy)
+					vertex.y = vertex.y + ofs
+					vertex.x, vertex.y = utils.rotate_vertex(map, vertex, 0, 0, cos, sin, oy)
+					vertex.x = vertex.x + o_x
+					vertex.y = vertex.y + o_y - ofs
 				end
 
 				local vertices = getPolygonVertices({ polygon = polygon })
 				addObjectToWorld(o.shape, vertices, userdata, tile or object)
 			elseif o.shape == "ellipse" then
-				local oy  = 0
-				if o.sub and not o.t then
+				local cos = math.cos(math.rad(o.r))
+				local sin = math.sin(math.rad(o.r))
+				-- local coords
+				local baseX = 0
+				local baseY = 0
+				local baseR = 0
+				local o_x = o.x
+				local o_y = o.y
+				local o_r = o.r
+				local ofs = 0
+				if o.sub and not o.t and tile then
+					baseX, baseY, baseR = object.x, object.y, object.rotation
+					o_x, o_y, o_r = tile.x, tile.y, tile.rotation
 					oy = tile.height
+					ofs = -tile.height
 				end
 				if not o.polygon then
-					o.polygon = utils.convert_ellipse_to_polygon(o.x, o.y - oy, o.w, o.h)
+					o.polygon = utils.convert_ellipse_to_polygon(baseX, baseY, o.w, o.h)
+					for _, vertex in ipairs(o.polygon) do
+						vertex.y = vertex.y + ofs
+						vertex.x, vertex.y = utils.rotate_vertex(map, vertex, 0, 0, cos, sin, oy)
+						vertex.x = vertex.x + o_x
+						vertex.y = vertex.y + o_y - ofs
+					end
 				end
 				local vertices  = getPolygonVertices(o)
 				local triangles = love.math.triangulate(vertices)
@@ -168,23 +213,45 @@ return {
 					addObjectToWorld(o.shape, triangle, userdata, tile or object)
 				end
 			elseif o.shape == "polygon" then
-				-- Recalculate collision polygons inside tiles
 				local polygon = {}
 				for _, vertex in ipairs(o.polygon) do
 					table.insert(polygon, { x = vertex.x, y = vertex.y } )
 				end
 
+				-- Recalculate collision polygons inside tiles
 				if tile then
-					local oy  = 0
-					if o.sub and not o.t then
+					-- local coords
+					local baseX = 0
+					local baseY = 0
+					local baseR = 0
+					local o_x = o.x
+					local o_y = o.y
+					local o_r = o.r
+					local ofs = 0
+					if o.sub and not o.t and tile then
+						baseX, baseY, baseR = object.x, object.y, object.rotation
+						o_x, o_y, o_r = tile.x, tile.y, tile.rotation
 						oy = tile.height
+						ofs = -tile.height
+						print(baseX, baseY, baseR, o_x, o_y, o_r)
 					end
-					local cos = math.cos(math.rad(o.r))
-					local sin = math.sin(math.rad(o.r))
+					-- local rotate
+					if baseR ~= 0 then
+						local bcos = math.cos(math.rad(baseR))
+						local bsin = math.sin(math.rad(baseR))
+						for _, vertex in ipairs(polygon) do
+							vertex.x, vertex.y = utils.rotate_vertex(map, vertex, 0, 0, bcos, bsin)
+							vertex.x = vertex.x + baseX
+							vertex.y = vertex.y + baseY
+						end
+					end
+					local cos = math.cos(math.rad(o_r))
+					local sin = math.sin(math.rad(o_r))
 					for _, vertex in ipairs(polygon) do
-						vertex.x = vertex.x + o.x
-						vertex.y = vertex.y + o.y
-						vertex.x, vertex.y = utils.rotate_vertex(map, vertex, o.x, o.y, cos, sin, oy)
+						vertex.y = vertex.y + ofs
+						vertex.x, vertex.y = utils.rotate_vertex(map, vertex, 0, 0, cos, sin, oy)
+						vertex.x = vertex.x + o_x
+						vertex.y = vertex.y + o_y - ofs
 					end
 				end
 
