@@ -1,7 +1,5 @@
 
 local lume = require 'lume'
-local wf = require 'windfield'
-local sti = require 'sti'
 
 -- エイリアス
 local lg = love.graphics
@@ -25,12 +23,8 @@ function Game:load()
     self.state.camera:setFollowStyle('TOPDOWN_TIGHT')
     self.state.camera.scale = 1
 
-    self.state.level = Level()
-
-    self.state.map = sti('assets/levels/prototype.lua')
-    self.state.map:resize(self.width / self.state.camera.scale, self.height / self.state.camera.scale)
-    self.state.map.canvas:setFilter("linear", "nearest")
-    --self.state.map:addCustomLayer('entity')
+    self.state.level = Level('assets/levels/prototype.lua')
+    self.state.level:resizeMapCanvas(self.width, self.height, self.state.camera.scale)
 
     self.state.character = self.state.level:registerEntity(
         Character {
@@ -112,8 +106,6 @@ function Game:update(dt)
     -- カメラ更新
     self.state.camera:update(dt)
     self.state.camera:follow(self.state.character:position())
-
-    self.state.map:update(dt)
 end
 
 -- 描画
@@ -121,10 +113,8 @@ function Game:draw()
     -- カメラ内描画
     self.state.camera:attach()
     do
-        self.state.map:draw(-self.state.camera.x, -self.state.camera.y, self.state.camera.scale)
-
         -- レベル描画
-        self.state.level:draw()
+        self.state.level:draw(self.state.camera.x, self.state.camera.y, self.state.camera.scale)
 
         -- マウスポインタ描画
         local cx, cy = self.state.character:position()

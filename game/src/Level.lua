@@ -3,6 +3,7 @@ local class = require 'middleclass'
 
 local lume = require 'lume'
 local wf = require 'windfield'
+local sti = require 'sti'
 
 -- レベル
 local Level = class 'Level'
@@ -16,7 +17,7 @@ local collisionClasses = {
 }
 
 -- 初期化
-function Level:initialize()
+function Level:initialize(map)
     -- ワールド
     self.world = wf.newWorld(0, 0, true)
 
@@ -24,6 +25,9 @@ function Level:initialize()
     for name, klass in pairs(collisionClasses) do
         self.world:addCollisionClass(name, klass)
     end
+
+    -- マップ
+    self.map = sti(map)
 
     -- エンティティ
     self.entities = {}
@@ -42,9 +46,24 @@ function Level:update(dt)
 end
 
 -- 描画
-function Level:draw()
+function Level:draw(x, y, scale)
+    -- マップの描画
+    self.map:draw(-x, -y, scale)
+
+    -- エンティティの描画
     lume.each(self.entities, 'draw')
+
+    -- ワールドのデバッグ描画
     self.world:draw(0.5)
+end
+
+-- マップキャンバスのリサイズ
+function Level:resizeMapCanvas(w, h, scale)
+    local width, height = love.graphics.getDimensions()
+    w = w or width or 0
+    h = h or height or 0
+    self.map:resize(w / scale, h / scale)
+    self.map.canvas:setFilter("linear", "linear")
 end
 
 -- エンティティの追加
