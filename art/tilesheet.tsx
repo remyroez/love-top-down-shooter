@@ -133,7 +133,7 @@
  </tile>
  <tile id="128">
   <properties>
-   <property name="collidable" type="bool" value="false"/>
+   <property name="collidable" type="bool" value="true"/>
   </properties>
   <objectgroup draworder="index">
    <object id="1" x="5" y="5" width="54" height="54">
@@ -246,6 +246,9 @@
   </properties>
  </tile>
  <tile id="155">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+  </properties>
   <objectgroup draworder="index">
    <object id="1" x="1" y="9" width="54" height="54" rotation="-8">
     <properties>

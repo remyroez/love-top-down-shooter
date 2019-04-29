@@ -89,7 +89,7 @@
   </properties>
   <object id="15" name="box" gid="129" x="372.219" y="556.581" width="64" height="64" rotation="-35.0994">
    <properties>
-    <property name="collidable" type="bool" value="false"/>
+    <property name="collidable" type="bool" value="true"/>
    </properties>
   </object>
   <object id="17" name="circle" x="612" y="188" width="98" height="94">
@@ -107,7 +107,7 @@
   <object id="19" name="square" x="435.137" y="198.562" width="60" height="58"/>
   <object id="21" name="box2" gid="156" x="514" y="704" width="64" height="64" rotation="10">
    <properties>
-    <property name="collidable" type="bool" value="false"/>
+    <property name="collidable" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>

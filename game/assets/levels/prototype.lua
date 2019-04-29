@@ -311,7 +311,7 @@ return {
         {
           id = 128,
           properties = {
-            ["collidable"] = false
+            ["collidable"] = true
           },
           objectGroup = {
             type = "objectgroup",
@@ -493,6 +493,9 @@ return {
         },
         {
           id = 155,
+          properties = {
+            ["collidable"] = true
+          },
           objectGroup = {
             type = "objectgroup",
             name = "",
@@ -1642,7 +1645,7 @@ return {
       offsety = 0,
       draworder = "topdown",
       properties = {
-        ["collidable"] = true
+        ["collidable"] = false
       },
       objects = {
         {
@@ -1658,7 +1661,7 @@ return {
           gid = 129,
           visible = true,
           properties = {
-            ["collidable"] = false
+            ["collidable"] = true
           }
         },
         {
@@ -1729,7 +1732,7 @@ return {
           gid = 156,
           visible = true,
           properties = {
-            ["collidable"] = false
+            ["collidable"] = true
           }
         }
       }
