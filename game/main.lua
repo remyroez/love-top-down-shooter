@@ -4,8 +4,8 @@ require 'autobatch'
 require 'sbss'
 
 -- tick
-local tick = require 'tick'
-tick.framerate = 60
+--local tick = require 'tick'
+--tick.framerate = 60
 
 -- シーンステート
 local scenes = require 'scenes'
