@@ -75,7 +75,9 @@ return {
 				h       = object.height,
 				polygon = object.polygon or object.polyline or object.ellipse or object.rectangle,
 				r       = object.rotation or 0,
-				oy      = object.oy or 0
+				oy      = object.oy or 0,
+				t       = object.tile,
+				sub     = object.sub
 			}
 
 			local userdata = {
@@ -108,8 +110,8 @@ return {
 						for _, obj in ipairs(t.objectGroup.objects) do
 							local tileobj = {
 								shape      = obj.shape,
-								x          = obj.x + o.x,
-								y          = obj.y + o.y,
+								x          = obj.x + object.x,
+								y          = obj.y + object.y,
 								width      = obj.width,
 								height     = obj.height,
 								polygon    = obj.polygon,
@@ -118,7 +120,9 @@ return {
 								rectangle  = obj.rectangle,
 								properties = obj.properties,
 								rotation   = obj.rotation + o.r,
-								oy = o.h
+								oy = o.h,
+								tile = tile,
+								sub = true,
 							}
 							-- Every object in the tile
 							calculateObjectPosition(tileobj, object)
@@ -132,22 +136,30 @@ return {
 					end
 				end
 
-				o.polygon = {
+				if o.sub and not o.t then
+					oy = tile.height
+				end
+
+				local polygon = {
 					{ x=o.x+0,   y=o.y+0   },
 					{ x=o.x+o.w, y=o.y+0   },
 					{ x=o.x+o.w, y=o.y+o.h },
 					{ x=o.x+0,   y=o.y+o.h }
 				}
 
-				for _, vertex in ipairs(o.polygon) do
+				for _, vertex in ipairs(polygon) do
 					vertex.x, vertex.y = utils.rotate_vertex(map, vertex, o.x, o.y, cos, sin, oy)
 				end
 
-				local vertices = getPolygonVertices(o)
+				local vertices = getPolygonVertices({ polygon = polygon })
 				addObjectToWorld(o.shape, vertices, userdata, tile or object)
 			elseif o.shape == "ellipse" then
+				local oy  = 0
+				if o.sub and not o.t then
+					oy = tile.height
+				end
 				if not o.polygon then
-					o.polygon = utils.convert_ellipse_to_polygon(o.x, o.y, o.w, o.h)
+					o.polygon = utils.convert_ellipse_to_polygon(o.x, o.y - oy, o.w, o.h)
 				end
 				local vertices  = getPolygonVertices(o)
 				local triangles = love.math.triangulate(vertices)
@@ -163,12 +175,16 @@ return {
 				end
 
 				if tile then
+					local oy  = 0
+					if o.sub and not o.t then
+						oy = tile.height
+					end
 					local cos = math.cos(math.rad(o.r))
 					local sin = math.sin(math.rad(o.r))
 					for _, vertex in ipairs(polygon) do
 						vertex.x = vertex.x + o.x
 						vertex.y = vertex.y + o.y
-						vertex.x, vertex.y = utils.rotate_vertex(map, vertex, o.x, o.y, cos, sin)
+						vertex.x, vertex.y = utils.rotate_vertex(map, vertex, o.x, o.y, cos, sin, oy)
 					end
 				end
 
@@ -183,39 +199,7 @@ return {
 				addObjectToWorld(o.shape, vertices, userdata, tile or object)
 			end
 		end
---[[
-		for _, tile in pairs(map.tiles) do
-			if map.tileInstances[tile.gid] then
-				for _, instance in ipairs(map.tileInstances[tile.gid]) do
-					-- Every object in every instance of a tile
-					if tile.objectGroup then
-						for _, object in ipairs(tile.objectGroup.objects) do
-							if object.properties.collidable == true then
-								object.dx = instance.x + object.x
-								object.dy = instance.y + object.y
-								calculateObjectPosition(object, instance)
-							end
-						end
-					end
 
-					-- Every instance of a tile
-					if tile.properties.collidable == true then
-						local object = {
-							shape      = "rectangle",
-							x          = instance.x,
-							y          = instance.y,
-							width      = map.tilewidth,
-							height     = map.tileheight,
-							properties = tile.properties,
-							--gid = tile.gid
-						}
-
-						calculateObjectPosition(object, instance)
-					end
-				end
-			end
-		end
---]]
 		for _, layer in ipairs(map.layers) do
 			-- Entire layer
 			local layer_collidable = layer.properties.collidable == true
