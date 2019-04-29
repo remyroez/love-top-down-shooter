@@ -347,7 +347,7 @@ return {
                 y = -34,
                 width = 0,
                 height = 0,
-                rotation = 0,
+                rotation = 10,
                 visible = true,
                 polygon = {
                   { x = 0, y = 0 },
@@ -1657,7 +1657,7 @@ return {
           y = 556.581,
           width = 64,
           height = 64,
-          rotation = -35.0994,
+          rotation = 90,
           gid = 129,
           visible = true,
           properties = {

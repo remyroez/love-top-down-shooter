@@ -87,7 +87,7 @@
   <properties>
    <property name="collidable" type="bool" value="false"/>
   </properties>
-  <object id="15" name="box" gid="129" x="372.219" y="556.581" width="64" height="64" rotation="-35.0994">
+  <object id="15" name="box" gid="129" x="372.219" y="556.581" width="64" height="64" rotation="90">
    <properties>
     <property name="collidable" type="bool" value="true"/>
    </properties>

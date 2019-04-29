@@ -141,7 +141,7 @@
      <property name="collidable" type="bool" value="true"/>
     </properties>
    </object>
-   <object id="2" x="37.3333" y="-34">
+   <object id="2" x="37.3333" y="-34" rotation="10">
     <properties>
      <property name="collidable" type="bool" value="true"/>
     </properties>
