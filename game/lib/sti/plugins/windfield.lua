@@ -106,7 +106,6 @@ return {
 
 					if t.objectGroup then
 						for _, obj in ipairs(t.objectGroup.objects) do
-							print('rectangle objectGroup')
 							local tileobj = {
 								shape      = obj.shape,
 								x          = obj.x + o.x,
@@ -127,6 +126,7 @@ return {
 
 						return
 					else
+						oy = 0
 						o.w = map.tiles[object.gid].width
 						o.h = map.tiles[object.gid].height
 					end
@@ -163,16 +163,12 @@ return {
 				end
 
 				if tile then
-					print(o.r)
-					local maptile = map.tiles[tile.gid]
-					local tileset = map.tilesets[maptile.tileset]
-					print(tileset.tileheight)
 					local cos = math.cos(math.rad(o.r))
 					local sin = math.sin(math.rad(o.r))
 					for _, vertex in ipairs(polygon) do
 						vertex.x = vertex.x + o.x
 						vertex.y = vertex.y + o.y
-						vertex.x, vertex.y = utils.rotate_vertex(map, vertex, o.x, o.y, cos, sin, o.h)
+						vertex.x, vertex.y = utils.rotate_vertex(map, vertex, o.x, o.y, cos, sin)
 					end
 				end
 
@@ -187,7 +183,7 @@ return {
 				addObjectToWorld(o.shape, vertices, userdata, tile or object)
 			end
 		end
-
+--[[
 		for _, tile in pairs(map.tiles) do
 			if map.tileInstances[tile.gid] then
 				for _, instance in ipairs(map.tileInstances[tile.gid]) do
@@ -219,17 +215,18 @@ return {
 				end
 			end
 		end
-
+--]]
 		for _, layer in ipairs(map.layers) do
 			-- Entire layer
-			if layer.properties.collidable == true then
-				if layer.type == "tilelayer" then
-					for gid, tiles in pairs(map.tileInstances) do
-						local tile = map.tiles[gid]
-						local tileset = map.tilesets[tile.tileset]
+			local layer_collidable = layer.properties.collidable == true
+			if layer.type == "tilelayer" then
+				for gid, tiles in pairs(map.tileInstances) do
+					local tile = map.tiles[gid]
+					local tileset = map.tilesets[tile.tileset]
 
-						for _, instance in ipairs(tiles) do
-							if instance.layer == layer then
+					for _, instance in ipairs(tiles) do
+						if instance.layer == layer then
+							if layer_collidable or (tile.properties.collidable == true) then
 								local object = {
 									shape      = "rectangle",
 									x          = instance.x,
@@ -237,22 +234,22 @@ return {
 									width      = tileset.tilewidth,
 									height     = tileset.tileheight,
 									properties = tile.properties,
-									--gid = gid
+									gid = gid
 								}
 
 								calculateObjectPosition(object, instance)
 							end
 						end
 					end
-				elseif layer.type == "objectgroup" then
-					for _, object in ipairs(layer.objects) do
-						if object.shape == 'rectangle' and object.gid then
-							-- avoid double tile object
-						else
-							calculateObjectPosition(object)
-						end
+				end
+			elseif layer.type == "objectgroup" then
+				for _, object in ipairs(layer.objects) do
+					if layer_collidable or (object.properties.collidable == true) then
+						calculateObjectPosition(object)
 					end
-				elseif layer.type == "imagelayer" then
+				end
+			elseif layer.type == "imagelayer" then
+				if layer_collidable then
 					local object = {
 						shape      = "rectangle",
 						x          = layer.x or 0,
@@ -263,15 +260,6 @@ return {
 					}
 
 					calculateObjectPosition(object)
-				end
-			else
-				-- Individual objects
-				if layer.type == "objectgroup" then
-					for _, object in ipairs(layer.objects) do
-						if object.properties.collidable == true then
-							calculateObjectPosition(object)
-						end
-					end
 				end
 			end
 		end
