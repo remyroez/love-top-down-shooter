@@ -9,7 +9,7 @@ return {
   tilewidth = 64,
   tileheight = 64,
   nextlayerid = 5,
-  nextobjectid = 21,
+  nextobjectid = 22,
   properties = {},
   tilesets = {
     {
@@ -310,6 +310,9 @@ return {
         },
         {
           id = 128,
+          properties = {
+            ["collidable"] = false
+          },
           objectGroup = {
             type = "objectgroup",
             name = "",
@@ -332,7 +335,7 @@ return {
                 rotation = 0,
                 visible = true,
                 properties = {
-                  ["collidable"] = false
+                  ["collidable"] = true
                 }
               },
               {
@@ -358,7 +361,24 @@ return {
                   { x = 1.33333, y = 8.66667 },
                   { x = -7.33333, y = 0 }
                 },
-                properties = {}
+                properties = {
+                  ["collidable"] = true
+                }
+              },
+              {
+                id = 3,
+                name = "",
+                type = "",
+                shape = "ellipse",
+                x = -22,
+                y = -30,
+                width = 27.6667,
+                height = 26.3333,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["collidable"] = true
+                }
               }
             }
           }
@@ -469,6 +489,56 @@ return {
           id = 152,
           properties = {
             ["collidable"] = true
+          }
+        },
+        {
+          id = 155,
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 1,
+                y = 9,
+                width = 54,
+                height = 54,
+                rotation = -8,
+                visible = true,
+                properties = {
+                  ["collidable"] = true
+                }
+              },
+              {
+                id = 2,
+                name = "",
+                type = "",
+                shape = "polygon",
+                x = 3.33333,
+                y = 72.6667,
+                width = 0,
+                height = 0,
+                rotation = 0,
+                visible = true,
+                polygon = {
+                  { x = 0, y = 0 },
+                  { x = 18.6667, y = 1.33333 },
+                  { x = 6, y = 20 }
+                },
+                properties = {
+                  ["collidable"] = true
+                }
+              }
+            }
           }
         },
         {
@@ -1514,8 +1584,8 @@ return {
             64, 39, 93, 36, 0, 0, 60, 57, 61, 35, 36, 60, 32, 58, 34, 0,
             0, 35, 93, 36, 0, 40, 41, 0, 0, 67, 68, 0, 118, 120, 120, 119,
             0, 35, 93, 36, 0, 67, 68, 33, 30, 34, 0, 33, 124, 31, 61, 147,
-            0, 67, 64, 68, 0, 0, 0, 28, 86, 29, 0, 28, 86, 29, 0, 147,
-            0, 0, 0, 0, 0, 0, 0, 60, 57, 61, 0, 60, 151, 120, 120, 146,
+            0, 67, 64, 68, 129, 0, 0, 28, 86, 29, 0, 28, 86, 29, 0, 147,
+            0, 0, 0, 0, 0, 0, 156, 60, 57, 61, 0, 60, 151, 120, 120, 146,
             4, 3, 3, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 1, 3, 1, 3, 3, 1, 3, 0, 0, 6, 6, 5, 5, 5, 6,
             4, 1, 1, 3, 3, 1, 2, 1, 0, 0, 5, 5, 5, 5, 6, 5,
@@ -1572,7 +1642,7 @@ return {
       offsety = 0,
       draworder = "topdown",
       properties = {
-        ["collidable"] = false
+        ["collidable"] = true
       },
       objects = {
         {
@@ -1588,7 +1658,7 @@ return {
           gid = 129,
           visible = true,
           properties = {
-            ["collidable"] = true
+            ["collidable"] = false
           }
         },
         {
@@ -1601,7 +1671,7 @@ return {
           width = 98,
           height = 94,
           rotation = 0,
-          visible = false,
+          visible = true,
           properties = {
             ["collidable"] = true
           }
@@ -1642,9 +1712,25 @@ return {
           y = 198.562,
           width = 60,
           height = 58,
-          rotation = -32.3614,
+          rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 21,
+          name = "box2",
+          type = "",
+          shape = "rectangle",
+          x = 514,
+          y = 704,
+          width = 64,
+          height = 64,
+          rotation = 10,
+          gid = 156,
+          visible = true,
+          properties = {
+            ["collidable"] = false
+          }
         }
       }
     }
