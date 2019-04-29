@@ -27,7 +27,8 @@ function Level:initialize(map)
     end
 
     -- マップ
-    self.map = sti(map)
+    self.map = sti(map, { 'windfield' })
+    self.map:windfield_init(self.world)
 
     -- エンティティ
     self.entities = {}
@@ -48,7 +49,7 @@ end
 -- 描画
 function Level:draw(x, y, scale)
     -- マップの描画
-    self.map:draw(-x, -y, scale)
+    self.map:draw(x, y, scale)
 
     -- エンティティの描画
     lume.each(self.entities, 'draw')

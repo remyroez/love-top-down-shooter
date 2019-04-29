@@ -114,7 +114,10 @@ function Game:draw()
     self.state.camera:attach()
     do
         -- レベル描画
-        self.state.level:draw(self.state.camera.x, self.state.camera.y, self.state.camera.scale)
+        self.state.level:draw(
+            self.state.camera.w / 2 - self.state.camera.x,
+            self.state.camera.h / 2 - self.state.camera.y,
+            self.state.camera.scale)
 
         -- マウスポインタ描画
         local cx, cy = self.state.character:position()
