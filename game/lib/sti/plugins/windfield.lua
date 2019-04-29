@@ -47,11 +47,6 @@ return {
 			collider:setSensor(userdata.properties.sensor           or false)
 			collider:setCollisionClass(userdata.properties.class    or 'object')
 
-
-			local x = (object.dx or object.x) + map.offsetx
-			local y = (object.dy or object.y) + map.offsety
-			--collider:setPosition(x, y)
-
 			local obj = {
 				object   = object,
 				collider = collider,
@@ -79,7 +74,8 @@ return {
 				w       = object.width,
 				h       = object.height,
 				polygon = object.polygon or object.polyline or object.ellipse or object.rectangle,
-				r       = object.rotation or 0
+				r       = object.rotation or 0,
+				oy      = object.oy or 0
 			}
 
 			local userdata = {
@@ -110,10 +106,11 @@ return {
 
 					if t.objectGroup then
 						for _, obj in ipairs(t.objectGroup.objects) do
+							print('rectangle objectGroup')
 							local tileobj = {
 								shape      = obj.shape,
-								x          = obj.x + o.x - o.w / 2,
-								y          = obj.y + o.y - o.h / 2,
+								x          = obj.x + o.x,
+								y          = obj.y + o.y,
 								width      = obj.width,
 								height     = obj.height,
 								polygon    = obj.polygon,
@@ -121,7 +118,8 @@ return {
 								ellipse    = obj.ellipse,
 								rectangle  = obj.rectangle,
 								properties = obj.properties,
-								rotation   = obj.rotation-- + o.r
+								rotation   = obj.rotation + o.r,
+								oy = o.h
 							}
 							-- Every object in the tile
 							calculateObjectPosition(tileobj, object)
@@ -159,17 +157,26 @@ return {
 				end
 			elseif o.shape == "polygon" then
 				-- Recalculate collision polygons inside tiles
+				local polygon = {}
+				for _, vertex in ipairs(o.polygon) do
+					table.insert(polygon, { x = vertex.x, y = vertex.y } )
+				end
+
 				if tile then
+					print(o.r)
+					local maptile = map.tiles[tile.gid]
+					local tileset = map.tilesets[maptile.tileset]
+					print(tileset.tileheight)
 					local cos = math.cos(math.rad(o.r))
 					local sin = math.sin(math.rad(o.r))
-					for _, vertex in ipairs(o.polygon) do
+					for _, vertex in ipairs(polygon) do
 						vertex.x = vertex.x + o.x
 						vertex.y = vertex.y + o.y
-						vertex.x, vertex.y = utils.rotate_vertex(map, vertex, o.x, o.y, cos, sin)
+						vertex.x, vertex.y = utils.rotate_vertex(map, vertex, o.x, o.y, cos, sin, o.h)
 					end
 				end
 
-				local vertices  = getPolygonVertices(o)
+				local vertices  = getPolygonVertices({ polygon = polygon })
 				local triangles = love.math.triangulate(vertices)
 
 				for _, triangle in ipairs(triangles) do
@@ -203,7 +210,8 @@ return {
 							y          = instance.y,
 							width      = map.tilewidth,
 							height     = map.tileheight,
-							properties = tile.properties
+							properties = tile.properties,
+							--gid = tile.gid
 						}
 
 						calculateObjectPosition(object, instance)
@@ -228,7 +236,8 @@ return {
 									y          = instance.y,
 									width      = tileset.tilewidth,
 									height     = tileset.tileheight,
-									properties = tile.properties
+									properties = tile.properties,
+									--gid = gid
 								}
 
 								calculateObjectPosition(object, instance)
@@ -236,8 +245,12 @@ return {
 						end
 					end
 				elseif layer.type == "objectgroup" then
-					if object.properties.collidable == true then
-						calculateObjectPosition(object)
+					for _, object in ipairs(layer.objects) do
+						if object.shape == 'rectangle' and object.gid then
+							-- avoid double tile object
+						else
+							calculateObjectPosition(object)
+						end
 					end
 				elseif layer.type == "imagelayer" then
 					local object = {
