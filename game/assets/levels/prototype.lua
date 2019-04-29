@@ -9,7 +9,7 @@ return {
   tilewidth = 64,
   tileheight = 64,
   nextlayerid = 5,
-  nextobjectid = 19,
+  nextobjectid = 21,
   properties = {},
   tilesets = {
     {
@@ -201,6 +201,114 @@ return {
           terrain = { 1, 1, 1, 1 }
         },
         {
+          id = 108,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 109,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 110,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 111,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 112,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 113,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 114,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 115,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 116,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 117,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 118,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 119,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 120,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 121,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 122,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 123,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 124,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 125,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
           id = 128,
           objectGroup = {
             type = "objectgroup",
@@ -223,9 +331,240 @@ return {
                 height = 54,
                 rotation = 0,
                 visible = true,
+                properties = {
+                  ["collidable"] = false
+                }
+              },
+              {
+                id = 2,
+                name = "",
+                type = "",
+                shape = "polygon",
+                x = 37.3333,
+                y = -34,
+                width = 0,
+                height = 0,
+                rotation = 0,
+                visible = true,
+                polygon = {
+                  { x = 0, y = 0 },
+                  { x = 6, y = -14 },
+                  { x = 12, y = 2 },
+                  { x = 27.3333, y = 5.33333 },
+                  { x = 16, y = 12.6667 },
+                  { x = 21.3333, y = 24.6667 },
+                  { x = 10, y = 20.6667 },
+                  { x = -4.66667, y = 18.6667 },
+                  { x = 1.33333, y = 8.66667 },
+                  { x = -7.33333, y = 0 }
+                },
                 properties = {}
               }
             }
+          }
+        },
+        {
+          id = 135,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 136,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 137,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 138,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 139,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 140,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 141,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 142,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 143,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 144,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 145,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 146,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 147,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 148,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 149,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 150,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 151,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 152,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 162,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 163,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 164,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 165,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 166,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 167,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 168,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 169,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 171,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 172,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 173,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 174,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 175,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 176,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 177,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 178,
+          properties = {
+            ["collidable"] = true
           }
         },
         {
@@ -283,6 +622,822 @@ return {
               }
             }
           }
+        },
+        {
+          id = 189,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 190,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 191,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 192,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 193,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 194,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 195,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 198,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 199,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 200,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 201,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 202,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 203,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 204,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 216,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 217,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 218,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 219,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 220,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 221,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 222,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 225,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 226,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 227,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 228,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 229,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 230,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 231,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 243,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 244,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 245,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 246,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 247,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 248,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 249,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 252,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 253,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 254,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 255,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 256,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 257,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 258,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 270,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 271,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 272,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 273,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 274,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 275,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 276,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 277,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 278,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 279,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 280,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 281,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 282,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 283,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 284,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 285,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 286,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 287,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 297,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 298,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 299,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 300,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 301,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 302,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 303,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 304,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 305,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 306,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 307,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 308,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 309,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 310,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 311,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 312,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 313,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 314,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 324,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 325,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 326,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 327,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 328,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 329,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 330,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 331,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 333,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 334,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 335,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 336,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 337,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 338,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 339,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 340,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 351,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 352,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 353,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 354,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 355,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 356,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 357,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 360,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 361,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 362,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 363,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 364,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 365,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 366,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 378,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 379,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 380,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 381,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 382,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 383,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 384,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 387,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 388,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 389,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 390,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 391,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 392,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 393,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 405,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 406,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 407,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 408,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 409,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 410,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 411,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 414,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 415,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 416,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 417,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 418,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 419,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 420,
+          properties = {
+            ["collidable"] = true
+          }
         }
       }
     }
@@ -300,7 +1455,9 @@ return {
       opacity = 1,
       offsetx = 0,
       offsety = 0,
-      properties = {},
+      properties = {
+        ["collidable"] = false
+      },
       encoding = "lua",
       chunks = {
         {
@@ -355,10 +1512,10 @@ return {
             92, 90, 93, 36, 35, 36, 33, 30, 34, 35, 36, 28, 86, 29, 0, 0,
             93, 93, 93, 36, 67, 68, 28, 86, 29, 35, 36, 28, 86, 29, 0, 0,
             64, 39, 93, 36, 0, 0, 60, 57, 61, 35, 36, 60, 32, 58, 34, 0,
-            0, 35, 93, 36, 0, 40, 41, 0, 0, 67, 68, 0, 28, 86, 29, 0,
-            0, 35, 93, 36, 0, 67, 68, 33, 30, 34, 0, 33, 59, 31, 61, 0,
-            0, 67, 64, 68, 0, 0, 0, 28, 86, 29, 0, 28, 86, 29, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 60, 57, 61, 0, 60, 57, 61, 0, 0,
+            0, 35, 93, 36, 0, 40, 41, 0, 0, 67, 68, 0, 118, 120, 120, 119,
+            0, 35, 93, 36, 0, 67, 68, 33, 30, 34, 0, 33, 124, 31, 61, 147,
+            0, 67, 64, 68, 0, 0, 0, 28, 86, 29, 0, 28, 86, 29, 0, 147,
+            0, 0, 0, 0, 0, 0, 0, 60, 57, 61, 0, 60, 151, 120, 120, 146,
             4, 3, 3, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 1, 3, 1, 3, 3, 1, 3, 0, 0, 6, 6, 5, 5, 5, 6,
             4, 1, 1, 3, 3, 1, 2, 1, 0, 0, 5, 5, 5, 5, 6, 5,
@@ -414,25 +1571,29 @@ return {
       offsetx = 0,
       offsety = 0,
       draworder = "topdown",
-      properties = {},
+      properties = {
+        ["collidable"] = false
+      },
       objects = {
         {
           id = 15,
-          name = "",
+          name = "box",
           type = "",
           shape = "rectangle",
-          x = 420,
-          y = 366,
+          x = 372.219,
+          y = 556.581,
           width = 64,
           height = 64,
-          rotation = 0,
+          rotation = -35.0994,
           gid = 129,
           visible = true,
-          properties = {}
+          properties = {
+            ["collidable"] = true
+          }
         },
         {
           id = 17,
-          name = "",
+          name = "circle",
           type = "",
           shape = "ellipse",
           x = 612,
@@ -440,12 +1601,14 @@ return {
           width = 98,
           height = 94,
           rotation = 0,
-          visible = true,
-          properties = {}
+          visible = false,
+          properties = {
+            ["collidable"] = true
+          }
         },
         {
           id = 18,
-          name = "",
+          name = "star",
           type = "",
           shape = "polygon",
           x = 154,
@@ -466,6 +1629,21 @@ return {
             { x = 134, y = 82 },
             { x = 32, y = 66 }
           },
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 19,
+          name = "square",
+          type = "",
+          shape = "rectangle",
+          x = 435.137,
+          y = 198.562,
+          width = 60,
+          height = 58,
+          rotation = -32.3614,
+          visible = true,
           properties = {}
         }
       }
