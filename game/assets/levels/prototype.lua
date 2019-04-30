@@ -1728,7 +1728,7 @@ return {
           y = 704,
           width = 64,
           height = 64,
-          rotation = 10,
+          rotation = 90,
           gid = 156,
           visible = true,
           properties = {

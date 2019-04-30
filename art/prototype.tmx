@@ -105,7 +105,7 @@
    <polygon points="0,0 -14,84 -116,92 -40,154 -46,246 34,178 120,216 64,130 134,82 32,66"/>
   </object>
   <object id="19" name="square" x="435.137" y="198.562" width="60" height="58"/>
-  <object id="21" name="box2" gid="156" x="514" y="704" width="64" height="64" rotation="10">
+  <object id="21" name="box2" gid="156" x="514" y="704" width="64" height="64" rotation="90">
    <properties>
     <property name="collidable" type="bool" value="true"/>
    </properties>
