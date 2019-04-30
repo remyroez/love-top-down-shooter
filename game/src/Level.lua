@@ -15,8 +15,22 @@ local Level = class 'Level'
 local collisionClasses = {
     player = {},
     enemy = {},
+    friend = {},
     building = {},
     object = {},
+}
+
+-- スプライトバリエーション
+local spriteVariation = {
+    hitman = { 'hitman1', 'hitman2' },
+    zombie = { 'zombie1', 'zombie2' },
+    man = { 'manBlue', 'manBrown', 'manRed' },
+    man_old = { 'manOld' },
+    woman = { 'womanGreen' },
+    woman_old = { 'womanOld' },
+    robot = { 'robot1', 'robot2' },
+    soldier = { 'soldier1', 'soldier2' },
+    survivor = { 'survivor1', 'survivor2' },
 }
 
 -- 初期化
@@ -48,31 +62,49 @@ function Level:setupCharacters(spriteSheet)
     local layer = self.map.layers['character']
     layer.visible = false
 
+    local rotateToPlayer = {}
+
     for _, object in ipairs(layer.objects) do
-        local spriteName
-        if object.type == 'player' then
-            spriteName = object.properties.spriteName or 'hitman1_gun.png'
-        else
-            spriteName = object.properties.spriteName or 'zombie1_hold.png'
+        local defaultSprite = (object.type == 'player') and spriteVariation.hitman or spriteVariation.zombie
+        local sprite = spriteVariation[object.properties.sprite] or defaultSprite
+
+        local rotation = object.rotation or 0
+        if object.properties.rotate == 'random' then
+            rotation = love.math.random(360)
+        elseif object.properties.rotate == 'player' then
+            rotation = love.math.random(360)
         end
 
         local entity = self:registerEntity(
             Character {
                 spriteSheet = spriteSheet,
-                spriteName = spriteName,
+                sprite = sprite,
+                --spriteName = spriteName,
                 x = object.x,
                 y = object.y,
-                rotation = math.rad(object.rotation or 0),
+                rotation = math.rad(rotation),
                 scale = object.properties.scale or 1,
                 h_align = 'center',
                 collider = self.world:newCircleCollider(0, 0, 12 * (object.properties.scale or 1)),
                 collisionClass = object.type
             }
         )
+
         if self.characters[object.type] then
             table.insert(self.characters[object.type], entity)
         else
             print('invalid object type [' .. object.type .. ']')
+        end
+
+        if object.properties.rotate == 'player' then
+            table.insert(rotateToPlayer, entity)
+        end
+    end
+
+    local player = self:getPlayer()
+    if player then
+        for _, entity in ipairs(rotateToPlayer) do
+            entity:setRotationTo(player:getPosition())
         end
     end
 end
