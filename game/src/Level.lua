@@ -33,6 +33,28 @@ local spriteVariation = {
     survivor = { 'survivor1', 'survivor2' },
 }
 
+-- 武器
+local weaponData = {
+    gun = {
+        name = 'gun',
+        damage = 10,
+        ammo = 8,
+        sound = 20,
+    },
+    machine = {
+        name = 'machine',
+        damage = 1,
+        ammo = 8,
+        sound = 10,
+    },
+    silencer = {
+        name = 'silencer',
+        damage = 10,
+        ammo = 8,
+        sound = 5,
+    },
+}
+
 -- 初期化
 function Level:initialize(map)
     -- キャラクター
@@ -79,6 +101,7 @@ function Level:setupCharacters(spriteSheet)
             Character {
                 spriteSheet = spriteSheet,
                 sprite = sprite,
+                weapon = weaponData[object.properties.weapon],
                 --spriteName = spriteName,
                 x = object.x,
                 y = object.y,
