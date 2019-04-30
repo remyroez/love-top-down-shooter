@@ -110,14 +110,18 @@ end
 
 -- 描画
 function Game:draw()
+    local cx, cy = self.state.character:position()
+
     -- カメラ内描画
     self.state.camera:attach()
     do
         -- レベル描画
-        self.state.level:draw(self.state.camera.x, self.state.camera.y, self.state.camera.scale)
+        self.state.level:draw(
+            self.state.camera.w / 2 - self.state.camera.x,
+            self.state.camera.h / 2 - self.state.camera.y,
+            self.state.camera.scale)
 
         -- マウスポインタ描画
-        local cx, cy = self.state.character:position()
         local mx, my = self:getMousePosition()
         lg.line(cx, cy, mx, my)
     end
@@ -125,6 +129,8 @@ function Game:draw()
 
     -- カメラ描画
     self.state.camera:draw()
+
+    lg.printf('x: ' .. math.ceil(cx) .. ', y: ' .. math.ceil(cy), 0, self.height - 16, self.width, 'left')
 end
 
 -- キー入力
