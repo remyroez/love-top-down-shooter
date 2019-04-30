@@ -1676,7 +1676,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["collidable"] = true
+            ["collidable"] = true,
+            ["dynamic"] = true
           }
         },
         {
@@ -1703,7 +1704,11 @@ return {
             { x = 32, y = 66 }
           },
           properties = {
-            ["collidable"] = true
+            ["angularDamping"] = 10,
+            ["collidable"] = true,
+            ["dynamic"] = true,
+            ["linearDamping"] = 10,
+            ["mass"] = 2
           }
         },
         {

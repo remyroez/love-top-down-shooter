@@ -95,12 +95,17 @@
   <object id="17" name="circle" x="612" y="188" width="98" height="94">
    <properties>
     <property name="collidable" type="bool" value="true"/>
+    <property name="dynamic" type="bool" value="true"/>
    </properties>
    <ellipse/>
   </object>
   <object id="18" name="star" x="154" y="92">
    <properties>
+    <property name="angularDamping" type="float" value="10"/>
     <property name="collidable" type="bool" value="true"/>
+    <property name="dynamic" type="bool" value="true"/>
+    <property name="linearDamping" type="float" value="10"/>
+    <property name="mass" type="float" value="2"/>
    </properties>
    <polygon points="0,0 -14,84 -116,92 -40,154 -46,246 34,178 120,216 64,130 134,82 32,66"/>
   </object>
