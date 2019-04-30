@@ -7,6 +7,7 @@ local sti = require 'sti'
 
 -- クラス
 local Character = require 'Character'
+local ZombieBehavior = require 'ZombieBehavior'
 
 -- レベル
 local Level = class 'Level'
@@ -110,6 +111,12 @@ function Level:setupCharacters(spriteSheet)
         if object.properties.state == 'followPlayer' then
         end
 
+        -- ステート
+        local behavior
+        if object.properties.behavior == 'zombie' then
+            behavior = ZombieBehavior
+        end
+
         -- キャラクターエンティティの登録
         local entity = self:registerEntity(
             Character {
@@ -124,7 +131,8 @@ function Level:setupCharacters(spriteSheet)
                 speed = object.properties.speed,
                 h_align = 'center',
                 collider = self.world:newCircleCollider(0, 0, 12 * (object.properties.scale or 1)),
-                collisionClass = object.type
+                collisionClass = object.type,
+                behavior = behavior
             }
         )
 

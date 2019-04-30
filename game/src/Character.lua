@@ -51,6 +51,11 @@ function Character:initialize(args)
     if args.collisionClass then
         self.collider:setCollisionClass(args.collisionClass)
     end
+
+    -- ビヘイビア
+    if args.behavior then
+        self.behavior = args.behavior(self)
+    end
 end
 
 -- 破棄
@@ -60,6 +65,11 @@ end
 
 -- 更新
 function Character:update(dt)
+    -- ビヘイビア
+    if self.behavior then
+        self.behavior:update(dt)
+    end
+
     -- コライダの座標を適用する
     self:applyPositionFromCollider()
 end
