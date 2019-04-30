@@ -17,69 +17,42 @@ local Game = Scene:newState 'game'
 
 -- 読み込み
 function Game:load()
-    self.state.camera = Camera()
-    self.state.camera:setFollowLerp(0.1)
-    self.state.camera:setFollowLead(2)
-    self.state.camera:setFollowStyle('TOPDOWN_TIGHT')
-    self.state.camera.scale = 1
-
-    self.state.level = Level('assets/levels/prototype.lua')
-    self.state.level:resizeMapCanvas(self.width, self.height, self.state.camera.scale)
-
-    self.state.character = self.state.level:registerEntity(
-        Character {
-            spriteSheet = self.spriteSheet,
-            spriteName = 'hitman1_gun.png',
-            x = self.width * 0.5,
-            y = self.height * 0.5,
-            h_align = 'center',
-            collider = self.state.level.world:newCircleCollider(0, 0, 12)
-        }
-    )
-    self.state.character.collider:setCollisionClass('player')
-
-    self.state.entities = {}
-    for i = 0, 5 do
-        local entity = self.state.level:registerEntity(
-            Character {
-                spriteSheet = self.spriteSheet,
-                spriteName = 'zoimbie1_hold.png',
-                x = 300 + i * 50,
-                y = self.height * 0.75,
-                h_align = 'center',
-                collider =self.state.level.world:newCircleCollider(0, 0, 12)
-            }
-        )
-        entity.collider:setMass(10)
-        entity.collider:setLinearDamping(10)
-        entity.collider:setAngularDamping(10)
-        entity.collider:setCollisionClass('enemy')
-    end
-
-    self.state.box = self.state.level.world:newRectangleCollider(100, 100, 100, 100)
-    self.state.box:setRestitution(0.8)
-    self.state.box:setLinearDamping(20)
-    self.state.box:setAngularDamping(10)
-    self.state.box:setCollisionClass('enemy')
-    --self.state.box:setFixedRotation(true)
-    self.state.box:setType('static')
-
-    self.state.box2 = self.state.level.world:newRectangleCollider(300, 100, 100, 100)
-    self.state.box2:setRestitution(0.8)
-    self.state.box2:setLinearDamping(10)
-    self.state.box2:setAngularDamping(10)
-    self.state.box2:setMass(20)
-    self.state.box2:setCollisionClass('enemy')
 end
 
 -- ステート開始
 function Game:enteredState(...)
     -- 親
     Scene.enteredState(self, ...)
+
+    -- カメラ
+    self.state.camera = Camera()
+    self.state.camera:setFollowLerp(0.1)
+    self.state.camera:setFollowLead(2)
+    self.state.camera:setFollowStyle('TOPDOWN_TIGHT')
+    self.state.camera.scale = 1
+
+    -- レベル
+    self.state.level = Level('assets/levels/prototype.lua')
+    self.state.level:resizeMapCanvas(self.width, self.height, self.state.camera.scale)
+    self.state.level:setupCharacters(self.spriteSheet)
+
+    -- プレイヤー
+    self.state.character = self.state.level:getPlayer() or self.state.level:registerEntity(
+        Character {
+            spriteSheet = self.spriteSheet,
+            spriteName = 'hitman1_gun.png',
+            x = self.width * 0.5,
+            y = self.height * 0.5,
+            h_align = 'center',
+            collider = self.state.level.world:newCircleCollider(0, 0, 12),
+            collisionClass = 'player'
+        }
+    )
 end
 
 -- ステート終了
 function Game:exitedState(...)
+    self.state.level:destroy()
 end
 
 -- 更新
@@ -105,12 +78,12 @@ function Game:update(dt)
 
     -- カメラ更新
     self.state.camera:update(dt)
-    self.state.camera:follow(self.state.character:position())
+    self.state.camera:follow(self:getPlayerPosition())
 end
 
 -- 描画
 function Game:draw()
-    local cx, cy = self.state.character:position()
+    local cx, cy = self:getPlayerPosition()
 
     -- カメラ内描画
     self.state.camera:attach()
@@ -136,8 +109,6 @@ end
 -- キー入力
 function Game:keypressed(key, scancode, isrepeat)
     if key == 'space' then
-        self.state.box:applyLinearImpulse(1000, 0)
-        --self.state.character.collider:applyLinearImpulse(10, 0)
     end
 end
 
@@ -145,9 +116,9 @@ end
 function Game:mousepressed(x, y, button, istouch, presses)
     x, y = self.state.camera:toWorldCoords(x, y)
     if button == 1 then
-        local cx, cy = self.state.character:position()
+        local cx, cy = self:getPlayerPosition()
         local mx, my = (x - cx) * 10000 + cx, (y - cy) * 10000 + cy
-        local colliders = self.state.level.world:queryLine(cx, cy, mx, my, { 'All', except = { 'Player' } })
+        local colliders = self.state.level.world:queryLine(cx, cy, mx, my, { 'All', except = { 'player', 'friend' } })
         for _, collider in ipairs(colliders) do
             --print(tostring(collider))
             --collider:applyLinearImpulse(lume.vector(lume.angle(cx, cy, collider:getPosition()), 3000))
@@ -157,6 +128,11 @@ function Game:mousepressed(x, y, button, istouch, presses)
             end
         end
     end
+end
+
+-- プレイヤーのワールド座標を返す
+function Game:getPlayerPosition()
+    return self.state.character:getPosition()
 end
 
 -- マウスのワールド座標を返す

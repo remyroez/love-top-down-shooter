@@ -8,8 +8,8 @@ return {
   height = 17,
   tilewidth = 64,
   tileheight = 64,
-  nextlayerid = 5,
-  nextobjectid = 22,
+  nextlayerid = 6,
+  nextobjectid = 44,
   properties = {},
   tilesets = {
     {
@@ -1738,6 +1738,329 @@ return {
           visible = true,
           properties = {
             ["collidable"] = true
+          }
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      id = 5,
+      name = "character",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      draworder = "topdown",
+      properties = {},
+      objects = {
+        {
+          id = 24,
+          name = "player",
+          type = "player",
+          shape = "rectangle",
+          x = 448.667,
+          y = 325.333,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["rotate"] = "random",
+            ["sprite"] = "hitman",
+            ["weapon"] = "silencer"
+          }
+        },
+        {
+          id = 25,
+          name = "zombie",
+          type = "enemy",
+          shape = "rectangle",
+          x = 366.667,
+          y = 125.333,
+          width = 0,
+          height = 0,
+          rotation = 90,
+          visible = true,
+          properties = {
+            ["rotate"] = "random",
+            ["scale"] = 2
+          }
+        },
+        {
+          id = 26,
+          name = "zombie",
+          type = "enemy",
+          shape = "rectangle",
+          x = 342.667,
+          y = 189.333,
+          width = 0,
+          height = 0,
+          rotation = 90,
+          visible = true,
+          properties = {
+            ["rotate"] = "random"
+          }
+        },
+        {
+          id = 27,
+          name = "zombie",
+          type = "enemy",
+          shape = "rectangle",
+          x = 534.667,
+          y = 165.333,
+          width = 0,
+          height = 0,
+          rotation = 90,
+          visible = true,
+          properties = {
+            ["rotate"] = "random",
+            ["scale"] = 3
+          }
+        },
+        {
+          id = 28,
+          name = "zombie",
+          type = "enemy",
+          shape = "rectangle",
+          x = 449.667,
+          y = 248.333,
+          width = 0,
+          height = 0,
+          rotation = 90,
+          visible = true,
+          properties = {
+            ["rotate"] = "random",
+            ["scale"] = 0.5
+          }
+        },
+        {
+          id = 29,
+          name = "man",
+          type = "friend",
+          shape = "rectangle",
+          x = 410,
+          y = 436,
+          width = 0,
+          height = 0,
+          rotation = 90,
+          visible = true,
+          properties = {
+            ["rotate"] = "random",
+            ["sprite"] = "man"
+          }
+        },
+        {
+          id = 30,
+          name = "woman",
+          type = "friend",
+          shape = "rectangle",
+          x = 450,
+          y = 483,
+          width = 0,
+          height = 0,
+          rotation = 90,
+          visible = true,
+          properties = {
+            ["rotate"] = "random",
+            ["sprite"] = "woman"
+          }
+        },
+        {
+          id = 31,
+          name = "man",
+          type = "friend",
+          shape = "rectangle",
+          x = 381.333,
+          y = 498.667,
+          width = 0,
+          height = 0,
+          rotation = 90,
+          visible = true,
+          properties = {
+            ["rotate"] = "random",
+            ["sprite"] = "man"
+          }
+        },
+        {
+          id = 32,
+          name = "man",
+          type = "friend",
+          shape = "rectangle",
+          x = 350,
+          y = 450,
+          width = 0,
+          height = 0,
+          rotation = 90,
+          visible = true,
+          properties = {
+            ["rotate"] = "random",
+            ["sprite"] = "man"
+          }
+        },
+        {
+          id = 33,
+          name = "woman_old",
+          type = "friend",
+          shape = "rectangle",
+          x = 602.667,
+          y = 408,
+          width = 0,
+          height = 0,
+          rotation = 90,
+          visible = true,
+          properties = {
+            ["rotate"] = "random",
+            ["sprite"] = "woman_old"
+          }
+        },
+        {
+          id = 34,
+          name = "man_old",
+          type = "friend",
+          shape = "rectangle",
+          x = 534.667,
+          y = 450,
+          width = 0,
+          height = 0,
+          rotation = 90,
+          visible = true,
+          properties = {
+            ["rotate"] = "random",
+            ["sprite"] = "man_old"
+          }
+        },
+        {
+          id = 35,
+          name = "robot",
+          type = "friend",
+          shape = "rectangle",
+          x = 576,
+          y = 328,
+          width = 0,
+          height = 0,
+          rotation = 90,
+          visible = true,
+          properties = {
+            ["rotate"] = "player",
+            ["sprite"] = "robot",
+            ["weapon"] = "gun"
+          }
+        },
+        {
+          id = 37,
+          name = "robot",
+          type = "friend",
+          shape = "rectangle",
+          x = 537.333,
+          y = 284,
+          width = 0,
+          height = 0,
+          rotation = 90,
+          visible = true,
+          properties = {
+            ["rotate"] = "player",
+            ["sprite"] = "robot",
+            ["weapon"] = "gun"
+          }
+        },
+        {
+          id = 38,
+          name = "robot",
+          type = "friend",
+          shape = "rectangle",
+          x = 598.667,
+          y = 280,
+          width = 0,
+          height = 0,
+          rotation = 90,
+          visible = true,
+          properties = {
+            ["rotate"] = "player",
+            ["sprite"] = "robot",
+            ["weapon"] = "gun"
+          }
+        },
+        {
+          id = 39,
+          name = "soldier",
+          type = "friend",
+          shape = "rectangle",
+          x = 324,
+          y = 288,
+          width = 0,
+          height = 0,
+          rotation = 90,
+          visible = true,
+          properties = {
+            ["rotate"] = "player",
+            ["sprite"] = "soldier",
+            ["weapon"] = "machine"
+          }
+        },
+        {
+          id = 40,
+          name = "soldier",
+          type = "friend",
+          shape = "rectangle",
+          x = 284,
+          y = 326.667,
+          width = 0,
+          height = 0,
+          rotation = 90,
+          visible = true,
+          properties = {
+            ["rotate"] = "player",
+            ["sprite"] = "soldier",
+            ["weapon"] = "machine"
+          }
+        },
+        {
+          id = 41,
+          name = "soldier",
+          type = "friend",
+          shape = "rectangle",
+          x = 348,
+          y = 325.333,
+          width = 0,
+          height = 0,
+          rotation = 90,
+          visible = true,
+          properties = {
+            ["rotate"] = "player",
+            ["sprite"] = "soldier",
+            ["weapon"] = "machine"
+          }
+        },
+        {
+          id = 42,
+          name = "survivor",
+          type = "friend",
+          shape = "rectangle",
+          x = 480,
+          y = 397.333,
+          width = 0,
+          height = 0,
+          rotation = 90,
+          visible = true,
+          properties = {
+            ["rotate"] = "random",
+            ["sprite"] = "survivor"
+          }
+        },
+        {
+          id = 43,
+          name = "survivor",
+          type = "friend",
+          shape = "rectangle",
+          x = 538.667,
+          y = 382.667,
+          width = 0,
+          height = 0,
+          rotation = 90,
+          visible = true,
+          properties = {
+            ["rotate"] = "random",
+            ["sprite"] = "survivor"
           }
         }
       }

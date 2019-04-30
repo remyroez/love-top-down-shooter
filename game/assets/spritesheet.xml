@@ -91,12 +91,12 @@
 	<SubTexture name="womanOld_reload.png"	x="212"	y="308"	width="42"	height="43" frameX="-0" frameY="-0" frameWidth="42" frameHeight="43"/>
 	<SubTexture name="womanOld_silencer.png"	x="0"	y="0"	width="57"	height="43" frameX="-0" frameY="-0" frameWidth="57" frameHeight="43"/>
 	<SubTexture name="womanOld_stand.png"	x="295"	y="352"	width="36"	height="43" frameX="-0" frameY="-0" frameWidth="36" frameHeight="43"/>
-	<SubTexture name="zoimbie1_gun.png"	x="211"	y="88"	width="49"	height="43" frameX="-0" frameY="-0" frameWidth="49" frameHeight="43"/>
-	<SubTexture name="zoimbie1_hold.png"	x="300"	y="88"	width="35"	height="43" frameX="-0" frameY="-0" frameWidth="35" frameHeight="43"/>
-	<SubTexture name="zoimbie1_machine.png"	x="211"	y="0"	width="49"	height="43" frameX="-0" frameY="-0" frameWidth="49" frameHeight="43"/>
-	<SubTexture name="zoimbie1_reload.png"	x="254"	y="132"	width="39"	height="43" frameX="-0" frameY="-0" frameWidth="39" frameHeight="43"/>
-	<SubTexture name="zoimbie1_silencer.png"	x="55"	y="264"	width="54"	height="43" frameX="-0" frameY="-0" frameWidth="54" frameHeight="43"/>
-	<SubTexture name="zoimbie1_stand.png"	x="368"	y="220"	width="33"	height="43" frameX="-0" frameY="-0" frameWidth="33" frameHeight="43"/>
+	<SubTexture name="zombie1_gun.png"	x="211"	y="88"	width="49"	height="43" frameX="-0" frameY="-0" frameWidth="49" frameHeight="43"/>
+	<SubTexture name="zombie1_hold.png"	x="300"	y="88"	width="35"	height="43" frameX="-0" frameY="-0" frameWidth="35" frameHeight="43"/>
+	<SubTexture name="zombie1_machine.png"	x="211"	y="0"	width="49"	height="43" frameX="-0" frameY="-0" frameWidth="49" frameHeight="43"/>
+	<SubTexture name="zombie1_reload.png"	x="254"	y="132"	width="39"	height="43" frameX="-0" frameY="-0" frameWidth="39" frameHeight="43"/>
+	<SubTexture name="zombie1_silencer.png"	x="55"	y="264"	width="54"	height="43" frameX="-0" frameY="-0" frameWidth="54" frameHeight="43"/>
+	<SubTexture name="zombie1_stand.png"	x="368"	y="220"	width="33"	height="43" frameX="-0" frameY="-0" frameWidth="33" frameHeight="43"/>
 	<SubTexture name="zombie2_gun.png"	x="162"	y="396"	width="49"	height="43" frameX="-0" frameY="-0" frameWidth="49" frameHeight="43"/>
 	<SubTexture name="zombie2_hold.png"	x="332"	y="132"	width="35"	height="43" frameX="-0" frameY="-0" frameWidth="35" frameHeight="43"/>
 	<SubTexture name="zombie2_machine.png"	x="162"	y="308"	width="49"	height="43" frameX="-0" frameY="-0" frameWidth="49" frameHeight="43"/>

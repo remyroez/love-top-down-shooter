@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="18" height="17" tilewidth="64" tileheight="64" infinite="1" nextlayerid="5" nextobjectid="22">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="18" height="17" tilewidth="64" tileheight="64" infinite="1" nextlayerid="6" nextobjectid="44">
  <tileset firstgid="1" source="tilesheet.tsx"/>
  <layer id="1" name="ground" width="18" height="17">
   <properties>
@@ -80,10 +80,10 @@
 </chunk>
   </data>
  </layer>
- <layer id="4" name="interior" width="18" height="17">
+ <layer id="4" name="interior" width="18" height="17" locked="1">
   <data encoding="csv"/>
  </layer>
- <objectgroup id="2" name="object">
+ <objectgroup id="2" name="object" locked="1">
   <properties>
    <property name="collidable" type="bool" value="false"/>
   </properties>
@@ -113,6 +113,128 @@
   <object id="21" name="box2" gid="156" x="514" y="704" width="64" height="64" rotation="90">
    <properties>
     <property name="collidable" type="bool" value="true"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="5" name="character">
+  <object id="24" name="player" type="player" x="448.667" y="325.333">
+   <properties>
+    <property name="rotate" value="random"/>
+    <property name="sprite" value="hitman"/>
+    <property name="weapon" value="silencer"/>
+   </properties>
+  </object>
+  <object id="25" name="zombie" type="enemy" x="366.667" y="125.333" rotation="90">
+   <properties>
+    <property name="rotate" value="random"/>
+    <property name="scale" type="float" value="2"/>
+   </properties>
+  </object>
+  <object id="26" name="zombie" type="enemy" x="342.667" y="189.333" rotation="90">
+   <properties>
+    <property name="rotate" value="random"/>
+   </properties>
+  </object>
+  <object id="27" name="zombie" type="enemy" x="534.667" y="165.333" rotation="90">
+   <properties>
+    <property name="rotate" value="random"/>
+    <property name="scale" type="float" value="3"/>
+   </properties>
+  </object>
+  <object id="28" name="zombie" type="enemy" x="449.667" y="248.333" rotation="90">
+   <properties>
+    <property name="rotate" value="random"/>
+    <property name="scale" type="float" value="0.5"/>
+   </properties>
+  </object>
+  <object id="29" name="man" type="friend" x="410" y="436" rotation="90">
+   <properties>
+    <property name="rotate" value="random"/>
+    <property name="sprite" value="man"/>
+   </properties>
+  </object>
+  <object id="30" name="woman" type="friend" x="450" y="483" rotation="90">
+   <properties>
+    <property name="rotate" value="random"/>
+    <property name="sprite" value="woman"/>
+   </properties>
+  </object>
+  <object id="31" name="man" type="friend" x="381.333" y="498.667" rotation="90">
+   <properties>
+    <property name="rotate" value="random"/>
+    <property name="sprite" value="man"/>
+   </properties>
+  </object>
+  <object id="32" name="man" type="friend" x="350" y="450" rotation="90">
+   <properties>
+    <property name="rotate" value="random"/>
+    <property name="sprite" value="man"/>
+   </properties>
+  </object>
+  <object id="33" name="woman_old" type="friend" x="602.667" y="408" rotation="90">
+   <properties>
+    <property name="rotate" value="random"/>
+    <property name="sprite" value="woman_old"/>
+   </properties>
+  </object>
+  <object id="34" name="man_old" type="friend" x="534.667" y="450" rotation="90">
+   <properties>
+    <property name="rotate" value="random"/>
+    <property name="sprite" value="man_old"/>
+   </properties>
+  </object>
+  <object id="35" name="robot" type="friend" x="576" y="328" rotation="90">
+   <properties>
+    <property name="rotate" value="player"/>
+    <property name="sprite" value="robot"/>
+    <property name="weapon" value="gun"/>
+   </properties>
+  </object>
+  <object id="37" name="robot" type="friend" x="537.333" y="284" rotation="90">
+   <properties>
+    <property name="rotate" value="player"/>
+    <property name="sprite" value="robot"/>
+    <property name="weapon" value="gun"/>
+   </properties>
+  </object>
+  <object id="38" name="robot" type="friend" x="598.667" y="280" rotation="90">
+   <properties>
+    <property name="rotate" value="player"/>
+    <property name="sprite" value="robot"/>
+    <property name="weapon" value="gun"/>
+   </properties>
+  </object>
+  <object id="39" name="soldier" type="friend" x="324" y="288" rotation="90">
+   <properties>
+    <property name="rotate" value="player"/>
+    <property name="sprite" value="soldier"/>
+    <property name="weapon" value="machine"/>
+   </properties>
+  </object>
+  <object id="40" name="soldier" type="friend" x="284" y="326.667" rotation="90">
+   <properties>
+    <property name="rotate" value="player"/>
+    <property name="sprite" value="soldier"/>
+    <property name="weapon" value="machine"/>
+   </properties>
+  </object>
+  <object id="41" name="soldier" type="friend" x="348" y="325.333" rotation="90">
+   <properties>
+    <property name="rotate" value="player"/>
+    <property name="sprite" value="soldier"/>
+    <property name="weapon" value="machine"/>
+   </properties>
+  </object>
+  <object id="42" name="survivor" type="friend" x="480" y="397.333" rotation="90">
+   <properties>
+    <property name="rotate" value="random"/>
+    <property name="sprite" value="survivor"/>
+   </properties>
+  </object>
+  <object id="43" name="survivor" type="friend" x="538.667" y="382.667" rotation="90">
+   <properties>
+    <property name="rotate" value="random"/>
+    <property name="sprite" value="survivor"/>
    </properties>
   </object>
  </objectgroup>
