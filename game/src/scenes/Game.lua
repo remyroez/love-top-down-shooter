@@ -109,8 +109,6 @@ end
 -- キー入力
 function Game:keypressed(key, scancode, isrepeat)
     if key == 'space' then
-        self.state.box:applyLinearImpulse(1000, 0)
-        --self.state.character.collider:applyLinearImpulse(10, 0)
     end
 end
 
