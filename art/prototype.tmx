@@ -121,7 +121,7 @@
    <properties>
     <property name="rotate" value="random"/>
     <property name="sprite" value="hitman"/>
-    <property name="state" value="followPlayer"/>
+    <property name="state" value="lookAtPlayer"/>
     <property name="weapon" value="silencer"/>
    </properties>
   </object>
@@ -129,76 +129,76 @@
    <properties>
     <property name="rotate" value="random"/>
     <property name="scale" type="float" value="2"/>
-    <property name="state" value="followPlayer"/>
+    <property name="state" value="lookAtPlayer"/>
    </properties>
   </object>
   <object id="26" name="zombie" type="enemy" x="342.667" y="189.333" rotation="90">
    <properties>
     <property name="rotate" value="random"/>
-    <property name="state" value="followPlayer"/>
+    <property name="state" value="lookAtPlayer"/>
    </properties>
   </object>
   <object id="27" name="zombie" type="enemy" x="534.667" y="165.333" rotation="90">
    <properties>
     <property name="rotate" value="random"/>
     <property name="scale" type="float" value="3"/>
-    <property name="state" value="followPlayer"/>
+    <property name="state" value="lookAtPlayer"/>
    </properties>
   </object>
   <object id="28" name="zombie" type="enemy" x="449.667" y="248.333" rotation="90">
    <properties>
     <property name="rotate" value="random"/>
     <property name="scale" type="float" value="0.5"/>
-    <property name="state" value="followPlayer"/>
+    <property name="state" value="lookAtPlayer"/>
    </properties>
   </object>
   <object id="29" name="man" type="friend" x="410" y="436" rotation="90">
    <properties>
     <property name="rotate" value="random"/>
     <property name="sprite" value="man"/>
-    <property name="state" value="followPlayer"/>
+    <property name="state" value="lookAtPlayer"/>
    </properties>
   </object>
   <object id="30" name="woman" type="friend" x="450" y="483" rotation="90">
    <properties>
     <property name="rotate" value="random"/>
     <property name="sprite" value="woman"/>
-    <property name="state" value="followPlayer"/>
+    <property name="state" value="lookAtPlayer"/>
    </properties>
   </object>
   <object id="31" name="man" type="friend" x="381.333" y="498.667" rotation="90">
    <properties>
     <property name="rotate" value="random"/>
     <property name="sprite" value="man"/>
-    <property name="state" value="followPlayer"/>
+    <property name="state" value="lookAtPlayer"/>
    </properties>
   </object>
   <object id="32" name="man" type="friend" x="350" y="450" rotation="90">
    <properties>
     <property name="rotate" value="random"/>
     <property name="sprite" value="man"/>
-    <property name="state" value="followPlayer"/>
+    <property name="state" value="lookAtPlayer"/>
    </properties>
   </object>
   <object id="33" name="woman_old" type="friend" x="602.667" y="408" rotation="90">
    <properties>
     <property name="rotate" value="random"/>
     <property name="sprite" value="woman_old"/>
-    <property name="state" value="followPlayer"/>
+    <property name="state" value="lookAtPlayer"/>
    </properties>
   </object>
   <object id="34" name="man_old" type="friend" x="534.667" y="450" rotation="90">
    <properties>
     <property name="rotate" value="random"/>
     <property name="sprite" value="man_old"/>
-    <property name="state" value="followPlayer"/>
+    <property name="state" value="lookAtPlayer"/>
    </properties>
   </object>
   <object id="35" name="robot" type="friend" x="576" y="328" rotation="90">
    <properties>
     <property name="rotate" value="player"/>
     <property name="sprite" value="robot"/>
-    <property name="state" value="followPlayer"/>
+    <property name="state" value="lookAtPlayer"/>
     <property name="weapon" value="gun"/>
    </properties>
   </object>
@@ -206,7 +206,7 @@
    <properties>
     <property name="rotate" value="player"/>
     <property name="sprite" value="robot"/>
-    <property name="state" value="followPlayer"/>
+    <property name="state" value="lookAtPlayer"/>
     <property name="weapon" value="gun"/>
    </properties>
   </object>
@@ -214,7 +214,7 @@
    <properties>
     <property name="rotate" value="player"/>
     <property name="sprite" value="robot"/>
-    <property name="state" value="followPlayer"/>
+    <property name="state" value="lookAtPlayer"/>
     <property name="weapon" value="gun"/>
    </properties>
   </object>
@@ -222,7 +222,7 @@
    <properties>
     <property name="rotate" value="player"/>
     <property name="sprite" value="soldier"/>
-    <property name="state" value="followPlayer"/>
+    <property name="state" value="lookAtPlayer"/>
     <property name="weapon" value="machine"/>
    </properties>
   </object>
@@ -230,7 +230,7 @@
    <properties>
     <property name="rotate" value="player"/>
     <property name="sprite" value="soldier"/>
-    <property name="state" value="followPlayer"/>
+    <property name="state" value="lookAtPlayer"/>
     <property name="weapon" value="machine"/>
    </properties>
   </object>
@@ -238,7 +238,7 @@
    <properties>
     <property name="rotate" value="player"/>
     <property name="sprite" value="soldier"/>
-    <property name="state" value="followPlayer"/>
+    <property name="state" value="lookAtPlayer"/>
     <property name="weapon" value="machine"/>
    </properties>
   </object>
@@ -246,14 +246,14 @@
    <properties>
     <property name="rotate" value="random"/>
     <property name="sprite" value="survivor"/>
-    <property name="state" value="followPlayer"/>
+    <property name="state" value="lookAtPlayer"/>
    </properties>
   </object>
   <object id="43" name="survivor" type="friend" x="538.667" y="382.667" rotation="90">
    <properties>
     <property name="rotate" value="random"/>
     <property name="sprite" value="survivor"/>
-    <property name="state" value="followPlayer"/>
+    <property name="state" value="lookAtPlayer"/>
    </properties>
   </object>
  </objectgroup>
