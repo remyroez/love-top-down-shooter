@@ -62,9 +62,10 @@ function Level:setupCharacters(spriteSheet)
                 spriteName = spriteName,
                 x = object.x,
                 y = object.y,
-                rotation = math.rad(object.rotation),
+                rotation = math.rad(object.rotation or 0),
+                scale = object.properties.scale or 1,
                 h_align = 'center',
-                collider = self.world:newCircleCollider(0, 0, 12),
+                collider = self.world:newCircleCollider(0, 0, 12 * (object.properties.scale or 1)),
                 collisionClass = object.type
             }
         )
