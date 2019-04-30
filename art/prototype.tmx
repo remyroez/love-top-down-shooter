@@ -118,9 +118,21 @@
  </objectgroup>
  <objectgroup id="5" name="character">
   <object id="24" name="player" type="player" x="446" y="332"/>
-  <object id="25" name="zombie" type="enemy" x="656" y="360" rotation="90"/>
+  <object id="25" name="zombie" type="enemy" x="656" y="360" rotation="90">
+   <properties>
+    <property name="scale" type="float" value="2"/>
+   </properties>
+  </object>
   <object id="26" name="zombie" type="enemy" x="632" y="424" rotation="90"/>
-  <object id="27" name="zombie" type="enemy" x="824" y="400" rotation="90"/>
-  <object id="28" name="zombie" type="enemy" x="789" y="462" rotation="90"/>
+  <object id="27" name="zombie" type="enemy" x="824" y="400" rotation="90">
+   <properties>
+    <property name="scale" type="float" value="3"/>
+   </properties>
+  </object>
+  <object id="28" name="zombie" type="enemy" x="739" y="483" rotation="90">
+   <properties>
+    <property name="scale" type="float" value="0.5"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

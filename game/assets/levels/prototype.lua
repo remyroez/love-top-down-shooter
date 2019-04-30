@@ -1777,7 +1777,9 @@ return {
           height = 0,
           rotation = 90,
           visible = true,
-          properties = {}
+          properties = {
+            ["scale"] = 2
+          }
         },
         {
           id = 26,
@@ -1803,20 +1805,24 @@ return {
           height = 0,
           rotation = 90,
           visible = true,
-          properties = {}
+          properties = {
+            ["scale"] = 3
+          }
         },
         {
           id = 28,
           name = "zombie",
           type = "enemy",
           shape = "rectangle",
-          x = 789,
-          y = 462,
+          x = 739,
+          y = 483,
           width = 0,
           height = 0,
           rotation = 90,
           visible = true,
-          properties = {}
+          properties = {
+            ["scale"] = 0.5
+          }
         }
       }
     }
