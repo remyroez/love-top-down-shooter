@@ -78,12 +78,12 @@ function Game:update(dt)
 
     -- カメラ更新
     self.state.camera:update(dt)
-    self.state.camera:follow(self.state.character:position())
+    self.state.camera:follow(self:getPlayerPosition())
 end
 
 -- 描画
 function Game:draw()
-    local cx, cy = self.state.character:position()
+    local cx, cy = self:getPlayerPosition()
 
     -- カメラ内描画
     self.state.camera:attach()
@@ -118,7 +118,7 @@ end
 function Game:mousepressed(x, y, button, istouch, presses)
     x, y = self.state.camera:toWorldCoords(x, y)
     if button == 1 then
-        local cx, cy = self.state.character:position()
+        local cx, cy = self:getPlayerPosition()
         local mx, my = (x - cx) * 10000 + cx, (y - cy) * 10000 + cy
         local colliders = self.state.level.world:queryLine(cx, cy, mx, my, { 'All', except = { 'Player' } })
         for _, collider in ipairs(colliders) do
@@ -130,6 +130,11 @@ function Game:mousepressed(x, y, button, istouch, presses)
             end
         end
     end
+end
+
+-- プレイヤーのワールド座標を返す
+function Game:getPlayerPosition()
+    return self.state.character:getPosition()
 end
 
 -- マウスのワールド座標を返す

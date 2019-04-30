@@ -20,7 +20,7 @@ function Transform:initializeTransform(x, y, rotation, scale, pivotX, pivotY)
 end
 
 -- 座標
-function Transform:position()
+function Transform:getPosition()
     return self.x, self.y
 end
 
