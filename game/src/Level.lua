@@ -132,7 +132,8 @@ function Level:setupCharacters(spriteSheet)
                 h_align = 'center',
                 collider = self.world:newCircleCollider(0, 0, 12 * (object.properties.scale or 1)),
                 collisionClass = object.type,
-                behavior = behavior
+                behavior = behavior,
+                world = self.world,
             }
         )
 
@@ -144,13 +145,13 @@ function Level:setupCharacters(spriteSheet)
         end
 
         -- プレイヤーに向かせるため保持
-        if object.properties.rotate == 'player' then
+        if object.properties.rotate == 'player' and object.type ~= 'player' then
             table.insert(rotateToPlayer, entity)
         end
 
         -- ステートを後から設定するため保持
         for name, list in pairs(lazySettingStates) do
-            if object.properties.state == name then
+            if object.properties.state == name and object.type ~= 'player' then
                 table.insert(list, entity)
             end
         end

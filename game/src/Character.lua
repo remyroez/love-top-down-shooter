@@ -17,6 +17,7 @@ function Character:initialize(args)
 
     self.type = args.type or 'object'
     self.speed = args.speed or 100
+    self.world = args.world
 
     -- スプライト
     if type(args.sprite) == 'table' then
@@ -76,9 +77,15 @@ end
 
 -- 描画
 function Character:draw()
+    -- スプライトの描画
     self:pushTransform(self:left(), self:top())
     self:drawSprite(self.spriteName, self:getSpriteOffset())
     self:popTransform()
+
+    -- ビヘイビア
+    if self.behavior then
+        self.behavior:draw()
+    end
 end
 
 -- スプライトのリセット
@@ -110,6 +117,9 @@ end
 function Character:getCurrentSpriteName()
     return self.sprite .. '_' .. self:getPoseName() .. '.png'
 end
+
+-- 立つ
+local Stand = Character:addState 'stand'
 
 -- 見る
 local Look = Character:addState 'look'
@@ -150,7 +160,7 @@ function Goto:enteredState(speed, targetOrTargetX, targetY)
     self._goto = {}
 
     -- スピード
-    self._goto.speed = speed
+    self._goto.speed = speed or self.speed
 
     -- 目的地
     self._goto.x, self._goto.y = 0, 0
