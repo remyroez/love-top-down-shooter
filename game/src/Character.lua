@@ -4,6 +4,7 @@ local class = require 'middleclass'
 
 -- キャラクター
 local Character = class('Character', require 'Entity')
+Character:include(require 'stateful')
 Character:include(require 'Rectangle')
 Character:include(require 'SpriteRenderer')
 Character:include(require 'Transform')
@@ -15,6 +16,7 @@ function Character:initialize(args)
     args = args or {}
 
     self.type = args.type or 'object'
+    self.speed = args.speed or 100
 
     -- スプライト
     if type(args.sprite) == 'table' then
@@ -97,6 +99,48 @@ end
 -- 現在のスプライト名を返す
 function Character:getCurrentSpriteName()
     return self.sprite .. '_' .. self:getPoseName() .. '.png'
+end
+
+-- 移動
+local Goto = Character:addState 'goto'
+
+-- 移動: ステート開始
+function Goto:enteredState(speed, targetOrTargetX, targetY)
+    self._goto = {}
+
+    -- スピード
+    self._goto.speed = speed
+
+    -- 目的地
+    self._goto.x, self._goto.y = 0, 0
+    if type(targetOrTargetX) == 'table' then
+        self._goto.x, self._goto.y = targetOrTargetX.x, targetOrTargetX.y
+        self._goto.target = targetOrTargetX
+    else
+        self._goto.x, self._goto.y = targetOrTargetX, targetY
+    end
+end
+
+-- 移動: ステート終了
+function Goto:exitedState(...)
+end
+
+-- 移動: 更新
+function Goto:update(dt)
+    -- 目的地更新
+    if self._goto.target then
+        self._goto.x, self._goto.y = self._goto.target.x, self._goto.target.y
+    end
+
+    -- 目的地を向く
+    self:setRotationTo(self._goto.x, self._goto.y)
+
+    -- 移動
+    local x, y = self:forward()
+    self:setColliderVelocity(x, y, self._goto.speed)
+
+    -- 親更新
+    Character.update(self, dt)
 end
 
 return Character

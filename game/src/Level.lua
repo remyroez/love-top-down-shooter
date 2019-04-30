@@ -85,6 +85,7 @@ function Level:setupCharacters(spriteSheet)
     layer.visible = false
 
     local rotateToPlayer = {}
+    local followPlayer = {}
 
     for _, object in ipairs(layer.objects) do
         local defaultSprite = (object.type == 'player') and spriteVariation.hitman or spriteVariation.zombie
@@ -97,16 +98,21 @@ function Level:setupCharacters(spriteSheet)
             rotation = love.math.random(360)
         end
 
+        local state
+        if object.properties.state == 'followPlayer' then
+        end
+
         local entity = self:registerEntity(
             Character {
+                type = object.type,
                 spriteSheet = spriteSheet,
                 sprite = sprite,
                 weapon = weaponData[object.properties.weapon],
-                --spriteName = spriteName,
                 x = object.x,
                 y = object.y,
                 rotation = math.rad(rotation),
                 scale = object.properties.scale or 1,
+                speed = object.properties.speed,
                 h_align = 'center',
                 collider = self.world:newCircleCollider(0, 0, 12 * (object.properties.scale or 1)),
                 collisionClass = object.type
@@ -122,12 +128,19 @@ function Level:setupCharacters(spriteSheet)
         if object.properties.rotate == 'player' then
             table.insert(rotateToPlayer, entity)
         end
+
+        if object.properties.state == 'followPlayer' then
+            table.insert(followPlayer, entity)
+        end
     end
 
     local player = self:getPlayer()
     if player then
         for _, entity in ipairs(rotateToPlayer) do
             entity:setRotationTo(player:getPosition())
+        end
+        for _, entity in ipairs(followPlayer) do
+            entity:gotoState('goto', entity.speed, player)
         end
     end
 end
