@@ -8,8 +8,8 @@ return {
   height = 17,
   tilewidth = 64,
   tileheight = 64,
-  nextlayerid = 5,
-  nextobjectid = 22,
+  nextlayerid = 6,
+  nextobjectid = 26,
   properties = {},
   tilesets = {
     {
@@ -1739,6 +1739,45 @@ return {
           properties = {
             ["collidable"] = true
           }
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      id = 5,
+      name = "character",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      draworder = "topdown",
+      properties = {},
+      objects = {
+        {
+          id = 24,
+          name = "player",
+          type = "player",
+          shape = "rectangle",
+          x = 446,
+          y = 332,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 25,
+          name = "zombie",
+          type = "enemy",
+          shape = "rectangle",
+          x = 656,
+          y = 360,
+          width = 0,
+          height = 0,
+          rotation = 90,
+          visible = true,
+          properties = {}
         }
       }
     }
