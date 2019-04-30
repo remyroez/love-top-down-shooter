@@ -47,7 +47,7 @@ return {
 			collider:setLinearDamping(userdata.properties.linearDamping or 0.0)
 			collider:setAngularDamping(userdata.properties.angularDamping or 0.0)
 			--collider:setSensor(userdata.properties.sensor           or false)
-			--collider:setMass(userdata.properties.mass               or collider:getMass())
+			collider:setMass(userdata.properties.mass               or collider:getMass())
 			collider:setCollisionClass(userdata.properties.class    or 'object')
 
 			local obj = {
@@ -203,7 +203,7 @@ return {
 					ofs = -tile.height
 				end
 				if not o.polygon then
-					o.polygon = utils.convert_ellipse_to_polygon(baseX, baseY, o.w, o.h)
+					o.polygon = utils.convert_ellipse_to_polygon(baseX, baseY, o.w, o.h, 32)
 					for _, vertex in ipairs(o.polygon) do
 						vertex.y = vertex.y + ofs
 						vertex.x, vertex.y = utils.rotate_vertex(map, vertex, 0, 0, cos, sin, oy)
