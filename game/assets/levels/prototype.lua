@@ -1766,7 +1766,8 @@ return {
           visible = true,
           properties = {
             ["rotate"] = "random",
-            ["sprite"] = "hitman"
+            ["sprite"] = "hitman",
+            ["weapon"] = "silencer"
           }
         },
         {
@@ -1941,7 +1942,8 @@ return {
           visible = true,
           properties = {
             ["rotate"] = "player",
-            ["sprite"] = "robot"
+            ["sprite"] = "robot",
+            ["weapon"] = "gun"
           }
         },
         {
@@ -1957,7 +1959,8 @@ return {
           visible = true,
           properties = {
             ["rotate"] = "player",
-            ["sprite"] = "robot"
+            ["sprite"] = "robot",
+            ["weapon"] = "gun"
           }
         },
         {
@@ -1973,7 +1976,8 @@ return {
           visible = true,
           properties = {
             ["rotate"] = "player",
-            ["sprite"] = "robot"
+            ["sprite"] = "robot",
+            ["weapon"] = "gun"
           }
         },
         {
@@ -1989,7 +1993,8 @@ return {
           visible = true,
           properties = {
             ["rotate"] = "player",
-            ["sprite"] = "soldier"
+            ["sprite"] = "soldier",
+            ["weapon"] = "machine"
           }
         },
         {
@@ -2005,7 +2010,8 @@ return {
           visible = true,
           properties = {
             ["rotate"] = "player",
-            ["sprite"] = "soldier"
+            ["sprite"] = "soldier",
+            ["weapon"] = "machine"
           }
         },
         {
@@ -2021,7 +2027,8 @@ return {
           visible = true,
           properties = {
             ["rotate"] = "player",
-            ["sprite"] = "soldier"
+            ["sprite"] = "soldier",
+            ["weapon"] = "machine"
           }
         },
         {

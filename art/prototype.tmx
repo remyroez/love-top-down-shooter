@@ -121,6 +121,7 @@
    <properties>
     <property name="rotate" value="random"/>
     <property name="sprite" value="hitman"/>
+    <property name="weapon" value="silencer"/>
    </properties>
   </object>
   <object id="25" name="zombie" type="enemy" x="366.667" y="125.333" rotation="90">
@@ -186,36 +187,42 @@
    <properties>
     <property name="rotate" value="player"/>
     <property name="sprite" value="robot"/>
+    <property name="weapon" value="gun"/>
    </properties>
   </object>
   <object id="37" name="robot" type="friend" x="537.333" y="284" rotation="90">
    <properties>
     <property name="rotate" value="player"/>
     <property name="sprite" value="robot"/>
+    <property name="weapon" value="gun"/>
    </properties>
   </object>
   <object id="38" name="robot" type="friend" x="598.667" y="280" rotation="90">
    <properties>
     <property name="rotate" value="player"/>
     <property name="sprite" value="robot"/>
+    <property name="weapon" value="gun"/>
    </properties>
   </object>
   <object id="39" name="soldier" type="friend" x="324" y="288" rotation="90">
    <properties>
     <property name="rotate" value="player"/>
     <property name="sprite" value="soldier"/>
+    <property name="weapon" value="machine"/>
    </properties>
   </object>
   <object id="40" name="soldier" type="friend" x="284" y="326.667" rotation="90">
    <properties>
     <property name="rotate" value="player"/>
     <property name="sprite" value="soldier"/>
+    <property name="weapon" value="machine"/>
    </properties>
   </object>
   <object id="41" name="soldier" type="friend" x="348" y="325.333" rotation="90">
    <properties>
     <property name="rotate" value="player"/>
     <property name="sprite" value="soldier"/>
+    <property name="weapon" value="machine"/>
    </properties>
   </object>
   <object id="42" name="survivor" type="friend" x="480" y="397.333" rotation="90">
