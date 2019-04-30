@@ -65,7 +65,7 @@ end
 -- 描画
 function Character:draw()
     self:pushTransform(self:left(), self:top())
-    self:drawSprite(self.spriteName)
+    self:drawSprite(self.spriteName, self:getSpriteOffset())
     self:popTransform()
 end
 
@@ -83,6 +83,15 @@ function Character:getPoseName()
         poseName = self:getWeaponName()
     end
     return poseName
+end
+
+-- スプライトのオフセットの取得
+function Character:getSpriteOffset()
+    local x, y = 0, 0
+    if self:hasWeapon() then
+        x = x + 8
+    end
+    return x, y
 end
 
 -- 現在のスプライト名を返す
