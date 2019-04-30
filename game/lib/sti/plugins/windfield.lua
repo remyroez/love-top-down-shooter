@@ -44,7 +44,10 @@ return {
 
 			collider:setFriction(userdata.properties.friction       or 0.2)
 			collider:setRestitution(userdata.properties.restitution or 0.0)
-			collider:setSensor(userdata.properties.sensor           or false)
+			collider:setLinearDamping(userdata.properties.linearDamping or 0.0)
+			collider:setAngularDamping(userdata.properties.angularDamping or 0.0)
+			--collider:setSensor(userdata.properties.sensor           or false)
+			--collider:setMass(userdata.properties.mass               or collider:getMass())
 			collider:setCollisionClass(userdata.properties.class    or 'object')
 
 			local obj = {
@@ -54,6 +57,8 @@ return {
 			}
 
 			table.insert(collision, obj)
+
+			return obj
 		end
 
 		local function getPolygonVertices(object)
@@ -209,8 +214,11 @@ return {
 				local vertices  = getPolygonVertices(o)
 				local triangles = love.math.triangulate(vertices)
 
-				for _, triangle in ipairs(triangles) do
-					addObjectToWorld(o.shape, triangle, userdata, tile or object)
+				local obj = addObjectToWorld(o.shape, triangles[1], userdata, tile or object)
+				for i, triangle in ipairs(triangles) do
+					if i > 1 then
+						obj.collider:addShape(tostring(i), 'PolygonShape', unpack(triangle))
+					end
 				end
 			elseif o.shape == "polygon" then
 				local polygon = {}
@@ -251,8 +259,11 @@ return {
 				local vertices  = getPolygonVertices({ polygon = polygon })
 				local triangles = love.math.triangulate(vertices)
 
-				for _, triangle in ipairs(triangles) do
-					addObjectToWorld(o.shape, triangle, userdata, tile or object)
+				local obj = addObjectToWorld(o.shape, triangles[1], userdata, tile or object)
+				for i, triangle in ipairs(triangles) do
+					if i > 1 then
+						obj.collider:addShape(tostring(i), 'PolygonShape', unpack(triangle))
+					end
 				end
 			elseif o.shape == "polyline" then
 				local vertices = getPolygonVertices(o)
