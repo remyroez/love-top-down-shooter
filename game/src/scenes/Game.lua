@@ -16,6 +16,15 @@ local Input = require 'Input'
 -- ゲーム
 local Game = Scene:newState 'game'
 
+-- バインドする入力
+local bindInputs = {
+    up = { 'w', 'up', 'dpup' },
+    down = { 's', 'down', 'dpdown' },
+    left = { 'a', 'left', 'dpleft' },
+    right = { 'd', 'right', 'dpright' },
+    fire = { 'mouse1', 'space', 'fdown' },
+}
+
 -- 読み込み
 function Game:load()
     self.state.input = Input()
@@ -27,15 +36,11 @@ function Game:enteredState(...)
     Scene.enteredState(self, ...)
 
     -- 入力
-    self.state.input:bind('w', 'up')
-    self.state.input:bind('up', 'up')
-    self.state.input:bind('s', 'down')
-    self.state.input:bind('down', 'down')
-    self.state.input:bind('a', 'left')
-    self.state.input:bind('left', 'left')
-    self.state.input:bind('d', 'right')
-    self.state.input:bind('right', 'right')
-    self.state.input:bind('mouse1', 'fire')
+    for action, inputs in pairs(bindInputs) do
+        for _, input in pairs(inputs) do
+            self.state.input:bind(input, action)
+        end
+    end
 
     -- カメラ
     self.state.camera = Camera()
