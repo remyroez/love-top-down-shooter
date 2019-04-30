@@ -35,6 +35,7 @@ end
 
 -- 読み込み
 function love.load()
+    love.math.setRandomSeed(love.timer.getTime())
 end
 
 -- 更新
