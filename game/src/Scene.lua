@@ -46,6 +46,11 @@ end
 function Scene:draw()
 end
 
+-- ステートのリセット
+function Scene:resetState()
+    self:gotoState(_getCurrentStateName(self))
+end
+
 -- ステートの描画
 function Scene:printStates()
     love.graphics.print('states: ' .. table.concat(self:getStateStackDebugInfo(), '/'))

@@ -15,19 +15,23 @@ local lume = require 'lume'
 local lurker = require 'lurker'
 local Scene = require 'Scene'
 
--- シーンステートのソースホットスワップ後の対応
-lurker.postswap = function (f)
-    if lume.find(scenes, f:match('%/([^%/%.]+).lua$')) then
-        lurker.hotswapfile('main.lua')
-    end
-end
-
 -- シーン
 local scene = Scene()
 scene:gotoState 'boot'
 
 -- ステートの描画フラグ
 local printStates = true
+
+-- ホットスワップ後の対応
+lurker.postswap = function (f)
+    if lume.find(scenes, f:match('%/([^%/%.]+).lua$')) then
+        -- シーンステートなら main もホットスワップ
+        lurker.hotswapfile('main.lua')
+    elseif f:match('^assets%/') then
+        -- アセットならシーンをリセット
+        scene:resetState()
+    end
+end
 
 -- 読み込み
 function love.load()

@@ -17,16 +17,26 @@ local Game = Scene:newState 'game'
 
 -- 読み込み
 function Game:load()
+end
+
+-- ステート開始
+function Game:enteredState(...)
+    -- 親
+    Scene.enteredState(self, ...)
+
+    -- カメラ
     self.state.camera = Camera()
     self.state.camera:setFollowLerp(0.1)
     self.state.camera:setFollowLead(2)
     self.state.camera:setFollowStyle('TOPDOWN_TIGHT')
     self.state.camera.scale = 1
 
+    -- レベル
     self.state.level = Level('assets/levels/prototype.lua')
     self.state.level:resizeMapCanvas(self.width, self.height, self.state.camera.scale)
     self.state.level:setupCharacters(self.spriteSheet)
 
+    -- プレイヤー
     self.state.character = self.state.level:getPlayer() or self.state.level:registerEntity(
         Character {
             spriteSheet = self.spriteSheet,
@@ -38,50 +48,11 @@ function Game:load()
             collisionClass = 'player'
         }
     )
-
-    --[[
-    for i = 0, 5 do
-        local entity = self.state.level:registerEntity(
-            Character {
-                spriteSheet = self.spriteSheet,
-                spriteName = 'zoimbie1_hold.png',
-                x = 300 + i * 50,
-                y = self.height * 0.75,
-                h_align = 'center',
-                collider =self.state.level.world:newCircleCollider(0, 0, 12)
-            }
-        )
-        entity.collider:setMass(10)
-        entity.collider:setLinearDamping(10)
-        entity.collider:setAngularDamping(10)
-        entity.collider:setCollisionClass('enemy')
-    end
-
-    self.state.box = self.state.level.world:newRectangleCollider(100, 100, 100, 100)
-    self.state.box:setRestitution(0.8)
-    self.state.box:setLinearDamping(20)
-    self.state.box:setAngularDamping(10)
-    self.state.box:setCollisionClass('enemy')
-    --self.state.box:setFixedRotation(true)
-    self.state.box:setType('static')
-
-    self.state.box2 = self.state.level.world:newRectangleCollider(300, 100, 100, 100)
-    self.state.box2:setRestitution(0.8)
-    self.state.box2:setLinearDamping(10)
-    self.state.box2:setAngularDamping(10)
-    self.state.box2:setMass(20)
-    self.state.box2:setCollisionClass('enemy')
-    --]]
-end
-
--- ステート開始
-function Game:enteredState(...)
-    -- 親
-    Scene.enteredState(self, ...)
 end
 
 -- ステート終了
 function Game:exitedState(...)
+    self.state.level:destroy()
 end
 
 -- 更新
