@@ -101,6 +101,37 @@ function Character:getCurrentSpriteName()
     return self.sprite .. '_' .. self:getPoseName() .. '.png'
 end
 
+-- 見る
+local Look = Character:addState 'look'
+
+-- 見る: ステート開始
+function Look:enteredState(targetOrTargetX, targetY)
+    self._look = {}
+
+    -- 目的地
+    self._look.x, self._look.y = 0, 0
+    if type(targetOrTargetX) == 'table' then
+        self._look.x, self._look.y = targetOrTargetX.x, targetOrTargetX.y
+        self._look.target = targetOrTargetX
+    else
+        self._look.x, self._look.y = targetOrTargetX, targetY
+    end
+end
+
+-- 見る: 更新
+function Look:update(dt)
+    -- 目的地更新
+    if self._look.target then
+        self._look.x, self._look.y = self._look.target.x, self._look.target.y
+    end
+
+    -- 目的地を向く
+    self:setRotationTo(self._look.x, self._look.y)
+
+    -- 親更新
+    Character.update(self, dt)
+end
+
 -- 移動
 local Goto = Character:addState 'goto'
 
@@ -119,10 +150,6 @@ function Goto:enteredState(speed, targetOrTargetX, targetY)
     else
         self._goto.x, self._goto.y = targetOrTargetX, targetY
     end
-end
-
--- 移動: ステート終了
-function Goto:exitedState(...)
 end
 
 -- 移動: 更新

@@ -86,6 +86,11 @@ function Level:setupCharacters(spriteSheet)
 
     local rotateToPlayer = {}
     local followPlayer = {}
+    local lookAtPlayer = {}
+    local lazySettingStates = {
+        followPlayer = {},
+        lookAtPlayer = {}
+    }
 
     for _, object in ipairs(layer.objects) do
         local defaultSprite = (object.type == 'player') and spriteVariation.hitman or spriteVariation.zombie
@@ -129,8 +134,10 @@ function Level:setupCharacters(spriteSheet)
             table.insert(rotateToPlayer, entity)
         end
 
-        if object.properties.state == 'followPlayer' then
-            table.insert(followPlayer, entity)
+        for name, list in pairs(lazySettingStates) do
+            if object.properties.state == name then
+                table.insert(list, entity)
+            end
         end
     end
 
@@ -139,8 +146,11 @@ function Level:setupCharacters(spriteSheet)
         for _, entity in ipairs(rotateToPlayer) do
             entity:setRotationTo(player:getPosition())
         end
-        for _, entity in ipairs(followPlayer) do
+        for _, entity in ipairs(lazySettingStates.followPlayer) do
             entity:gotoState('goto', entity.speed, player)
+        end
+        for _, entity in ipairs(lazySettingStates.lookAtPlayer) do
+            entity:gotoState('look', player)
         end
     end
 end
