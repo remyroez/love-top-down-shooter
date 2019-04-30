@@ -25,20 +25,21 @@ function Game:load()
 
     self.state.level = Level('assets/levels/prototype.lua')
     self.state.level:resizeMapCanvas(self.width, self.height, self.state.camera.scale)
+    self.state.level:setupCharacters(self.spriteSheet)
 
-    self.state.character = self.state.level:registerEntity(
+    self.state.character = self.state.level:getPlayer() or self.state.level:registerEntity(
         Character {
             spriteSheet = self.spriteSheet,
             spriteName = 'hitman1_gun.png',
             x = self.width * 0.5,
             y = self.height * 0.5,
             h_align = 'center',
-            collider = self.state.level.world:newCircleCollider(0, 0, 12)
+            collider = self.state.level.world:newCircleCollider(0, 0, 12),
+            collisionClass = 'player'
         }
     )
-    self.state.character.collider:setCollisionClass('player')
 
-    self.state.entities = {}
+    --[[
     for i = 0, 5 do
         local entity = self.state.level:registerEntity(
             Character {
@@ -70,6 +71,7 @@ function Game:load()
     self.state.box2:setAngularDamping(10)
     self.state.box2:setMass(20)
     self.state.box2:setCollisionClass('enemy')
+    --]]
 end
 
 -- ステート開始
