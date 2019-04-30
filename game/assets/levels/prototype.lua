@@ -1767,6 +1767,7 @@ return {
           properties = {
             ["rotate"] = "random",
             ["sprite"] = "hitman",
+            ["state"] = "followPlayer",
             ["weapon"] = "silencer"
           }
         },
@@ -1783,7 +1784,8 @@ return {
           visible = true,
           properties = {
             ["rotate"] = "random",
-            ["scale"] = 2
+            ["scale"] = 2,
+            ["state"] = "followPlayer"
           }
         },
         {
@@ -1798,7 +1800,8 @@ return {
           rotation = 90,
           visible = true,
           properties = {
-            ["rotate"] = "random"
+            ["rotate"] = "random",
+            ["state"] = "followPlayer"
           }
         },
         {
@@ -1814,7 +1817,8 @@ return {
           visible = true,
           properties = {
             ["rotate"] = "random",
-            ["scale"] = 3
+            ["scale"] = 3,
+            ["state"] = "followPlayer"
           }
         },
         {
@@ -1830,7 +1834,8 @@ return {
           visible = true,
           properties = {
             ["rotate"] = "random",
-            ["scale"] = 0.5
+            ["scale"] = 0.5,
+            ["state"] = "followPlayer"
           }
         },
         {
@@ -1846,7 +1851,8 @@ return {
           visible = true,
           properties = {
             ["rotate"] = "random",
-            ["sprite"] = "man"
+            ["sprite"] = "man",
+            ["state"] = "followPlayer"
           }
         },
         {
@@ -1862,7 +1868,8 @@ return {
           visible = true,
           properties = {
             ["rotate"] = "random",
-            ["sprite"] = "woman"
+            ["sprite"] = "woman",
+            ["state"] = "followPlayer"
           }
         },
         {
@@ -1878,7 +1885,8 @@ return {
           visible = true,
           properties = {
             ["rotate"] = "random",
-            ["sprite"] = "man"
+            ["sprite"] = "man",
+            ["state"] = "followPlayer"
           }
         },
         {
@@ -1894,7 +1902,8 @@ return {
           visible = true,
           properties = {
             ["rotate"] = "random",
-            ["sprite"] = "man"
+            ["sprite"] = "man",
+            ["state"] = "followPlayer"
           }
         },
         {
@@ -1910,7 +1919,8 @@ return {
           visible = true,
           properties = {
             ["rotate"] = "random",
-            ["sprite"] = "woman_old"
+            ["sprite"] = "woman_old",
+            ["state"] = "followPlayer"
           }
         },
         {
@@ -1926,7 +1936,8 @@ return {
           visible = true,
           properties = {
             ["rotate"] = "random",
-            ["sprite"] = "man_old"
+            ["sprite"] = "man_old",
+            ["state"] = "followPlayer"
           }
         },
         {
@@ -1943,6 +1954,7 @@ return {
           properties = {
             ["rotate"] = "player",
             ["sprite"] = "robot",
+            ["state"] = "followPlayer",
             ["weapon"] = "gun"
           }
         },
@@ -1960,6 +1972,7 @@ return {
           properties = {
             ["rotate"] = "player",
             ["sprite"] = "robot",
+            ["state"] = "followPlayer",
             ["weapon"] = "gun"
           }
         },
@@ -1977,6 +1990,7 @@ return {
           properties = {
             ["rotate"] = "player",
             ["sprite"] = "robot",
+            ["state"] = "followPlayer",
             ["weapon"] = "gun"
           }
         },
@@ -1994,6 +2008,7 @@ return {
           properties = {
             ["rotate"] = "player",
             ["sprite"] = "soldier",
+            ["state"] = "followPlayer",
             ["weapon"] = "machine"
           }
         },
@@ -2011,6 +2026,7 @@ return {
           properties = {
             ["rotate"] = "player",
             ["sprite"] = "soldier",
+            ["state"] = "followPlayer",
             ["weapon"] = "machine"
           }
         },
@@ -2028,6 +2044,7 @@ return {
           properties = {
             ["rotate"] = "player",
             ["sprite"] = "soldier",
+            ["state"] = "followPlayer",
             ["weapon"] = "machine"
           }
         },
@@ -2044,7 +2061,8 @@ return {
           visible = true,
           properties = {
             ["rotate"] = "random",
-            ["sprite"] = "survivor"
+            ["sprite"] = "survivor",
+            ["state"] = "followPlayer"
           }
         },
         {
@@ -2060,7 +2078,8 @@ return {
           visible = true,
           properties = {
             ["rotate"] = "random",
-            ["sprite"] = "survivor"
+            ["sprite"] = "survivor",
+            ["state"] = "followPlayer"
           }
         }
       }
