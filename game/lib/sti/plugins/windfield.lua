@@ -221,22 +221,15 @@ return {
 				-- Recalculate collision polygons inside tiles
 				if tile then
 					-- local coords
-					local baseX = 0
-					local baseY = 0
-					local baseR = 0
 					local o_x = o.x
 					local o_y = o.y
 					local o_r = o.r
 					local ofs = 0
 					if o.sub and not o.t and tile then
-						baseX, baseY, baseR = object.x, object.y, object.rotation
+						local baseX, baseY, baseR = object.x, object.y, object.rotation
 						o_x, o_y, o_r = tile.x, tile.y, tile.rotation
 						oy = tile.height
 						ofs = -tile.height
-						print(baseX, baseY, baseR, o_x, o_y, o_r)
-					end
-					-- local rotate
-					if baseR ~= 0 then
 						local bcos = math.cos(math.rad(baseR))
 						local bsin = math.sin(math.rad(baseR))
 						for _, vertex in ipairs(polygon) do
