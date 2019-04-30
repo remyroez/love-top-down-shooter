@@ -85,17 +85,19 @@ function Level:setupCharacters(spriteSheet)
     layer.visible = false
 
     local rotateToPlayer = {}
-    local followPlayer = {}
-    local lookAtPlayer = {}
     local lazySettingStates = {
         followPlayer = {},
         lookAtPlayer = {}
     }
 
     for _, object in ipairs(layer.objects) do
+        -- デフォルトスプライト名
         local defaultSprite = (object.type == 'player') and spriteVariation.hitman or spriteVariation.zombie
+
+        -- スプライト名
         local sprite = spriteVariation[object.properties.sprite] or defaultSprite
 
+        -- 回転
         local rotation = object.rotation or 0
         if object.properties.rotate == 'random' then
             rotation = love.math.random(360)
@@ -103,10 +105,12 @@ function Level:setupCharacters(spriteSheet)
             rotation = love.math.random(360)
         end
 
+        -- ステート
         local state
         if object.properties.state == 'followPlayer' then
         end
 
+        -- キャラクターエンティティの登録
         local entity = self:registerEntity(
             Character {
                 type = object.type,
@@ -124,16 +128,19 @@ function Level:setupCharacters(spriteSheet)
             }
         )
 
+        -- キャラクターテーブルに登録
         if self.characters[object.type] then
             table.insert(self.characters[object.type], entity)
         else
             print('invalid object type [' .. object.type .. ']')
         end
 
+        -- プレイヤーに向かせるため保持
         if object.properties.rotate == 'player' then
             table.insert(rotateToPlayer, entity)
         end
 
+        -- ステートを後から設定するため保持
         for name, list in pairs(lazySettingStates) do
             if object.properties.state == name then
                 table.insert(list, entity)
@@ -141,6 +148,7 @@ function Level:setupCharacters(spriteSheet)
         end
     end
 
+    -- プレイヤー関連の設定
     local player = self:getPlayer()
     if player then
         for _, entity in ipairs(rotateToPlayer) do
