@@ -120,7 +120,7 @@ function Game:mousepressed(x, y, button, istouch, presses)
     if button == 1 then
         local cx, cy = self:getPlayerPosition()
         local mx, my = (x - cx) * 10000 + cx, (y - cy) * 10000 + cy
-        local colliders = self.state.level.world:queryLine(cx, cy, mx, my, { 'All', except = { 'Player' } })
+        local colliders = self.state.level.world:queryLine(cx, cy, mx, my, { 'All', except = { 'player', 'friend' } })
         for _, collider in ipairs(colliders) do
             --print(tostring(collider))
             --collider:applyLinearImpulse(lume.vector(lume.angle(cx, cy, collider:getPosition()), 3000))
