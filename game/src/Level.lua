@@ -134,6 +134,7 @@ function Level:setupCharacters(spriteSheet)
                 collisionClass = object.type,
                 behavior = behavior,
                 world = self.world,
+                onDead = function (character) self:deregisterEntity(character) end
             }
         )
 

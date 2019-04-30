@@ -146,8 +146,9 @@ function Game:controlPlayer()
         local colliders = self.state.level.world:queryLine(cx, cy, fx, fy, { 'All', except = { 'player', 'friend' } })
         for _, collider in ipairs(colliders) do
             local entity = collider:getObject()
-            if entity then
-                self.state.level:deregisterEntity(entity)
+            if entity and entity.alive then
+                entity:gotoState 'dying'
+                --self.state.level:deregisterEntity(entity)
             end
         end
     end

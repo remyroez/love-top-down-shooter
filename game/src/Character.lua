@@ -1,6 +1,7 @@
 
 local lume = require 'lume'
 local class = require 'middleclass'
+local Timer = require 'Timer'
 
 -- キャラクター
 local Character = class('Character', require 'Entity')
@@ -15,9 +16,15 @@ Character:include(require 'Weapon')
 function Character:initialize(args)
     args = args or {}
 
+    self.timer = Timer()
+
+    self.alive = true
+    self.onDead = args.onDead or function (character) end
+
     self.type = args.type or 'object'
     self.speed = args.speed or 100
     self.world = args.world
+    self.color = args.color or { lume.color('#ffffff') }
 
     -- スプライト
     if type(args.sprite) == 'table' then
@@ -66,24 +73,30 @@ end
 
 -- 更新
 function Character:update(dt)
-    -- ビヘイビア
-    if self.behavior then
-        self.behavior:update(dt)
-    end
+    -- タイマー
+    self.timer:update(dt)
 
-    -- コライダの座標を適用する
-    self:applyPositionFromCollider()
+    if self.alive then
+        -- ビヘイビア
+        if self.behavior then
+            self.behavior:update(dt)
+        end
+
+        -- コライダの座標を適用する
+        self:applyPositionFromCollider()
+    end
 end
 
 -- 描画
 function Character:draw()
     -- スプライトの描画
+    love.graphics.setColor(self.color)
     self:pushTransform(self:left(), self:top())
     self:drawSprite(self.spriteName, self:getSpriteOffset())
     self:popTransform()
 
     -- ビヘイビア
-    if self.behavior then
+    if self.behavior and self.alive then
         self.behavior:draw()
     end
 end
@@ -120,6 +133,44 @@ end
 
 -- 立つ
 local Stand = Character:addState 'stand'
+
+-- 死んだ
+local Dead = Character:addState 'dead'
+
+-- 死んだ: ステート開始
+function Dead:enteredState(...)
+    self.alive = false
+    if behavior then
+        behavior:destroy()
+    end
+    self.onDead(self)
+end
+
+-- 死ぬ
+local Dying = Character:addState 'dying'
+
+-- 死ぬ: ステート開始
+function Dying:enteredState(...)
+    self.alive = false
+    self:destroyCollider()
+
+    -- フェードアウトしつつ１秒後に死亡
+    self._dying = {}
+    self._dying.tag = self.timer:tween(
+        0.5,
+        self.color,
+        { [4] = 0 },
+        'in-out-cubic',
+        function ()
+            self:gotoState 'dead'
+        end
+    )
+end
+
+-- 死ぬ: ステート終了
+function Dying:exitedState(...)
+    self.timer:cancel(self._dying.tag)
+end
 
 -- 見る
 local Look = Character:addState 'look'
