@@ -11,18 +11,31 @@ local Scene = require 'Scene'
 local Character = require 'Character'
 local Level = require 'Level'
 local Camera = require 'Camera'
+local Input = require 'Input'
 
 -- ゲーム
 local Game = Scene:newState 'game'
 
 -- 読み込み
 function Game:load()
+    self.state.input = Input()
 end
 
 -- ステート開始
 function Game:enteredState(...)
     -- 親
     Scene.enteredState(self, ...)
+
+    -- 入力
+    self.state.input:bind('w', 'up')
+    self.state.input:bind('up', 'up')
+    self.state.input:bind('s', 'down')
+    self.state.input:bind('down', 'down')
+    self.state.input:bind('a', 'left')
+    self.state.input:bind('left', 'left')
+    self.state.input:bind('d', 'right')
+    self.state.input:bind('right', 'right')
+    self.state.input:bind('mouse1', 'fire')
 
     -- カメラ
     self.state.camera = Camera()
@@ -52,26 +65,14 @@ end
 
 -- ステート終了
 function Game:exitedState(...)
+    self.state.input:unbindAll()
     self.state.level:destroy()
 end
 
 -- 更新
 function Game:update(dt)
     -- プレイヤー操作
-    local speed = 300
-    local x, y = 0, 0
-    if lk.isDown('w') or lk.isDown('up') then
-        y = -1
-    elseif lk.isDown('s') or lk.isDown('down') then
-        y = 1
-    end
-    if lk.isDown('a') or lk.isDown('left') then
-        x = -1
-    elseif lk.isDown('d') or lk.isDown('right') then
-        x = 1
-    end
-    self.state.character:setColliderVelocity(x, y, speed)
-    self.state.character:setRotationTo(self:getMousePosition())
+    self:controlPlayer()
 
     -- レベル更新
     self.state.level:update(dt)
@@ -112,16 +113,33 @@ function Game:keypressed(key, scancode, isrepeat)
     end
 end
 
--- マウス入力
-function Game:mousepressed(x, y, button, istouch, presses)
-    x, y = self.state.camera:toWorldCoords(x, y)
-    if button == 1 then
+-- プレイヤー操作
+function Game:controlPlayer()
+    local input = self.state.input
+
+    -- 移動
+    local speed = 300
+    local x, y = 0, 0
+    if input:down('up') then
+        y = -1
+    elseif input:down('down') then
+        y = 1
+    end
+    if input:down('left') then
+        x = -1
+    elseif input:down('right') then
+        x = 1
+    end
+    self.state.character:setColliderVelocity(x, y, speed)
+    self.state.character:setRotationTo(self:getMousePosition())
+
+    -- 射撃
+    if input:pressed('fire') then
         local cx, cy = self:getPlayerPosition()
-        local mx, my = (x - cx) * 10000 + cx, (y - cy) * 10000 + cy
-        local colliders = self.state.level.world:queryLine(cx, cy, mx, my, { 'All', except = { 'player', 'friend' } })
+        local mx, my = self:getMousePosition()
+        local fx, fy = (mx - cx) * 1000 + cx, (my - cy) * 1000 + cy
+        local colliders = self.state.level.world:queryLine(cx, cy, fx, fy, { 'All', except = { 'player', 'friend' } })
         for _, collider in ipairs(colliders) do
-            --print(tostring(collider))
-            --collider:applyLinearImpulse(lume.vector(lume.angle(cx, cy, collider:getPosition()), 3000))
             local entity = collider:getObject()
             if entity then
                 self.state.level:deregisterEntity(entity)
