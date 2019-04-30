@@ -1783,9 +1783,9 @@ return {
           rotation = 90,
           visible = true,
           properties = {
+            ["behavior"] = "zombie",
             ["rotate"] = "random",
-            ["scale"] = 2,
-            ["state"] = "lookAtPlayer"
+            ["scale"] = 2
           }
         },
         {
@@ -1800,8 +1800,8 @@ return {
           rotation = 90,
           visible = true,
           properties = {
-            ["rotate"] = "random",
-            ["state"] = "lookAtPlayer"
+            ["behavior"] = "zombie",
+            ["rotate"] = "random"
           }
         },
         {
@@ -1816,9 +1816,9 @@ return {
           rotation = 90,
           visible = true,
           properties = {
+            ["behavior"] = "zombie",
             ["rotate"] = "random",
-            ["scale"] = 3,
-            ["state"] = "lookAtPlayer"
+            ["scale"] = 3
           }
         },
         {
@@ -1833,9 +1833,9 @@ return {
           rotation = 90,
           visible = true,
           properties = {
+            ["behavior"] = "zombie",
             ["rotate"] = "random",
-            ["scale"] = 0.5,
-            ["state"] = "lookAtPlayer"
+            ["scale"] = 0.5
           }
         },
         {

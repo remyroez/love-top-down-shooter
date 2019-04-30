@@ -127,29 +127,29 @@
   </object>
   <object id="25" name="zombie" type="enemy" x="366.667" y="125.333" rotation="90">
    <properties>
+    <property name="behavior" value="zombie"/>
     <property name="rotate" value="random"/>
     <property name="scale" type="float" value="2"/>
-    <property name="state" value="lookAtPlayer"/>
    </properties>
   </object>
   <object id="26" name="zombie" type="enemy" x="342.667" y="189.333" rotation="90">
    <properties>
+    <property name="behavior" value="zombie"/>
     <property name="rotate" value="random"/>
-    <property name="state" value="lookAtPlayer"/>
    </properties>
   </object>
   <object id="27" name="zombie" type="enemy" x="534.667" y="165.333" rotation="90">
    <properties>
+    <property name="behavior" value="zombie"/>
     <property name="rotate" value="random"/>
     <property name="scale" type="float" value="3"/>
-    <property name="state" value="lookAtPlayer"/>
    </properties>
   </object>
   <object id="28" name="zombie" type="enemy" x="449.667" y="248.333" rotation="90">
    <properties>
+    <property name="behavior" value="zombie"/>
     <property name="rotate" value="random"/>
     <property name="scale" type="float" value="0.5"/>
-    <property name="state" value="lookAtPlayer"/>
    </properties>
   </object>
   <object id="29" name="man" type="friend" x="410" y="436" rotation="90">
