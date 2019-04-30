@@ -22,10 +22,17 @@ function Character:initialize(args)
     self:initializeRectangle(args.x, args.y, w, h, args.h_align, args.v_align)
 
     -- Transform 初期化
-    self:initializeTransform(self.x, self.y)
+    self:initializeTransform(self.x, self.y, args.rotation, args.scale)
 
     -- Collider 初期化
     self:initializeCollider(args.collider)
+
+    self.collider:setMass(args.mass or 10)
+    self.collider:setLinearDamping(args.linearDamping or 10)
+    self.collider:setAngularDamping(args.angularDamping or 10)
+    if args.collisionClass then
+        self.collider:setCollisionClass(args.collisionClass)
+    end
 end
 
 -- 破棄
