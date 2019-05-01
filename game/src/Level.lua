@@ -49,7 +49,7 @@ local weaponData = {
         name = 'machine',
         damage = 1,
         power = 3000,
-        ammo = 8,
+        ammo = 30,
         sound = 10,
         delay = 0.1,
     },

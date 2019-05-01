@@ -129,9 +129,19 @@ function Game:draw()
         lg.printf(self.state.character.life, 32, self.height - 16, self.width, 'left')
     end
 
+    -- 残弾数
+    love.graphics.setColor(1, 1, 1)
+    lg.printf(
+        'AMMO: ' .. self.state.character:getWeaponAmmo() .. '/' .. self.state.character:getWeaponMaxAmmo(),
+        0,
+        self.height - 16,
+        self.width,
+        'right'
+    )
+
     -- 座標（デバッグ）
     love.graphics.setColor(1, 1, 1)
-    lg.printf('x: ' .. math.ceil(cx) .. ', y: ' .. math.ceil(cy), 0, self.height - 16, self.width, 'right')
+    lg.printf('x: ' .. math.ceil(cx) .. ', y: ' .. math.ceil(cy), 0, 0, self.width, 'right')
 
     -- ウェーブ
     love.graphics.setColor(1, 1, 1)
@@ -175,19 +185,27 @@ function Game:controlPlayer()
 
     -- 射撃
     if input:down('fire', self.state.character:getWeaponDelay()) then
-        self.state.camera:shake(8, 0.1, 60)
+        if self.state.character:hasWeaponAmmo() then
+            -- 射撃実行
+            self.state.character:fireWeapon()
 
-        local cx, cy = self:getPlayerPosition()
-        local mx, my = self:getMousePosition()
-        local fx, fy = (mx - cx) * 1000 + cx, (my - cy) * 1000 + cy
-        local colliders = self.state.level.world:queryLine(cx, cy, fx, fy, { 'All', except = { 'player', 'friend' } })
-        for _, collider in ipairs(colliders) do
-            local entity = collider:getObject()
-            if entity and entity.alive then
-                entity:damage(self.state.character:getWeaponDamage(), self.state.character.rotation, self.state.character:getWeaponPower())
-                --entity:gotoState 'dying'
-                --self.state.level:deregisterEntity(entity)
+            -- 画面のシェイク
+            self.state.camera:shake(8, 0.1, 60)
+
+            -- 斜線の敵を探す
+            local cx, cy = self:getPlayerPosition()
+            local mx, my = self:getMousePosition()
+            local fx, fy = (mx - cx) * 1000 + cx, (my - cy) * 1000 + cy
+            local colliders = self.state.level.world:queryLine(cx, cy, fx, fy, { 'All', except = { 'player', 'friend' } })
+            for _, collider in ipairs(colliders) do
+                local entity = collider:getObject()
+                if entity and entity.alive then
+                    entity:damage(self.state.character:getWeaponDamage(), self.state.character.rotation, self.state.character:getWeaponPower())
+                end
             end
+        elseif self.state.character:canReloadWeapon() then
+            -- リロード
+            self.state.character:reloadWeapon()
         end
     end
 end
