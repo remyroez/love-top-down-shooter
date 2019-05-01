@@ -129,7 +129,7 @@ function Attack:enteredState(target)
     self._attack.wait = false
 
     -- キャラクターは追跡状態に
-    self:setCharacterState('goto', self._attack.target.speed * 1.5, self._attack.target)
+    self:setCharacterState('goto', self.character.speed * 1.5, self._attack.target)
 
     -- 視界内の相手を探す
     self.timer:every(
