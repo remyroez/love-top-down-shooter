@@ -25,6 +25,7 @@ function Character:initialize(args)
     self.speed = args.speed or 100
     self.world = args.world
     self.color = args.color or { lume.color('#ffffff') }
+    self.life = args.life or 10
 
     -- スプライト
     if type(args.sprite) == 'table' then
@@ -81,10 +82,10 @@ function Character:update(dt)
         if self.behavior then
             self.behavior:update(dt)
         end
-
-        -- コライダの座標を適用する
-        self:applyPositionFromCollider()
     end
+
+    -- コライダの座標を適用する
+    self:applyPositionFromCollider()
 end
 
 -- 描画
@@ -131,6 +132,28 @@ function Character:getCurrentSpriteName()
     return self.sprite .. '_' .. self:getPoseName() .. '.png'
 end
 
+-- ダメージを与える
+function Character:damage(damage, rotation, power)
+    damage = damage or 0
+    power = power or 100
+    rotation = rotation or (self.rotation + math.pi)
+
+    -- ダメージ
+    self.life = self.life - damage
+
+    -- 衝撃
+    if power > 0 then
+        self.collider:applyLinearImpulse(lume.vector(rotation, power))
+    end
+
+    -- ０以下になったら死ぬ
+    if self.life <= 0 then
+        self:gotoState 'dying'
+    else
+        self:pushState('wait', power / 10000)
+    end
+end
+
 -- 立つ
 local Stand = Character:addState 'stand'
 
@@ -140,6 +163,7 @@ local Dead = Character:addState 'dead'
 -- 死んだ: ステート開始
 function Dead:enteredState(...)
     self.alive = false
+    self:destroyCollider()
     if behavior then
         behavior:destroy()
     end
@@ -152,7 +176,6 @@ local Dying = Character:addState 'dying'
 -- 死ぬ: ステート開始
 function Dying:enteredState(...)
     self.alive = false
-    self:destroyCollider()
 
     -- フェードアウトしつつ１秒後に死亡
     self._dying = {}
@@ -170,6 +193,32 @@ end
 -- 死ぬ: ステート終了
 function Dying:exitedState(...)
     self.timer:cancel(self._dying.tag)
+end
+
+-- 待機
+local Wait = Character:addState 'wait'
+
+-- 待機: ステート開始
+function Wait:enteredState(delay)
+    self._wait = {}
+    self._wait.tag = self.timer:after(
+        delay or 1,
+        function () self:popState() end
+    )
+end
+
+-- 待機: ステート終了
+function Wait:exitedState(...)
+    self.timer:cancel(self._wait.tag)
+end
+
+-- 待機: 更新
+function Wait:update(dt)
+    -- タイマー
+    self.timer:update(dt)
+
+    -- コライダの座標を適用する
+    self:applyPositionFromCollider()
 end
 
 -- 見る

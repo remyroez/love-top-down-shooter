@@ -39,19 +39,22 @@ local spriteVariation = {
 local weaponData = {
     gun = {
         name = 'gun',
-        damage = 10,
+        damage = 4,
+        power = 5000,
         ammo = 8,
         sound = 20,
     },
     machine = {
         name = 'machine',
         damage = 1,
+        power = 2500,
         ammo = 8,
         sound = 10,
     },
     silencer = {
         name = 'silencer',
-        damage = 10,
+        damage = 3,
+        power = 1000,
         ammo = 8,
         sound = 5,
     },
@@ -207,6 +210,7 @@ function Level:spawnCharacter(object, spriteSheet)
             collisionClass = object.type,
             behavior = behavior,
             world = self.world,
+            life = object.properties.life,
             onDead = function (character) self:deregisterEntity(character) end
         }
     )

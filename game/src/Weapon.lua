@@ -38,6 +38,11 @@ function Weapon:getWeaponDamage()
     return self._weapon.properties.damage or 0
 end
 
+-- 武器のパワー
+function Weapon:getWeaponPower()
+    return self._weapon.properties.power or 0
+end
+
 -- 武器の音
 function Weapon:getWeaponSound()
     return self._weapon.properties.sound or 0

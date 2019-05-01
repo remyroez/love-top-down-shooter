@@ -49,6 +49,11 @@ function Behavior:draw()
     love.graphics.print(_getCurrentStateName(self), self.character.x, self.character.y)
 end
 
+-- 現在のステート
+function Behavior:currentState()
+    return _getCurrentStateName(self)
+end
+
 -- ステート開始
 function Behavior:enteredState(...)
 end

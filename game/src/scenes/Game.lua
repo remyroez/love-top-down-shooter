@@ -148,7 +148,8 @@ function Game:controlPlayer()
         for _, collider in ipairs(colliders) do
             local entity = collider:getObject()
             if entity and entity.alive then
-                entity:gotoState 'dying'
+                entity:damage(self.state.character:getWeaponDamage(), self.state.character.rotation, self.state.character:getWeaponPower())
+                --entity:gotoState 'dying'
                 --self.state.level:deregisterEntity(entity)
             end
         end
