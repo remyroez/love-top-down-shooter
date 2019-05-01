@@ -120,6 +120,7 @@
   <object id="24" name="player" type="player" x="448.667" y="325.333">
    <properties>
     <property name="rotate" value="random"/>
+    <property name="speed" type="float" value="500"/>
     <property name="sprite" value="hitman"/>
     <property name="state" value="lookAtPlayer"/>
     <property name="weapon" value="machine"/>

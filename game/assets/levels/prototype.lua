@@ -1766,6 +1766,7 @@ return {
           visible = true,
           properties = {
             ["rotate"] = "random",
+            ["speed"] = 500,
             ["sprite"] = "hitman",
             ["state"] = "lookAtPlayer",
             ["weapon"] = "machine"
