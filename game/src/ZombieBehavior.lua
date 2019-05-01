@@ -126,6 +126,7 @@ local Attack = ZombieBehavior:newState 'attack'
 function Attack:enteredState(target)
     self._attack = {}
     self._attack.target = target
+    self._attack.targetX, self._attack.targetY = target:getPosition()
     self._attack.wait = false
 
     -- キャラクターは追跡状態に
@@ -140,9 +141,14 @@ function Attack:enteredState(target)
                 self.character:watchCharacter(self._attack.target, 64, 64, { 'player', 'friend' })
                 or self.character:watchCharacter(self._attack.target, 128, 96, { 'player', 'friend' })
 
+            -- ターゲット座標の更新
+            if isFound then
+                self._attack.targetX, self._attack.targetY = target:getPosition()
+            end
+
             -- 見つからなかったらサーチに戻る
             if not isFound then
-                self:gotoState('search')
+                self:gotoState('goto', self._attack.targetX, self._attack.targetY)
             elseif not self._attack.wait and self.character:watchCharacter(self._attack.target, 32, 32, { 'player', 'friend' }, false) then
                 -- 手元に居たら攻撃
                 self._attack.target:damage(
@@ -164,6 +170,53 @@ function Attack:draw()
         local x, y = self.character:forward(32)
         love.graphics.circle('line', x + self.character.x, y + self.character.y, 32)
     end
+    do
+        local x, y = self.character:forward(64)
+        love.graphics.circle('line', x + self.character.x, y + self.character.y, 64)
+    end
+    do
+        local x, y = self.character:forward(128)
+        love.graphics.circle('line', x + self.character.x, y + self.character.y, 96)
+    end
+end
+
+-- 移動
+local Goto = ZombieBehavior:newState 'goto'
+
+-- 移動: ステート開始
+function Goto:enteredState(x, y)
+    self._goto = {}
+    self._goto.x, self._goto.y = x or 0, y or 0
+
+    -- キャラクターは追跡状態に
+    self:setCharacterState('goto', self.character.speed, x, y)
+
+    -- 視界内の相手を探す
+    self.timer:every(
+        0.1,
+        function ()
+            -- キャラクターを探す
+            local target = self.character:findCharacter(64, 64, { 'player', 'friend' })
+            if target == nil then
+                target = self.character:findCharacter(128, 96, { 'player', 'friend' })
+            end
+
+            -- ターゲットを定めたら攻撃へ
+            if target then
+                self:gotoState('attack', target)
+            end
+
+            -- 到着したら検索へ
+            if lume.distance(self.character.x, self.character.y, self._goto.x, self._goto.y) < 10 then
+                self:gotoState('search')
+            end
+        end
+    )
+end
+
+-- 移動: 描画
+function Goto:draw()
+    ZombieBehavior.draw(self)
     do
         local x, y = self.character:forward(64)
         love.graphics.circle('line', x + self.character.x, y + self.character.y, 64)
