@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="16" height="16" tilewidth="64" tileheight="64" infinite="1" nextlayerid="6" nextobjectid="23">
+ <tileset firstgid="1" source="tilesheet.tsx"/>
+ <layer id="1" name="ground" width="16" height="16">
+  <data encoding="csv">
+   <chunk x="0" y="0" width="16" height="16">
+1,2,2,1,2,1,3,4,4,3,3,3,4,3,1,4,
+3,3,4,2,3,2,3,2,2,3,4,4,2,2,3,3,
+2,1,2,2,2,1,3,3,1,2,4,2,3,2,1,2,
+2,1,2,4,4,4,1,142,111,111,111,110,3,3,2,4,
+1,4,1,1,4,4,2,11,11,11,11,115,4,1,4,2,
+1,2,2,4,4,1,1,141,11,11,11,11,1,4,3,1,
+1,2,2,109,111,111,111,140,11,11,11,141,2,2,3,3,
+1,2,4,115,96,96,96,136,114,96,142,137,2,4,1,2,
+2,1,4,96,96,96,96,96,96,96,96,96,1,3,4,4,
+4,3,3,96,96,96,96,96,96,96,96,196,2,1,2,1,
+3,3,4,141,96,96,96,96,96,96,96,96,1,3,2,3,
+3,2,1,136,111,111,111,111,111,111,111,114,4,1,3,1,
+4,3,4,1,1,2,2,3,4,3,1,2,3,4,3,3,
+1,4,3,4,1,3,1,2,4,2,4,4,4,2,1,2,
+2,4,2,2,3,2,1,4,3,1,1,3,4,2,2,4,
+3,2,2,1,2,2,3,2,3,3,1,4,1,4,4,3
+</chunk>
+  </data>
+ </layer>
+ <layer id="2" name="interior" width="16" height="16">
+  <data encoding="csv">
+   <chunk x="0" y="0" width="16" height="16">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,433,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,441,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,433,0,0,0,0,0,0,0,434,0,0,0,0,
+0,0,0,433,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,434,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</chunk>
+  </data>
+ </layer>
+ <objectgroup id="3" name="object">
+  <object id="1" gid="450" x="669.072" y="457.242" width="64" height="64" rotation="-46.36"/>
+  <object id="2" gid="157" x="638" y="324" width="64" height="64"/>
+  <object id="3" gid="134" x="510" y="452" width="64" height="64"/>
+  <object id="4" gid="266" x="822" y="490" width="64" height="64"/>
+  <object id="5" gid="293" x="868" y="578" width="64" height="64"/>
+  <object id="6" gid="134" x="666" y="578" width="64" height="64"/>
+  <object id="7" gid="132" x="444" y="710" width="64" height="64"/>
+  <object id="8" gid="171" x="478" y="640" width="64" height="64"/>
+  <object id="9" gid="324" x="320" y="448" width="64" height="64" rotation="180"/>
+  <object id="10" gid="323" x="384" y="448" width="64" height="64" rotation="180"/>
+  <object id="11" gid="321" x="448" y="448" width="64" height="64" rotation="180"/>
+  <object id="12" gid="268" x="389.25" y="511.75" width="64" height="64"/>
+ </objectgroup>
+ <objectgroup id="4" name="character">
+  <object id="13" name="player" type="player" x="601.333" y="352">
+   <properties>
+    <property name="rotate" value="random"/>
+    <property name="speed" type="float" value="500"/>
+    <property name="sprite" value="hitman"/>
+    <property name="state" value="lookAtPlayer"/>
+    <property name="weapon" value="machine"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="5" name="spawner">
+  <object id="15" name="zombie" type="enemy" x="1150.67" y="354.667" rotation="90">
+   <properties>
+    <property name="behavior" value="zombie"/>
+    <property name="delay" type="float" value="1"/>
+    <property name="rotate" value="random"/>
+    <property name="wave" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="16" name="zombie" type="enemy" x="-112.667" y="580" rotation="90">
+   <properties>
+    <property name="behavior" value="zombie"/>
+    <property name="delay" type="float" value="1"/>
+    <property name="rotate" value="random"/>
+    <property name="wave" type="int" value="2"/>
+   </properties>
+  </object>
+  <object id="17" name="zombie" type="enemy" x="496" y="-92" rotation="90">
+   <properties>
+    <property name="behavior" value="zombie"/>
+    <property name="delay" type="float" value="1"/>
+    <property name="rotate" value="random"/>
+    <property name="wave" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="18" name="zombie" type="enemy" x="520" y="1156" rotation="90">
+   <properties>
+    <property name="behavior" value="zombie"/>
+    <property name="delay" type="float" value="1"/>
+    <property name="rotate" value="random"/>
+    <property name="wave" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="19" name="zombie" type="enemy" x="-96" y="-68" rotation="90">
+   <properties>
+    <property name="behavior" value="zombie"/>
+    <property name="delay" type="float" value="1"/>
+    <property name="rotate" value="random"/>
+    <property name="wave" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="20" name="zombie" type="enemy" x="1142" y="-48" rotation="90">
+   <properties>
+    <property name="behavior" value="zombie"/>
+    <property name="delay" type="float" value="1"/>
+    <property name="rotate" value="random"/>
+    <property name="wave" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="21" name="zombie" type="enemy" x="1214" y="1110" rotation="90">
+   <properties>
+    <property name="behavior" value="zombie"/>
+    <property name="delay" type="float" value="1"/>
+    <property name="rotate" value="random"/>
+    <property name="wave" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="22" name="zombie" type="enemy" x="-122" y="1128" rotation="90">
+   <properties>
+    <property name="behavior" value="zombie"/>
+    <property name="delay" type="float" value="1"/>
+    <property name="rotate" value="random"/>
+    <property name="wave" type="int" value="5"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
