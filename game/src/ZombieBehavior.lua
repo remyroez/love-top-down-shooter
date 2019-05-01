@@ -35,6 +35,36 @@ function Wait:enteredState(duration, nextState, ...)
             self:gotoState(nextState, unpack(args))
         end
     )
+
+    -- 視界内の相手を探す
+    self.timer:every(
+        0.1,
+        function ()
+            -- キャラクターを探す
+            local target = self.character:findCharacter(64, 64, { 'player', 'friend' })
+            if target == nil then
+                target = self.character:findCharacter(128, 96, { 'player', 'friend' })
+            end
+
+            -- ターゲットを定めたら攻撃へ
+            if target then
+                self:gotoState('attack', target)
+            end
+        end
+    )
+end
+
+-- 描画
+function Wait:draw()
+    ZombieBehavior.draw(self)
+    do
+        local x, y = self.character:forward(64)
+        love.graphics.circle('line', x + self.character.x, y + self.character.y, 64)
+    end
+    do
+        local x, y = self.character:forward(128)
+        love.graphics.circle('line', x + self.character.x, y + self.character.y, 96)
+    end
 end
 
 -- 検索
@@ -62,27 +92,10 @@ function Search:enteredState(rotate)
     self.timer:every(
         0.1,
         function ()
-            -- 手前の円の範囲にいるコライダーを探す
-            local x, y = self.character:forward(64)
-            local colliders = self.character.world:queryCircleArea(x + self.character.x, y + self.character.y, 64, { 'player', 'friend' })
-            local target = nil
-            for _, collider in pairs(colliders) do
-                -- 視線の邪魔が無ければターゲットにする
-                local isFound = true
-                local cx, cy = collider:getPosition()
-                local founds = self.character.world:queryLine(cx, cy, self.character.x, self.character.y, { 'All', except = { 'enemy' } })
-                for __, found in pairs(founds) do
-                    if found ~= collider then
-                        isFound = false
-                        break
-                    end
-                end
-
-                -- ターゲットを定めた
-                if isFound then
-                    target = collider:getObject()
-                    break
-                end
+            -- キャラクターを探す
+            local target = self.character:findCharacter(64, 64, { 'player', 'friend' })
+            if target == nil then
+                target = self.character:findCharacter(128, 96, { 'player', 'friend' })
             end
 
             -- ターゲットを定めたら攻撃へ
@@ -96,8 +109,14 @@ end
 -- 描画
 function Search:draw()
     ZombieBehavior.draw(self)
-    local x, y = self.character:forward(64)
-    love.graphics.circle('line', x + self.character.x, y + self.character.y, 64)
+    do
+        local x, y = self.character:forward(64)
+        love.graphics.circle('line', x + self.character.x, y + self.character.y, 64)
+    end
+    do
+        local x, y = self.character:forward(128)
+        love.graphics.circle('line', x + self.character.x, y + self.character.y, 96)
+    end
 end
 
 -- 攻撃
@@ -116,25 +135,9 @@ function Attack:enteredState(target)
         0.1,
         function ()
             -- 手前の円の範囲にいるコライダーを探す
-            local x, y = self.character:forward(64)
-            local colliders = self.character.world:queryCircleArea(x + self.character.x, y + self.character.y, 64, { 'player', 'friend' })
-            local isFound = false
-            for _, collider in pairs(colliders) do
-                if collider:getObject() == self._attack.target then
-                    -- ターゲットが居た
-                    isFound = true
-                    local cx, cy = collider:getPosition()
-                    local founds = self.character.world:queryLine(cx, cy, self.character.x, self.character.y, { 'All', except = { 'enemy' } })
-                    for __, found in pairs(founds) do
-                        -- 視界に別のコライダーが邪魔した
-                        if found ~= collider then
-                            isFound = false
-                            break
-                        end
-                    end
-                    break
-                end
-            end
+            local isFound =
+                self.character:watchCharacter(self._attack.target, 64, 64, { 'player', 'friend' })
+                or self.character:watchCharacter(self._attack.target, 128, 96, { 'player', 'friend' })
 
             -- 見つからなかったらサーチに戻る
             if not isFound then
@@ -147,8 +150,14 @@ end
 -- 描画
 function Attack:draw()
     ZombieBehavior.draw(self)
-    local x, y = self.character:forward(64)
-    love.graphics.circle('line', x + self.character.x, y + self.character.y, 64)
+    do
+        local x, y = self.character:forward(64)
+        love.graphics.circle('line', x + self.character.x, y + self.character.y, 64)
+    end
+    do
+        local x, y = self.character:forward(128)
+        love.graphics.circle('line', x + self.character.x, y + self.character.y, 96)
+    end
 end
 
 return ZombieBehavior

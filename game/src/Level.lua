@@ -58,6 +58,13 @@ local weaponData = {
         ammo = 8,
         sound = 5,
     },
+    hand = {
+        name = 'hold',
+        damage = 1,
+        power = 1000,
+        ammo = -1,
+        sound = 1,
+    },
 }
 
 -- 初期化
@@ -168,11 +175,15 @@ end
 
 -- キャラクターのスポーン
 function Level:spawnCharacter(object, spriteSheet)
-    -- デフォルトスプライト名
+    -- デフォルト
     local defaultSprite = (object.type == 'player') and spriteVariation.hitman or spriteVariation.zombie
+    local defaultWeapon = (object.type == 'player') and weaponData.gun or weaponData.hand
 
     -- スプライト名
     local sprite = spriteVariation[object.properties.sprite] or defaultSprite
+
+    -- 武器
+    local weapon = weaponData[object.properties.weapon] or defaultWeapon
 
     -- 回転
     local rotation = object.rotation or 0
@@ -187,7 +198,7 @@ function Level:spawnCharacter(object, spriteSheet)
     if object.properties.state == 'followPlayer' then
     end
 
-    -- ステート
+    -- ビヘイビア
     local behavior
     if object.properties.behavior == 'zombie' then
         behavior = ZombieBehavior
@@ -199,7 +210,7 @@ function Level:spawnCharacter(object, spriteSheet)
             type = object.type,
             spriteSheet = spriteSheet,
             sprite = sprite,
-            weapon = weaponData[object.properties.weapon],
+            weapon = weapon,
             x = object.x,
             y = object.y,
             rotation = math.rad(rotation),

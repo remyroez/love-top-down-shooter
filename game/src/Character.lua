@@ -158,6 +158,69 @@ function Character:damage(damage, rotation, power)
     end
 end
 
+-- キャラクターを探す
+function Character:findCharacter(range, circle, targetClass)
+    range = range or 64
+    circle = circle or 64
+    targetClass = targetClass or {}
+
+    local target = nil
+
+    local x, y = self:forward(range)
+    local colliders = self.world:queryCircleArea(x + self.x, y + self.y, circle, targetClass)
+    for _, collider in pairs(colliders) do
+        -- 視線の邪魔が無ければターゲットにする
+        local isFound = true
+        local cx, cy = collider:getPosition()
+
+        local founds = self.world:queryLine(cx, cy, self.x, self.y, { 'All', except = { self.type } })
+        for __, found in pairs(founds) do
+            if found ~= collider then
+                isFound = false
+                break
+            end
+        end
+
+        -- ターゲットを定めた
+        if isFound then
+            target = collider:getObject()
+            break
+        end
+    end
+
+    return target
+end
+
+-- キャラクターを監視する
+function Character:watchCharacter(target, range, circle, targetClass)
+    range = range or 64
+    circle = circle or 64
+    targetClass = targetClass or {}
+
+    local isFound = false
+
+    local x, y = self:forward(64)
+    local colliders = self.world:queryCircleArea(x + self.x, y + self.y, 64, targetClass)
+    for _, collider in pairs(colliders) do
+        if collider:getObject() == target then
+            -- ターゲットが居た
+            isFound = true
+            local cx, cy = collider:getPosition()
+            local founds = self.world:queryLine(cx, cy, self.x, self.y, { 'All', except = { self.type } })
+            for __, found in pairs(founds) do
+                -- 視界に別のコライダーが邪魔した
+                if found ~= collider then
+                    isFound = false
+                    break
+                end
+            end
+            break
+        end
+    end
+
+    return isFound
+end
+
 -- 立つ
 local Stand = Character:addState 'stand'
 
