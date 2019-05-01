@@ -28,6 +28,7 @@ function Character:initialize(args)
     self.world = args.world
     self.color = args.color or { lume.color('#ffffff') }
     self.life = args.life or 10
+    self.lifeMax = self.life
 
     -- スプライト
     if type(args.sprite) == 'table' then

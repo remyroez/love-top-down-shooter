@@ -114,7 +114,24 @@ function Game:draw()
     -- カメラ描画
     self.state.camera:draw()
 
-    lg.printf('x: ' .. math.ceil(cx) .. ', y: ' .. math.ceil(cy), 0, self.height - 16, self.width, 'left')
+    -- ライフ
+    do
+        love.graphics.setColor(1, 1, 1)
+        lg.printf('LIFE: ', 0, self.height - 16, self.width, 'left')
+        local color = { lume.color('#ffffff') }
+        local rate = self.state.character.life / self.state.character.lifeMax
+        if rate <= 0.3 then
+            color = { lume.color('rgb(255, 0, 0)') }
+        elseif rate <= 0.5 then
+            color = { lume.color('rgb(255, 255, 0)') }
+        end
+        love.graphics.setColor(color)
+        lg.printf(self.state.character.life, 32, self.height - 16, self.width, 'left')
+    end
+
+    -- 座標（デバッグ）
+    love.graphics.setColor(1, 1, 1)
+    lg.printf('x: ' .. math.ceil(cx) .. ', y: ' .. math.ceil(cy), 0, self.height - 16, self.width, 'right')
 end
 
 -- キー入力
@@ -150,6 +167,8 @@ function Game:controlPlayer()
 
     -- 射撃
     if input:pressed('fire') then
+        self.state.camera:shake(8, 0.1, 60)
+
         local cx, cy = self:getPlayerPosition()
         local mx, my = self:getMousePosition()
         local fx, fy = (mx - cx) * 1000 + cx, (my - cy) * 1000 + cy
