@@ -1768,7 +1768,7 @@ return {
             ["rotate"] = "random",
             ["sprite"] = "hitman",
             ["state"] = "lookAtPlayer",
-            ["weapon"] = "gun"
+            ["weapon"] = "machine"
           }
         },
         {

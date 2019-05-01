@@ -122,7 +122,7 @@
     <property name="rotate" value="random"/>
     <property name="sprite" value="hitman"/>
     <property name="state" value="lookAtPlayer"/>
-    <property name="weapon" value="gun"/>
+    <property name="weapon" value="machine"/>
    </properties>
   </object>
   <object id="25" name="zombie" type="enemy" x="366.667" y="125.333" rotation="90">
