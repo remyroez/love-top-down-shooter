@@ -18,6 +18,7 @@ function Character:initialize(args)
 
     self.timer = Timer()
 
+    self.active = true
     self.alive = true
     self.onDead = args.onDead or function (character) end
     self.onDamage = args.onDamage or function (character) end
@@ -101,6 +102,11 @@ function Character:draw()
     if self.behavior and self.alive then
         self.behavior:draw()
     end
+end
+
+-- 動作可能かどうか
+function Character:isActive()
+    return self.active and self.alive
 end
 
 -- スプライトのリセット
@@ -271,6 +277,8 @@ local Wait = Character:addState 'wait'
 
 -- 待機: ステート開始
 function Wait:enteredState(delay)
+    self.active = false
+
     self._wait = {}
     self._wait.tag = self.timer:after(
         delay or 1,
@@ -284,6 +292,7 @@ end
 
 -- 待機: ステート終了
 function Wait:exitedState(...)
+    self.active = true
     self.timer:cancel(self._wait.tag)
 end
 

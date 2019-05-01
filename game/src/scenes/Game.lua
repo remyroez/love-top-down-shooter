@@ -125,6 +125,11 @@ end
 
 -- プレイヤー操作
 function Game:controlPlayer()
+    -- プレイヤーがノンアクティブなら操作しない
+    if not self.state.character:isActive() then
+        return
+    end
+
     local input = self.state.input
 
     -- 移動
