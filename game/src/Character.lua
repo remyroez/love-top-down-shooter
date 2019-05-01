@@ -203,29 +203,48 @@ function Character:findCharacter(range, circle, targetClass)
 end
 
 -- キャラクターを監視する
-function Character:watchCharacter(target, range, circle, targetClass)
+function Character:watchCharacter(target, range, circle, targetClass, sight)
     range = range or 64
     circle = circle or 64
     targetClass = targetClass or {}
+    sight = sight == nil and true or sight
 
     local isFound = false
 
-    local x, y = self:forward(range)
-    local colliders = self.world:queryCircleArea(x + self.x, y + self.y, circle, targetClass)
-    for _, collider in pairs(colliders) do
-        if collider:getObject() == target then
-            -- ターゲットが居た
-            isFound = true
-            local cx, cy = collider:getPosition()
-            local founds = self.world:queryLine(cx, cy, self.x, self.y, { 'All', except = { self.type } })
-            for __, found in pairs(founds) do
-                -- 視界に別のコライダーが邪魔した
-                if found ~= collider then
-                    isFound = false
-                    break
-                end
+    -- 視線チェック
+    if sight and target and target.collider then
+        isFound = true
+        local collider = target.collider
+        local cx, cy = collider:getPosition()
+        local founds = self.world:queryLine(cx, cy, self.x, self.y, { 'All', except = { self.type } })
+        for __, found in pairs(founds) do
+            -- 視界に別のコライダーが邪魔した
+            if found ~= collider then
+                isFound = false
+                break
             end
-            break
+        end
+    end
+
+    -- 視界チェック
+    if not isFound then
+        local x, y = self:forward(range)
+        local colliders = self.world:queryCircleArea(x + self.x, y + self.y, circle, targetClass)
+        for _, collider in pairs(colliders) do
+            if collider:getObject() == target then
+                -- ターゲットが居た
+                isFound = true
+                local cx, cy = collider:getPosition()
+                local founds = self.world:queryLine(cx, cy, self.x, self.y, { 'All', except = { self.type } })
+                for __, found in pairs(founds) do
+                    -- 視界に別のコライダーが邪魔した
+                    if found ~= collider then
+                        isFound = false
+                        break
+                    end
+                end
+                break
+            end
         end
     end
 

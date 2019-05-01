@@ -143,7 +143,8 @@ function Attack:enteredState(target)
             -- 見つからなかったらサーチに戻る
             if not isFound then
                 self:gotoState('search')
-            elseif not self._attack.wait and self.character:watchCharacter(self._attack.target, 32, 32, { 'player', 'friend' }) then
+            elseif not self._attack.wait and self.character:watchCharacter(self._attack.target, 32, 32, { 'player', 'friend' }, false) then
+                -- 手元に居たら攻撃
                 self._attack.target:damage(
                     self.character:getWeaponDamage(),
                     self.character.rotation,
