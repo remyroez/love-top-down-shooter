@@ -67,7 +67,7 @@ function Game:enteredState(...)
             collisionClass = 'player'
         }
     )
-    self.state.character.onDamage = function (character)
+    self.state.character.onDamage = function (character, attacker)
         self.state.camera:flash(0.1, { 1, 0, 0, 0.5 })
         self.state.camera:shake(8, 0.2, 60)
     end
@@ -199,7 +199,12 @@ function Game:controlPlayer()
             for _, collider in ipairs(colliders) do
                 local entity = collider:getObject()
                 if entity and entity.alive then
-                    entity:damage(self.state.character:getWeaponDamage(), self.state.character.rotation, self.state.character:getWeaponPower())
+                    entity:damage(
+                        self.state.character:getWeaponDamage(),
+                        self.state.character.rotation,
+                        self.state.character:getWeaponPower(),
+                        self.state.character
+                    )
                 end
             end
         elseif self.state.character:canReloadWeapon() then

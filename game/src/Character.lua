@@ -21,7 +21,7 @@ function Character:initialize(args)
     self.active = true
     self.alive = true
     self.onDead = args.onDead or function (character) end
-    self.onDamage = args.onDamage or function (character) end
+    self.onDamage = args.onDamage or function (character, attacker) end
 
     self.type = args.type or 'object'
     self.speed = args.speed or 100
@@ -141,7 +141,7 @@ function Character:getCurrentSpriteName()
 end
 
 -- ダメージを与える
-function Character:damage(damage, rotation, power)
+function Character:damage(damage, rotation, power, attacker)
     if not self.alive then
         return
     end
@@ -167,6 +167,9 @@ function Character:damage(damage, rotation, power)
 
     -- ダメージコールバック
     self.onDamage(self)
+    if self.behavior and self.alive then
+        self.behavior:onDamage(attacker)
+    end
 end
 
 -- キャラクターを探す

@@ -75,4 +75,8 @@ function Behavior:setCharacterState(...)
     self.character:gotoState(...)
 end
 
+-- ダメージ時のコールバック
+function Behavior:onDamage(attacker)
+end
+
 return Behavior

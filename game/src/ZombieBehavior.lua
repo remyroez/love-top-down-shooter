@@ -18,6 +18,11 @@ function ZombieBehavior:newState(name)
     return ZombieBehavior:addState(name, ZombieBehavior)
 end
 
+-- ダメージ時のコールバック
+function ZombieBehavior:onDamage(attacker)
+    self:gotoState('attack', attacker)
+end
+
 -- 待機
 local Wait = ZombieBehavior:newState 'wait'
 
@@ -132,13 +137,14 @@ local Attack = ZombieBehavior:newState 'attack'
 
 -- 攻撃: ステート開始
 function Attack:enteredState(target)
+    self.target = target
+
     self._attack = {}
-    self._attack.target = target
-    self._attack.targetX, self._attack.targetY = target:getPosition()
+    self._attack.targetX, self._attack.targetY = self.target:getPosition()
     self._attack.wait = false
 
     -- キャラクターは追跡状態に
-    self:setCharacterState('goto', self.character.speed * 1.5, self._attack.target)
+    self:setCharacterState('goto', self.character.speed * 1.5, self.target)
 
     -- 視界内の相手を探す
     self.timer:every(
@@ -148,23 +154,24 @@ function Attack:enteredState(target)
 
             -- 手前の円の範囲にいるコライダーを探す
             local isFound =
-                self.character:watchCharacter(self._attack.target, 64 * scale, 64 * scale, { 'player', 'friend' })
-                or self.character:watchCharacter(self._attack.target, 128 * scale, 96 * scale, { 'player', 'friend' })
+                self.character:watchCharacter(self.target, 64 * scale, 64 * scale, { 'player', 'friend' })
+                or self.character:watchCharacter(self.target, 128 * scale, 96 * scale, { 'player', 'friend' })
 
             -- ターゲット座標の更新
             if isFound then
-                self._attack.targetX, self._attack.targetY = target:getPosition()
+                self._attack.targetX, self._attack.targetY = self.target:getPosition()
             end
 
             -- 見つからなかったらサーチに戻る
             if not isFound then
                 self:gotoState('goto', self._attack.targetX, self._attack.targetY)
-            elseif not self._attack.wait and self.character:watchCharacter(self._attack.target, 16 * scale, 16 * scale, { 'player', 'friend' }, false) then
+            elseif not self._attack.wait and self.character:watchCharacter(self.target, 16 * scale, 16 * scale, { 'player', 'friend' }, false) then
                 -- 手元に居たら攻撃
-                self._attack.target:damage(
+                self.target:damage(
                     self.character:getWeaponDamage(),
                     self.character.rotation,
-                    self.character:getWeaponPower()
+                    self.character:getWeaponPower(),
+                    self.character
                 )
                 self._attack.wait = true
                 self.timer:after(self.character:getWeaponDelay(), function () self._attack.wait = false end)
