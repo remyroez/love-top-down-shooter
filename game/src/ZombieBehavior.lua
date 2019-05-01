@@ -40,10 +40,12 @@ function Wait:enteredState(duration, nextState, ...)
     self.timer:every(
         0.1,
         function ()
+            local scale = self.character.scale
+
             -- キャラクターを探す
-            local target = self.character:findCharacter(64, 64, { 'player', 'friend' })
+            local target = self.character:findCharacter(64 * scale, 64 * scale, { 'player', 'friend' })
             if target == nil then
-                target = self.character:findCharacter(128, 96, { 'player', 'friend' })
+                target = self.character:findCharacter(128 * scale, 96 * scale, { 'player', 'friend' })
             end
 
             -- ターゲットを定めたら攻撃へ
@@ -57,13 +59,15 @@ end
 -- 描画
 function Wait:draw()
     ZombieBehavior.draw(self)
+
+    local scale = self.character.scale
     do
-        local x, y = self.character:forward(64)
-        love.graphics.circle('line', x + self.character.x, y + self.character.y, 64)
+        local x, y = self.character:forward(64 * scale)
+        love.graphics.circle('line', x + self.character.x, y + self.character.y, 64 * scale)
     end
     do
-        local x, y = self.character:forward(128)
-        love.graphics.circle('line', x + self.character.x, y + self.character.y, 96)
+        local x, y = self.character:forward(128 * scale)
+        love.graphics.circle('line', x + self.character.x, y + self.character.y, 96 * scale)
     end
 end
 
@@ -92,10 +96,12 @@ function Search:enteredState(rotate)
     self.timer:every(
         0.1,
         function ()
+            local scale = self.character.scale
+
             -- キャラクターを探す
-            local target = self.character:findCharacter(64, 64, { 'player', 'friend' })
+            local target = self.character:findCharacter(64 * scale, 64 * scale, { 'player', 'friend' })
             if target == nil then
-                target = self.character:findCharacter(128, 96, { 'player', 'friend' })
+                target = self.character:findCharacter(128 * scale, 96 * scale, { 'player', 'friend' })
             end
 
             -- ターゲットを定めたら攻撃へ
@@ -109,13 +115,15 @@ end
 -- 描画
 function Search:draw()
     ZombieBehavior.draw(self)
+
+    local scale = self.character.scale
     do
-        local x, y = self.character:forward(64)
-        love.graphics.circle('line', x + self.character.x, y + self.character.y, 64)
+        local x, y = self.character:forward(64 * scale)
+        love.graphics.circle('line', x + self.character.x, y + self.character.y, 64 * scale)
     end
     do
-        local x, y = self.character:forward(128)
-        love.graphics.circle('line', x + self.character.x, y + self.character.y, 96)
+        local x, y = self.character:forward(128 * scale)
+        love.graphics.circle('line', x + self.character.x, y + self.character.y, 96 * scale)
     end
 end
 
@@ -136,10 +144,12 @@ function Attack:enteredState(target)
     self.timer:every(
         0.1,
         function ()
+            local scale = self.character.scale
+
             -- 手前の円の範囲にいるコライダーを探す
             local isFound =
-                self.character:watchCharacter(self._attack.target, 64, 64, { 'player', 'friend' })
-                or self.character:watchCharacter(self._attack.target, 128, 96, { 'player', 'friend' })
+                self.character:watchCharacter(self._attack.target, 64 * scale, 64 * scale, { 'player', 'friend' })
+                or self.character:watchCharacter(self._attack.target, 128 * scale, 96 * scale, { 'player', 'friend' })
 
             -- ターゲット座標の更新
             if isFound then
@@ -149,7 +159,7 @@ function Attack:enteredState(target)
             -- 見つからなかったらサーチに戻る
             if not isFound then
                 self:gotoState('goto', self._attack.targetX, self._attack.targetY)
-            elseif not self._attack.wait and self.character:watchCharacter(self._attack.target, 32, 32, { 'player', 'friend' }, false) then
+            elseif not self._attack.wait and self.character:watchCharacter(self._attack.target, 16 * scale, 16 * scale, { 'player', 'friend' }, false) then
                 -- 手元に居たら攻撃
                 self._attack.target:damage(
                     self.character:getWeaponDamage(),
@@ -166,17 +176,19 @@ end
 -- 描画
 function Attack:draw()
     ZombieBehavior.draw(self)
+
+    local scale = self.character.scale
     if not self._attack.wait then
-        local x, y = self.character:forward(32)
-        love.graphics.circle('line', x + self.character.x, y + self.character.y, 32)
+        local x, y = self.character:forward(16 * scale)
+        love.graphics.circle('line', x + self.character.x, y + self.character.y, 16 * scale)
     end
     do
-        local x, y = self.character:forward(64)
-        love.graphics.circle('line', x + self.character.x, y + self.character.y, 64)
+        local x, y = self.character:forward(64 * scale)
+        love.graphics.circle('line', x + self.character.x, y + self.character.y, 64 * scale)
     end
     do
-        local x, y = self.character:forward(128)
-        love.graphics.circle('line', x + self.character.x, y + self.character.y, 96)
+        local x, y = self.character:forward(128 * scale)
+        love.graphics.circle('line', x + self.character.x, y + self.character.y, 96 * scale)
     end
 end
 
@@ -195,10 +207,12 @@ function Goto:enteredState(x, y)
     self.timer:every(
         0.1,
         function ()
+            local scale = self.character.scale
+
             -- キャラクターを探す
-            local target = self.character:findCharacter(64, 64, { 'player', 'friend' })
+            local target = self.character:findCharacter(64 * scale, 64 * scale, { 'player', 'friend' })
             if target == nil then
-                target = self.character:findCharacter(128, 96, { 'player', 'friend' })
+                target = self.character:findCharacter(128 * scale, 96 * scale, { 'player', 'friend' })
             end
 
             -- ターゲットを定めたら攻撃へ
@@ -207,7 +221,7 @@ function Goto:enteredState(x, y)
             end
 
             -- 到着したら検索へ
-            if lume.distance(self.character.x, self.character.y, self._goto.x, self._goto.y) < 10 then
+            if lume.distance(self.character.x, self.character.y, self._goto.x, self._goto.y) < 10 * scale then
                 self:gotoState('search')
             end
         end
@@ -217,13 +231,15 @@ end
 -- 移動: 描画
 function Goto:draw()
     ZombieBehavior.draw(self)
+
+    local scale = self.character.scale
     do
-        local x, y = self.character:forward(64)
-        love.graphics.circle('line', x + self.character.x, y + self.character.y, 64)
+        local x, y = self.character:forward(64 * scale)
+        love.graphics.circle('line', x + self.character.x, y + self.character.y, 64 * scale)
     end
     do
-        local x, y = self.character:forward(128)
-        love.graphics.circle('line', x + self.character.x, y + self.character.y, 96)
+        local x, y = self.character:forward(128 * scale)
+        love.graphics.circle('line', x + self.character.x, y + self.character.y, 96 * scale)
     end
 end
 
