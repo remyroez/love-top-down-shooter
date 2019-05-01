@@ -168,7 +168,6 @@ function Game:controlPlayer()
     local input = self.state.input
 
     -- 移動
-    local speed = 300
     local x, y = 0, 0
     if input:down('up') then
         y = -1
@@ -180,7 +179,7 @@ function Game:controlPlayer()
     elseif input:down('right') then
         x = 1
     end
-    self.state.character:setColliderVelocity(x, y, speed)
+    self.state.character:setColliderVelocity(x, y, self.state.character.speed)
     self.state.character:setRotationTo(self:getMousePosition())
 
     -- 射撃
