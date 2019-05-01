@@ -53,6 +53,7 @@ function Game:enteredState(...)
     self.state.level = Level('assets/levels/prototype.lua')
     self.state.level:resizeMapCanvas(self.width, self.height, self.state.camera.scale)
     self.state.level:setupCharacters(self.spriteSheet)
+    self.state.level:setupSpawners(self.spriteSheet)
 
     -- プレイヤー
     self.state.character = self.state.level:getPlayer() or self.state.level:registerEntity(

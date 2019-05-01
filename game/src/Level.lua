@@ -8,6 +8,7 @@ local sti = require 'sti'
 -- クラス
 local Character = require 'Character'
 local ZombieBehavior = require 'ZombieBehavior'
+local Timer = require 'Timer'
 
 -- レベル
 local Level = class 'Level'
@@ -76,74 +77,30 @@ function Level:initialize(map)
 
     -- エンティティ
     self.entities = {}
+
+    -- タイマー
+    self.timer = Timer()
 end
 
 -- キャラクターのセットアップ
 function Level:setupCharacters(spriteSheet)
     self:clearEntities()
 
+    -- character レイヤー
     local layer = self.map.layers['character']
     layer.visible = false
 
+    -- 遅延設定用のテーブル
     local rotateToPlayer = {}
     local lazySettingStates = {
         followPlayer = {},
         lookAtPlayer = {}
     }
 
+    -- オブジェクトからキャラクター生成
     for _, object in ipairs(layer.objects) do
-        -- デフォルトスプライト名
-        local defaultSprite = (object.type == 'player') and spriteVariation.hitman or spriteVariation.zombie
-
-        -- スプライト名
-        local sprite = spriteVariation[object.properties.sprite] or defaultSprite
-
-        -- 回転
-        local rotation = object.rotation or 0
-        if object.properties.rotate == 'random' then
-            rotation = love.math.random(360)
-        elseif object.properties.rotate == 'player' then
-            rotation = love.math.random(360)
-        end
-
-        -- ステート
-        local state
-        if object.properties.state == 'followPlayer' then
-        end
-
-        -- ステート
-        local behavior
-        if object.properties.behavior == 'zombie' then
-            behavior = ZombieBehavior
-        end
-
-        -- キャラクターエンティティの登録
-        local entity = self:registerEntity(
-            Character {
-                type = object.type,
-                spriteSheet = spriteSheet,
-                sprite = sprite,
-                weapon = weaponData[object.properties.weapon],
-                x = object.x,
-                y = object.y,
-                rotation = math.rad(rotation),
-                scale = object.properties.scale or 1,
-                speed = object.properties.speed,
-                h_align = 'center',
-                collider = self.world:newCircleCollider(0, 0, 12 * (object.properties.scale or 1)),
-                collisionClass = object.type,
-                behavior = behavior,
-                world = self.world,
-                onDead = function (character) self:deregisterEntity(character) end
-            }
-        )
-
-        -- キャラクターテーブルに登録
-        if self.characters[object.type] then
-            table.insert(self.characters[object.type], entity)
-        else
-            print('invalid object type [' .. object.type .. ']')
-        end
+        -- キャラクターのスポーン
+        local entity = self:spawnCharacter(object, spriteSheet)
 
         -- プレイヤーに向かせるため保持
         if object.properties.rotate == 'player' and object.type ~= 'player' then
@@ -173,14 +130,107 @@ function Level:setupCharacters(spriteSheet)
     end
 end
 
+-- スポナーのセットアップ
+function Level:setupSpawners(spriteSheet)
+    self.timer:destroy()
+
+    -- spawner レイヤー
+    local layer = self.map.layers['spawner']
+    layer.visible = false
+
+    -- オブジェクトからスポナー生成
+    for _, object in ipairs(layer.objects) do
+        self.timer:every(
+            object.properties.delay or 1,
+            function ()
+                -- キャラクターのスポーン
+                local entity = self:spawnCharacter(object, spriteSheet)
+
+                -- プレイヤー関連の設定
+                local player = self:getPlayer()
+                if player and object.type ~= 'player' then
+                    if object.properties.rotate == 'player' then
+                        entity:setRotationTo(player:getPosition())
+                    end
+                    if object.properties.state == 'followPlayer' then
+                        entity:gotoState('goto', entity.speed, player)
+                    elseif object.properties.state == 'lookAtPlayer' then
+                        entity:gotoState('look', player)
+                    end
+                end
+            end
+        )
+    end
+end
+
+-- キャラクターのスポーン
+function Level:spawnCharacter(object, spriteSheet)
+    -- デフォルトスプライト名
+    local defaultSprite = (object.type == 'player') and spriteVariation.hitman or spriteVariation.zombie
+
+    -- スプライト名
+    local sprite = spriteVariation[object.properties.sprite] or defaultSprite
+
+    -- 回転
+    local rotation = object.rotation or 0
+    if object.properties.rotate == 'random' then
+        rotation = love.math.random(360)
+    elseif object.properties.rotate == 'player' then
+        rotation = love.math.random(360)
+    end
+
+    -- ステート
+    local state
+    if object.properties.state == 'followPlayer' then
+    end
+
+    -- ステート
+    local behavior
+    if object.properties.behavior == 'zombie' then
+        behavior = ZombieBehavior
+    end
+
+    -- キャラクターエンティティの登録
+    local entity = self:registerEntity(
+        Character {
+            type = object.type,
+            spriteSheet = spriteSheet,
+            sprite = sprite,
+            weapon = weaponData[object.properties.weapon],
+            x = object.x,
+            y = object.y,
+            rotation = math.rad(rotation),
+            scale = object.properties.scale or 1,
+            speed = object.properties.speed,
+            h_align = 'center',
+            collider = self.world:newCircleCollider(0, 0, 12 * (object.properties.scale or 1)),
+            collisionClass = object.type,
+            behavior = behavior,
+            world = self.world,
+            onDead = function (character) self:deregisterEntity(character) end
+        }
+    )
+
+    -- キャラクターテーブルに登録
+    if self.characters[object.type] then
+        table.insert(self.characters[object.type], entity)
+    else
+        print('invalid object type [' .. object.type .. ']')
+    end
+
+    return entity
+end
+
 -- 破棄
 function Level:destroy()
+    self.timer:destroy()
     self:clearEntities()
     self.world:destroy()
 end
 
 -- 更新
 function Level:update(dt)
+    self.timer:update(dt)
     self.world:update(dt)
     lume.each(self.entities, 'update', dt)
 end
