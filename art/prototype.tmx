@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="18" height="17" tilewidth="64" tileheight="64" infinite="1" nextlayerid="6" nextobjectid="44">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="18" height="17" tilewidth="64" tileheight="64" infinite="1" nextlayerid="7" nextobjectid="45">
  <tileset firstgid="1" source="tilesheet.tsx"/>
- <layer id="1" name="ground" width="18" height="17">
+ <layer id="1" name="ground" width="18" height="17" locked="1">
   <properties>
    <property name="collidable" type="bool" value="false"/>
   </properties>
@@ -116,7 +116,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="5" name="character">
+ <objectgroup id="5" name="character" locked="1">
   <object id="24" name="player" type="player" x="448.667" y="325.333">
    <properties>
     <property name="rotate" value="random"/>
@@ -254,6 +254,15 @@
     <property name="rotate" value="random"/>
     <property name="sprite" value="survivor"/>
     <property name="state" value="lookAtPlayer"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="6" name="spawner">
+  <object id="44" name="zombie" type="enemy" x="432" y="56" rotation="90">
+   <properties>
+    <property name="behavior" value="zombie"/>
+    <property name="delay" type="float" value="1"/>
+    <property name="rotate" value="random"/>
    </properties>
   </object>
  </objectgroup>

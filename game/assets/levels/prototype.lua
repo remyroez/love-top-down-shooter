@@ -8,8 +8,8 @@ return {
   height = 17,
   tilewidth = 64,
   tileheight = 64,
-  nextlayerid = 6,
-  nextobjectid = 44,
+  nextlayerid = 7,
+  nextobjectid = 45,
   properties = {},
   tilesets = {
     {
@@ -2080,6 +2080,36 @@ return {
             ["rotate"] = "random",
             ["sprite"] = "survivor",
             ["state"] = "lookAtPlayer"
+          }
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      id = 6,
+      name = "spawner",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      draworder = "topdown",
+      properties = {},
+      objects = {
+        {
+          id = 44,
+          name = "zombie",
+          type = "enemy",
+          shape = "rectangle",
+          x = 432,
+          y = 56,
+          width = 0,
+          height = 0,
+          rotation = 90,
+          visible = true,
+          properties = {
+            ["behavior"] = "zombie",
+            ["delay"] = 1,
+            ["rotate"] = "random"
           }
         }
       }
