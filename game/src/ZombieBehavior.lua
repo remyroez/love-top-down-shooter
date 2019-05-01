@@ -83,12 +83,12 @@ function Search:enteredState(rotate)
 
     -- 一定間隔で左右を見る
     self.timer:tween(
-        1,
+        3,
         self.character,
         { rotation = self.character.rotation + rotate },
         'in-out-cubic',
         function ()
-            self:gotoState('wait', 1, 'search', -rotate)
+            self:gotoState('search', math.pi / 2 * love.math.random(-1, 1))
         end
     )
 
