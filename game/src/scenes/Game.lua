@@ -50,7 +50,7 @@ function Game:enteredState(...)
     self.state.camera.scale = 1
 
     -- レベル
-    self.state.level = Level('assets/levels/prototype.lua')
+    self.state.level = Level('assets/levels/simple.lua')
     self.state.level:resizeMapCanvas(self.width, self.height, self.state.camera.scale)
     self.state.level:setupCharacters(self.spriteSheet)
     self.state.level:setupWave(1, 30, 10, self.spriteSheet)
