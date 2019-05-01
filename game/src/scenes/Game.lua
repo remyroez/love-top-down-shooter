@@ -53,7 +53,7 @@ function Game:enteredState(...)
     self.state.level = Level('assets/levels/prototype.lua')
     self.state.level:resizeMapCanvas(self.width, self.height, self.state.camera.scale)
     self.state.level:setupCharacters(self.spriteSheet)
-    --self.state.level:setupSpawners(self.spriteSheet)
+    self.state.level:setupWave(1, 30, 10, self.spriteSheet)
 
     -- プレイヤー
     self.state.character = self.state.level:getPlayer() or self.state.level:registerEntity(
@@ -132,6 +132,14 @@ function Game:draw()
     -- 座標（デバッグ）
     love.graphics.setColor(1, 1, 1)
     lg.printf('x: ' .. math.ceil(cx) .. ', y: ' .. math.ceil(cy), 0, self.height - 16, self.width, 'right')
+
+    -- ウェーブ
+    love.graphics.setColor(1, 1, 1)
+    lg.printf('WAVE: ' .. self.state.level.wave, 0, 0, self.width, 'left')
+
+    -- 残り時間
+    love.graphics.setColor(1, 1, 1)
+    lg.printf(math.floor(self.state.level:getWaveTime()), 0, 0, self.width, 'center')
 end
 
 -- キー入力

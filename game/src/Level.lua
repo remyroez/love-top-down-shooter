@@ -90,6 +90,14 @@ function Level:initialize(map)
 
     -- タイマー
     self.timer = Timer()
+
+    -- ウェーブ情報
+    self.wave = 0
+    self.time = 0
+    self.spawner = {
+        current = 0,
+        max = 0,
+    }
 end
 
 -- キャラクターのセットアップ
@@ -142,35 +150,75 @@ end
 
 -- スポナーのセットアップ
 function Level:setupSpawners(spriteSheet)
-    self.timer:destroy()
-
     -- spawner レイヤー
     local layer = self.map.layers['spawner']
     layer.visible = false
 
     -- オブジェクトからスポナー生成
     for _, object in ipairs(layer.objects) do
-        self.timer:every(
-            object.properties.delay or 1,
-            function ()
-                -- キャラクターのスポーン
-                local entity = self:spawnCharacter(object, spriteSheet)
-
-                -- プレイヤー関連の設定
-                local player = self:getPlayer()
-                if player and object.type ~= 'player' then
-                    if object.properties.rotate == 'player' then
-                        entity:setRotationTo(player:getPosition())
+        -- 現在のウェーブ以下なら、スポナー設置
+        local wave = object.properties.wave or 0
+        if wave <= self.wave then
+            self.timer:every(
+                object.properties.delay or 1,
+                function ()
+                    -- スポーン数が限度に達していたらキャンセル
+                    if self.spawner.current >= self.spawner.max then
+                        return
                     end
-                    if object.properties.state == 'followPlayer' then
-                        entity:gotoState('goto', entity.speed, player)
-                    elseif object.properties.state == 'lookAtPlayer' then
-                        entity:gotoState('look', player)
+
+                    -- キャラクターのスポーン
+                    local entity = self:spawnCharacter(object, spriteSheet)
+                    self.spawner.current = self.spawner.current + 1
+
+                    -- プレイヤー関連の設定
+                    local player = self:getPlayer()
+                    if player and object.type ~= 'player' then
+                        if object.properties.rotate == 'player' then
+                            entity:setRotationTo(player:getPosition())
+                        end
+                        if object.properties.state == 'followPlayer' then
+                            entity:gotoState('goto', entity.speed, player)
+                        elseif object.properties.state == 'lookAtPlayer' then
+                            entity:gotoState('look', player)
+                        end
                     end
                 end
-            end
-        )
+            )
+        end
     end
+end
+
+-- ウェーブのセットアップ
+function Level:setupWave(wave, time, max, spriteSheet)
+    self.wave = wave or 0
+    self.time = time or 30
+
+    -- スポナー情報のクリア
+    self.spawner = {
+        current = 0,
+        max = max or 0,
+    }
+
+    -- タイマーのリセット
+    self.timer:destroy()
+
+    -- スポナーセットアップ
+    self:setupSpawners(spriteSheet)
+
+    -- 制限時間
+    self.timer:after(
+        self.time,
+        function ()
+            self.timer:destroy()
+        end,
+        'wave'
+    )
+end
+
+-- ウェーブのタイム
+function Level:getWaveTime()
+    return self.time - (self.timer.timers['wave'] and self.timer:getTime('wave') or self.time)
 end
 
 -- キャラクターのスポーン
@@ -218,8 +266,8 @@ function Level:spawnCharacter(object, spriteSheet)
             spriteSheet = spriteSheet,
             sprite = sprite,
             weapon = weapon,
-            x = object.x,
-            y = object.y,
+            x = object.x + love.math.randomNormal(),
+            y = object.y + love.math.randomNormal(),
             rotation = math.rad(rotation),
             scale = object.properties.scale or 1,
             speed = object.properties.speed,
