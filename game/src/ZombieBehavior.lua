@@ -150,7 +150,7 @@ function Attack:enteredState(target)
                     self.character:getWeaponPower()
                 )
                 self._attack.wait = true
-                self.timer:after(1, function () self._attack.wait = false end)
+                self.timer:after(self.character:getWeaponDelay(), function () self._attack.wait = false end)
             end
         end
     )

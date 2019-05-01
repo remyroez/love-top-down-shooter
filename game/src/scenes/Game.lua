@@ -174,7 +174,7 @@ function Game:controlPlayer()
     self.state.character:setRotationTo(self:getMousePosition())
 
     -- 射撃
-    if input:pressed('fire') then
+    if input:down('fire', self.state.character:getWeaponDelay()) then
         self.state.camera:shake(8, 0.1, 60)
 
         local cx, cy = self:getPlayerPosition()

@@ -53,4 +53,9 @@ function Weapon:getWeaponAmmo()
     return self._weapon.ammo or 0
 end
 
+-- 武器のディレイ
+function Weapon:getWeaponDelay()
+    return self._weapon.properties.delay or 1
+end
+
 return Weapon
