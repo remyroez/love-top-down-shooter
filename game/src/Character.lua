@@ -20,6 +20,7 @@ function Character:initialize(args)
 
     self.alive = true
     self.onDead = args.onDead or function (character) end
+    self.onDamage = args.onDamage or function (character) end
 
     self.type = args.type or 'object'
     self.speed = args.speed or 100
@@ -156,6 +157,9 @@ function Character:damage(damage, rotation, power)
     else
         self:pushState('wait', power / 10000)
     end
+
+    -- ダメージコールバック
+    self.onDamage(self)
 end
 
 -- キャラクターを探す
@@ -199,8 +203,8 @@ function Character:watchCharacter(target, range, circle, targetClass)
 
     local isFound = false
 
-    local x, y = self:forward(64)
-    local colliders = self.world:queryCircleArea(x + self.x, y + self.y, 64, targetClass)
+    local x, y = self:forward(range)
+    local colliders = self.world:queryCircleArea(x + self.x, y + self.y, circle, targetClass)
     for _, collider in pairs(colliders) do
         if collider:getObject() == target then
             -- ターゲットが居た

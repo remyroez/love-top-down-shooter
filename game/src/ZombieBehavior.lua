@@ -126,6 +126,7 @@ local Attack = ZombieBehavior:newState 'attack'
 function Attack:enteredState(target)
     self._attack = {}
     self._attack.target = target
+    self._attack.wait = false
 
     -- キャラクターは追跡状態に
     self:setCharacterState('goto', self._attack.target.speed * 1.5, self._attack.target)
@@ -142,6 +143,14 @@ function Attack:enteredState(target)
             -- 見つからなかったらサーチに戻る
             if not isFound then
                 self:gotoState('search')
+            elseif not self._attack.wait and self.character:watchCharacter(self._attack.target, 32, 32, { 'player', 'friend' }) then
+                self._attack.target:damage(
+                    self.character:getWeaponDamage(),
+                    self.character.rotation,
+                    self.character:getWeaponPower()
+                )
+                self._attack.wait = true
+                self.timer:after(1, function () self._attack.wait = false end)
             end
         end
     )
@@ -150,6 +159,10 @@ end
 -- 描画
 function Attack:draw()
     ZombieBehavior.draw(self)
+    if not self._attack.wait then
+        local x, y = self.character:forward(32)
+        love.graphics.circle('line', x + self.character.x, y + self.character.y, 32)
+    end
     do
         local x, y = self.character:forward(64)
         love.graphics.circle('line', x + self.character.x, y + self.character.y, 64)

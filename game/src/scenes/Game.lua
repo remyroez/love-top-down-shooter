@@ -53,7 +53,7 @@ function Game:enteredState(...)
     self.state.level = Level('assets/levels/prototype.lua')
     self.state.level:resizeMapCanvas(self.width, self.height, self.state.camera.scale)
     self.state.level:setupCharacters(self.spriteSheet)
-    self.state.level:setupSpawners(self.spriteSheet)
+    --self.state.level:setupSpawners(self.spriteSheet)
 
     -- プレイヤー
     self.state.character = self.state.level:getPlayer() or self.state.level:registerEntity(
@@ -67,6 +67,10 @@ function Game:enteredState(...)
             collisionClass = 'player'
         }
     )
+    self.state.character.onDamage = function (character)
+        self.state.camera:flash(0.1, { 1, 0, 0, 0.5 })
+        self.state.camera:shake(8, 0.2, 60)
+    end
 end
 
 -- ステート終了

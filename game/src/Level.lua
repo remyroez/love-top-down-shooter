@@ -47,21 +47,21 @@ local weaponData = {
     machine = {
         name = 'machine',
         damage = 1,
-        power = 2500,
+        power = 3000,
         ammo = 8,
         sound = 10,
     },
     silencer = {
         name = 'silencer',
         damage = 3,
-        power = 1000,
+        power = 2000,
         ammo = 8,
         sound = 5,
     },
     hand = {
         name = 'hold',
         damage = 1,
-        power = 1000,
+        power = 5000,
         ammo = -1,
         sound = 1,
     },
@@ -175,9 +175,16 @@ end
 
 -- キャラクターのスポーン
 function Level:spawnCharacter(object, spriteSheet)
-    -- デフォルト
+    -- デフォルトスプライト
     local defaultSprite = (object.type == 'player') and spriteVariation.hitman or spriteVariation.zombie
-    local defaultWeapon = (object.type == 'player') and weaponData.gun or weaponData.hand
+
+    -- デフォルト武器
+    local defaultWeapon
+    if object.type == 'player' then
+        defaultWeapon = weaponData.gun
+    elseif object.type == 'enemy' then
+        defaultWeapon = weaponData.hand
+    end
 
     -- スプライト名
     local sprite = spriteVariation[object.properties.sprite] or defaultSprite
