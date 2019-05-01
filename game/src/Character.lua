@@ -134,6 +134,10 @@ end
 
 -- ダメージを与える
 function Character:damage(damage, rotation, power)
+    if not self.alive then
+        return
+    end
+
     damage = damage or 0
     power = power or 100
     rotation = rotation or (self.rotation + math.pi)
@@ -205,6 +209,10 @@ function Wait:enteredState(delay)
         delay or 1,
         function () self:popState() end
     )
+end
+
+-- 待機: ダメージを与える
+function Wait:damage(damage, rotation, power)
 end
 
 -- 待機: ステート終了
