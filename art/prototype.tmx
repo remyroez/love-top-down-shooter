@@ -116,18 +116,19 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="5" name="character" locked="1">
+ <objectgroup id="5" name="character">
   <object id="24" name="player" type="player" x="448.667" y="325.333">
    <properties>
     <property name="rotate" value="random"/>
     <property name="sprite" value="hitman"/>
     <property name="state" value="lookAtPlayer"/>
-    <property name="weapon" value="silencer"/>
+    <property name="weapon" value="gun"/>
    </properties>
   </object>
   <object id="25" name="zombie" type="enemy" x="366.667" y="125.333" rotation="90">
    <properties>
     <property name="behavior" value="zombie"/>
+    <property name="life" type="float" value="20"/>
     <property name="rotate" value="random"/>
     <property name="scale" type="float" value="2"/>
    </properties>
@@ -135,12 +136,14 @@
   <object id="26" name="zombie" type="enemy" x="342.667" y="189.333" rotation="90">
    <properties>
     <property name="behavior" value="zombie"/>
+    <property name="life" type="float" value="10"/>
     <property name="rotate" value="random"/>
    </properties>
   </object>
   <object id="27" name="zombie" type="enemy" x="534.667" y="165.333" rotation="90">
    <properties>
     <property name="behavior" value="zombie"/>
+    <property name="life" type="float" value="30"/>
     <property name="rotate" value="random"/>
     <property name="scale" type="float" value="3"/>
    </properties>
@@ -148,6 +151,7 @@
   <object id="28" name="zombie" type="enemy" x="449.667" y="248.333" rotation="90">
    <properties>
     <property name="behavior" value="zombie"/>
+    <property name="life" type="float" value="5"/>
     <property name="rotate" value="random"/>
     <property name="scale" type="float" value="0.5"/>
    </properties>
@@ -257,7 +261,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="6" name="spawner">
+ <objectgroup id="6" name="spawner" locked="1">
   <object id="44" name="zombie" type="enemy" x="432" y="56" rotation="90">
    <properties>
     <property name="behavior" value="zombie"/>

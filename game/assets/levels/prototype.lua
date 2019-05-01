@@ -1768,7 +1768,7 @@ return {
             ["rotate"] = "random",
             ["sprite"] = "hitman",
             ["state"] = "lookAtPlayer",
-            ["weapon"] = "silencer"
+            ["weapon"] = "gun"
           }
         },
         {
@@ -1784,6 +1784,7 @@ return {
           visible = true,
           properties = {
             ["behavior"] = "zombie",
+            ["life"] = 20,
             ["rotate"] = "random",
             ["scale"] = 2
           }
@@ -1801,6 +1802,7 @@ return {
           visible = true,
           properties = {
             ["behavior"] = "zombie",
+            ["life"] = 10,
             ["rotate"] = "random"
           }
         },
@@ -1817,6 +1819,7 @@ return {
           visible = true,
           properties = {
             ["behavior"] = "zombie",
+            ["life"] = 30,
             ["rotate"] = "random",
             ["scale"] = 3
           }
@@ -1834,6 +1837,7 @@ return {
           visible = true,
           properties = {
             ["behavior"] = "zombie",
+            ["life"] = 5,
             ["rotate"] = "random",
             ["scale"] = 0.5
           }
