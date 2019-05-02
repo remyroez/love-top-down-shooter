@@ -88,24 +88,29 @@ function Level:initialize(map)
     -- マップ
     self.map = sti(map, { 'windfield' })
     self.map:windfield_init(self.world)
+
+    -- マップ情報の取得
     self.left = 0
     self.right = 0
     self.top = 0
     self.bottom = 0
     for _, layer in pairs(self.map.layers) do
-        if layer.type == 'tilelayer' and layer.chunks then
-            for __, chunk in ipairs(layer.chunks) do
-                if chunk.x < self.left then
-                    self.left = chunk.x
-                end
-                if chunk.y < self.top then
-                    self.top = chunk.y
-                end
-                if chunk.x + chunk.width > self.right then
-                    self.right = chunk.x + chunk.width
-                end
-                if chunk.y + chunk.height > self.bottom then
-                    self.bottom = chunk.y + chunk.height
+        if layer.type == 'tilelayer' then
+            -- チャンクから上下左右の端を取得
+            if layer.chunks then
+                for __, chunk in ipairs(layer.chunks) do
+                    if chunk.x < self.left then
+                        self.left = chunk.x
+                    end
+                    if chunk.y < self.top then
+                        self.top = chunk.y
+                    end
+                    if chunk.x + chunk.width > self.right then
+                        self.right = chunk.x + chunk.width
+                    end
+                    if chunk.y + chunk.height > self.bottom then
+                        self.bottom = chunk.y + chunk.height
+                    end
                 end
             end
         end
@@ -116,7 +121,15 @@ function Level:initialize(map)
     self.bottom = self.bottom * self.map.tileheight
     self.width = self.right - self.left
     self.height = self.bottom - self.top
-    print(self.left, self.top, self.width, self.height)
+
+
+    for _, collision in ipairs(self.map.windfield_collision) do
+        if collision.object.layer and collision.object.layer.type == 'tilelayer' then
+            collision.collider:setCollisionClass('building')
+        elseif collision.baseObj and collision.baseObj.layer and collision.baseObj.layer.type == 'tilelayer' then
+            collision.collider:setCollisionClass('building')
+        end
+    end
 
     -- エンティティ
     self.entities = {}
@@ -379,6 +392,8 @@ end
 function Level:update(dt)
     self.timer:update(dt)
     self.world:update(dt)
+    self.map:update(dt)
+    self.map:windfield_update(dt)
     lume.each(self.entities, 'update', dt)
 end
 

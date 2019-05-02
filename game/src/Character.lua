@@ -215,7 +215,7 @@ function Character:watchPoint(x, y)
 
     local founds = self.world:queryLine(x, y, self.x, self.y, { 'All', except = { self.type } })
     for __, found in pairs(founds) do
-        if found:getType() ~= 'dynamic' then
+        if found:getType() ~= 'dynamic' and found.collision_class == 'building' then
             isFound = false
             break
         end
@@ -241,7 +241,7 @@ function Character:watchCharacter(target, range, circle, targetClass, sight)
         local founds = self.world:queryLine(cx, cy, self.x, self.y, { 'All', except = { self.type } })
         for __, found in pairs(founds) do
             -- 視界に別のコライダーが邪魔した
-            if found ~= collider and found:getType() ~= 'dynamic' then
+            if found ~= collider and found:getType() ~= 'dynamic' and found.collision_class == 'building' then
                 isFound = false
                 break
             end
@@ -260,7 +260,7 @@ function Character:watchCharacter(target, range, circle, targetClass, sight)
                 local founds = self.world:queryLine(cx, cy, self.x, self.y, { 'All', except = { self.type } })
                 for __, found in pairs(founds) do
                     -- 視界に別のコライダーが邪魔した
-                    if found ~= collider and found:getType() ~= 'dynamic' then
+                    if found ~= collider and found:getType() ~= 'dynamic' and found.collision_class == 'building' then
                         isFound = false
                         break
                     end

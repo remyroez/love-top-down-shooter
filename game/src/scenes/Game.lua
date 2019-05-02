@@ -71,6 +71,7 @@ function Game:enteredState(...)
 
     -- カメラ初期設定
     self.state.camera:follow(self:getPlayerPosition())
+    self.state.camera:update()
     self.state.camera:setFollowLerp(0.1)
     self.state.camera:setFollowLead(2)
     self.state.camera:setFollowStyle('TOPDOWN_TIGHT')
