@@ -163,7 +163,7 @@ function Game:draw()
     -- 残弾数
     love.graphics.setColor(1, 1, 1)
     lg.printf(
-        'AMMO: ' .. (self.state.timer.timers.reload and 'RELOADING...' or tostring(self.state.player:getWeaponAmmo())) .. '/' .. self.state.player:getWeaponMaxAmmo(),
+        'AMMO: ' .. (self.state.player:isReloadingWeapon() and 'RELOADING...' or tostring(self.state.player:getWeaponAmmo())) .. '/' .. self.state.player:getWeaponMaxAmmo(),
         0,
         self.height - 16,
         self.width,
@@ -226,7 +226,7 @@ function Game:controlPlayer()
     player:setRotationTo(self:getMousePosition())
 
     -- 射撃
-    if self.state.timer.timers.reload then
+    if player:isReloadingWeapon() then
         -- リロード中
     elseif input:down('fire', player:getWeaponDelay()) then
         if player:hasWeaponAmmo() then
@@ -304,23 +304,13 @@ function Game:controlPlayer()
             end
         elseif player:canReloadWeapon() then
             -- リロード
-            self.state.timer:after(
-                1,
-                function ()
-                    player:reloadWeapon()
-                end,
-                'reload'
-            )
+            player:reloadWeapon(1, function (p) p:resetSprite() end)
+            player:resetSprite()
         end
-    elseif input:pressed('reload') then
+    elseif input:pressed('reload') and player:canReloadWeapon() then
         -- リロード
-        self.state.timer:after(
-            1,
-            function ()
-                player:reloadWeapon()
-            end,
-            'reload'
-        )
+        player:reloadWeapon(1, function (p) p:resetSprite() end)
+        player:resetSprite()
     end
 end
 

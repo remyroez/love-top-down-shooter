@@ -84,6 +84,9 @@ function Character:update(dt)
     -- タイマー
     self.timer:update(dt)
 
+    -- 武器
+    self:updateWeapon(dt)
+
     if self.alive then
         -- ビヘイビア
         if self.behavior then
@@ -116,16 +119,17 @@ end
 
 -- スプライトのリセット
 function Character:resetSprite(spriteName, h_align, v_align)
+    spriteName = spriteName or self:getCurrentSpriteName()
     self.spriteName = spriteName
     local w, h = self:getSpriteSize(spriteName)
-    self:initializeRectangle(self.x, self.y, w, h, h_align, v_align)
+    self:initializeRectangle(self.x, self.y, w, h, h_align or 'center', v_align)
 end
 
 -- ポーズ名の取得
 function Character:getPoseName()
     local poseName = 'stand'
     if self:hasWeapon() then
-        poseName = self:getWeaponName()
+        poseName = self:isReloadingWeapon() and 'reload' or self:getWeaponName()
     end
     return poseName
 end

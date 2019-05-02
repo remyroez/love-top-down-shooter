@@ -19,6 +19,7 @@ end
 -- スプライトのサイズの取得
 function SpriteRenderer:getSpriteSize(name)
     local quad = self:getSpriteQuad(name)
+    if quad == nil then return 0, 0 end
     local _, __, w, h = quad:getViewport()
     return w, h
 end
