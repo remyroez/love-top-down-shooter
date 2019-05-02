@@ -8,8 +8,8 @@ return {
   height = 16,
   tilewidth = 64,
   tileheight = 64,
-  nextlayerid = 7,
-  nextobjectid = 38,
+  nextlayerid = 9,
+  nextobjectid = 67,
   properties = {},
   tilesets = {
     {
@@ -678,6 +678,10 @@ return {
         },
         {
           id = 170,
+          properties = {
+            ["class"] = "building",
+            ["collidable"] = true
+          },
           objectGroup = {
             type = "objectgroup",
             name = "",
@@ -699,7 +703,9 @@ return {
                 height = 52,
                 rotation = 0,
                 visible = true,
-                properties = {}
+                properties = {
+                  ["collidable"] = true
+                }
               }
             }
           }
@@ -753,7 +759,16 @@ return {
           }
         },
         {
+          id = 179,
+          properties = {
+            ["class"] = "building"
+          }
+        },
+        {
           id = 180,
+          properties = {
+            ["collidable"] = true
+          },
           objectGroup = {
             type = "objectgroup",
             name = "",
@@ -775,7 +790,42 @@ return {
                 height = 64,
                 rotation = 0,
                 visible = true,
-                properties = {}
+                properties = {
+                  ["collidable"] = true
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 182,
+          properties = {
+            ["collidable"] = true
+          },
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "ellipse",
+                x = 20,
+                y = 20,
+                width = 24,
+                height = 24,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["collidable"] = true
+                }
               }
             }
           }
@@ -823,6 +873,74 @@ return {
           }
         },
         {
+          id = 196,
+          properties = {
+            ["class"] = "building",
+            ["collidable"] = true
+          },
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 2,
+                name = "",
+                type = "",
+                shape = "ellipse",
+                x = 0,
+                y = 0,
+                width = 64,
+                height = 64,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["collidable"] = true
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 197,
+          properties = {
+            ["class"] = "building",
+            ["collidable"] = true
+          },
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 2,
+                name = "",
+                type = "",
+                shape = "ellipse",
+                x = 10,
+                y = 10,
+                width = 44,
+                height = 44,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["collidable"] = true
+                }
+              }
+            }
+          }
+        },
+        {
           id = 198,
           properties = {
             ["collidable"] = true
@@ -862,6 +980,48 @@ return {
           id = 204,
           properties = {
             ["collidable"] = true
+          }
+        },
+        {
+          id = 205,
+          properties = {
+            ["class"] = "building"
+          }
+        },
+        {
+          id = 206,
+          properties = {
+            ["class"] = "building"
+          }
+        },
+        {
+          id = 209,
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "ellipse",
+                x = 27,
+                y = 22,
+                width = 20,
+                height = 20,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["collidable"] = true
+                }
+              }
+            }
           }
         },
         {
@@ -949,6 +1109,36 @@ return {
           }
         },
         {
+          id = 242,
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 0,
+                y = 32,
+                width = 64,
+                height = 32,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["collidable"] = true
+                }
+              }
+            }
+          }
+        },
+        {
           id = 243,
           properties = {
             ["collidable"] = true
@@ -1030,6 +1220,36 @@ return {
           id = 258,
           properties = {
             ["collidable"] = true
+          }
+        },
+        {
+          id = 269,
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 0,
+                y = 32,
+                width = 64,
+                height = 32,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["collidable"] = true
+                }
+              }
+            }
           }
         },
         {
@@ -1775,6 +1995,306 @@ return {
           properties = {
             ["collidable"] = true
           }
+        },
+        {
+          id = 452,
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 2,
+                y = 2,
+                width = 62,
+                height = 60,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["collidable"] = true
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 453,
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 0,
+                y = 2,
+                width = 64,
+                height = 60,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["collidable"] = true
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 454,
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 0,
+                y = 2,
+                width = 62,
+                height = 60,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["collidable"] = true
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 479,
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 2,
+                y = 2,
+                width = 62,
+                height = 60,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["collidable"] = true
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 480,
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 0,
+                y = 2,
+                width = 64,
+                height = 60,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["collidable"] = true
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 481,
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 0,
+                y = 2,
+                width = 62,
+                height = 60,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["collidable"] = true
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 527,
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 12,
+                y = 11,
+                width = 41,
+                height = 43,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["collidable"] = false
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 528,
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 13,
+                y = 13,
+                width = 38,
+                height = 40,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["collidable"] = false
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 529,
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 13,
+                y = 13,
+                width = 38,
+                height = 40,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["collidable"] = false
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 530,
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 13,
+                y = 13,
+                width = 38,
+                height = 40,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["collidable"] = false
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -1841,12 +2361,12 @@ return {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 433, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 441, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 318, 0, 0, 0, 0, 441, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 433, 0, 0, 0, 0, 0, 0, 0, 434, 0, 0, 0, 0,
-            0, 0, 0, 433, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 434, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 198, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 447, 448, 449, 434, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -1865,9 +2385,7 @@ return {
       offsetx = 0,
       offsety = 0,
       draworder = "topdown",
-      properties = {
-        ["collidable"] = false
-      },
+      properties = {},
       objects = {
         {
           id = 1,
@@ -1928,11 +2446,11 @@ return {
           name = "",
           type = "",
           shape = "rectangle",
-          x = 822,
-          y = 490,
+          x = 843.378,
+          y = 501.991,
           width = 64,
           height = 64,
-          rotation = 0,
+          rotation = -31.4254,
           gid = 266,
           visible = true,
           properties = {}
@@ -1942,70 +2460,14 @@ return {
           name = "",
           type = "",
           shape = "rectangle",
-          x = 868,
-          y = 578,
+          x = 854.8,
+          y = 543.776,
           width = 64,
           height = 64,
-          rotation = 0,
+          rotation = -312.184,
           gid = 293,
           visible = true,
           properties = {}
-        },
-        {
-          id = 6,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 666,
-          y = 578,
-          width = 64,
-          height = 64,
-          rotation = 0,
-          gid = 134,
-          visible = true,
-          properties = {
-            ["angularDamping"] = 10,
-            ["collidable"] = true,
-            ["dynamic"] = true,
-            ["linearDamping"] = 10,
-            ["mass"] = 2
-          }
-        },
-        {
-          id = 7,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 444,
-          y = 710,
-          width = 64,
-          height = 64,
-          rotation = 0,
-          gid = 132,
-          visible = true,
-          properties = {
-            ["angularDamping"] = 10,
-            ["collidable"] = true,
-            ["dynamic"] = true,
-            ["linearDamping"] = 10,
-            ["mass"] = 2
-          }
-        },
-        {
-          id = 8,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 478,
-          y = 640,
-          width = 64,
-          height = 64,
-          rotation = 0,
-          gid = 171,
-          visible = true,
-          properties = {
-            ["collidable"] = true
-          }
         },
         {
           id = 9,
@@ -2056,6 +2518,207 @@ return {
           }
         },
         {
+          id = 47,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 287,
+          y = 704,
+          width = 64,
+          height = 64,
+          rotation = 0,
+          gid = 270,
+          visible = true,
+          properties = {
+            ["angularDamping"] = 10,
+            ["collidable"] = true,
+            ["dynamic"] = true,
+            ["linearDamping"] = 10,
+            ["mass"] = 2
+          }
+        },
+        {
+          id = 49,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 555.415,
+          y = 620.115,
+          width = 64,
+          height = 64,
+          rotation = -7.53399,
+          gid = 343,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 50,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 618.862,
+          y = 611.724,
+          width = 64,
+          height = 64,
+          rotation = -7.53399,
+          gid = 345,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 56,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 169.333,
+          y = 646.667,
+          width = 64,
+          height = 64,
+          rotation = 0,
+          gid = 264,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 57,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 128,
+          y = 481.333,
+          width = 64,
+          height = 64,
+          rotation = 0,
+          gid = 289,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 58,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 246.667,
+          y = 642.667,
+          width = 64,
+          height = 64,
+          rotation = 0,
+          gid = 291,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 59,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 169.333,
+          y = 282.667,
+          width = 64,
+          height = 64,
+          rotation = 0,
+          gid = 213,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 60,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 336.297,
+          y = 186.281,
+          width = 64,
+          height = 64,
+          rotation = -286.32,
+          gid = 213,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 61,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 384.438,
+          y = 942.953,
+          width = 64,
+          height = 64,
+          rotation = -68.1221,
+          gid = 213,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 62,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 616.598,
+          y = 933.048,
+          width = 64,
+          height = 64,
+          rotation = 19.1747,
+          gid = 213,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 63,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 621.263,
+          y = 918.124,
+          width = 64,
+          height = 64,
+          rotation = 164.955,
+          gid = 213,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 64,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 492.878,
+          y = 305.73,
+          width = 64,
+          height = 64,
+          rotation = 27.3391,
+          gid = 265,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 65,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 520.34,
+          y = 336.683,
+          width = 64,
+          height = 64,
+          rotation = -28.3142,
+          gid = 266,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      id = 7,
+      name = "object2",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      draworder = "topdown",
+      properties = {},
+      objects = {
+        {
           id = 12,
           name = "",
           type = "",
@@ -2099,6 +2762,44 @@ return {
             ["sprite"] = "hitman",
             ["state"] = "lookAtPlayer",
             ["weapon"] = "machine"
+          }
+        }
+      }
+    },
+    {
+      type = "tilelayer",
+      id = 8,
+      name = "exterior",
+      x = 0,
+      y = 0,
+      width = 16,
+      height = 16,
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      properties = {},
+      encoding = "lua",
+      chunks = {
+        {
+          x = 0, y = 0, width = 16, height = 16,
+          data = {
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 181, 182, 0,
+            0, 0, 0, 0, 181, 182, 0, 0, 0, 0, 0, 0, 0, 208, 209, 0,
+            0, 0, 183, 0, 208, 209, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 183, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 181, 182, 0,
+            0, 0, 0, 0, 181, 182, 0, 0, 0, 0, 0, 0, 0, 208, 209, 0,
+            0, 0, 0, 0, 208, 209, 0, 0, 0, 181, 182, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 208, 209, 0, 0, 0, 0, 0
           }
         }
       }
@@ -2315,8 +3016,8 @@ return {
           name = "",
           type = "",
           shape = "point",
-          x = 436,
-          y = 287,
+          x = 414.667,
+          y = 289.667,
           width = 0,
           height = 0,
           rotation = 0,
@@ -2354,8 +3055,8 @@ return {
           name = "",
           type = "",
           shape = "point",
-          x = 605,
-          y = 547,
+          x = 609,
+          y = 539,
           width = 0,
           height = 0,
           rotation = 0,
@@ -2367,8 +3068,8 @@ return {
           name = "",
           type = "",
           shape = "point",
-          x = 378,
-          y = 549,
+          x = 488.667,
+          y = 545,
           width = 0,
           height = 0,
           rotation = 0,
@@ -2380,8 +3081,8 @@ return {
           name = "",
           type = "",
           shape = "point",
-          x = 377,
-          y = 679,
+          x = 113,
+          y = 116.333,
           width = 0,
           height = 0,
           rotation = 0,
@@ -2394,7 +3095,7 @@ return {
           type = "",
           shape = "point",
           x = 613,
-          y = 683,
+          y = 684.333,
           width = 0,
           height = 0,
           rotation = 0,
@@ -2406,8 +3107,8 @@ return {
           name = "",
           type = "",
           shape = "point",
-          x = 802,
-          y = 153,
+          x = 788.667,
+          y = 165,
           width = 0,
           height = 0,
           rotation = 0,
@@ -2419,8 +3120,8 @@ return {
           name = "",
           type = "",
           shape = "point",
-          x = 411,
-          y = 159,
+          x = 415,
+          y = 115,
           width = 0,
           height = 0,
           rotation = 0,
@@ -2460,6 +3161,58 @@ return {
           shape = "point",
           x = 799,
           y = 829,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 53,
+          name = "",
+          type = "",
+          shape = "point",
+          x = 304,
+          y = 358.667,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 54,
+          name = "",
+          type = "",
+          shape = "point",
+          x = 216,
+          y = 1008,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 55,
+          name = "",
+          type = "",
+          shape = "point",
+          x = 500,
+          y = 913.333,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 66,
+          name = "",
+          type = "",
+          shape = "point",
+          x = 433.333,
+          y = 688,
           width = 0,
           height = 0,
           rotation = 0,

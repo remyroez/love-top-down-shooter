@@ -44,20 +44,16 @@ function Game:enteredState(...)
 
     -- カメラ
     self.state.camera = Camera()
-    self.state.camera:setFollowLerp(0.1)
-    self.state.camera:setFollowLead(2)
-    self.state.camera:setFollowStyle('TOPDOWN_TIGHT')
-    self.state.camera.scale = 1
 
     -- レベル
     self.state.level = Level('assets/levels/simple.lua')
     self.state.level:resizeMapCanvas(self.width, self.height, self.state.camera.scale)
     self.state.level:setupCharacters(self.spriteSheet)
-    self.state.level:setupWave(1, 30, 10, self.spriteSheet)
+    self.state.level:setupWave(1, 0, 10, self.spriteSheet)
     self.state.level:setupNavigation()
 
     -- プレイヤー
-    self.state.character = self.state.level:getPlayer() or self.state.level:registerEntity(
+    self.state.player = self.state.level:getPlayer() or self.state.level:registerEntity(
         Character {
             spriteSheet = self.spriteSheet,
             spriteName = 'hitman1_gun.png',
@@ -68,10 +64,19 @@ function Game:enteredState(...)
             collisionClass = 'player'
         }
     )
-    self.state.character.onDamage = function (character, attacker)
+    self.state.player.onDamage = function (character, attacker)
         self.state.camera:flash(0.1, { 1, 0, 0, 0.5 })
         self.state.camera:shake(8, 0.2, 60)
     end
+
+    -- カメラ初期設定
+    self.state.camera:follow(self:getPlayerPosition())
+    self.state.camera:update()
+    self.state.camera:setFollowLerp(0.1)
+    self.state.camera:setFollowLead(2)
+    self.state.camera:setFollowStyle('TOPDOWN_TIGHT')
+    self.state.camera:setBounds(self.state.level.left, self.state.level.top, self.state.level.width, self.state.level.height)
+    self.state.camera.scale = 1
 end
 
 -- ステート終了
@@ -91,6 +96,18 @@ function Game:update(dt)
     -- カメラ更新
     self.state.camera:update(dt)
     self.state.camera:follow(self:getPlayerPosition())
+
+    -- ウェーブのクリア
+    if self.state.level:isClearWave() then
+        if self.state.level.wave <= 0 then
+            -- 単一ウェーブなら終了
+            self.state.level:setupWave()
+        else
+            -- 次のウェーブへ
+            local wave = self.state.level.wave + 1
+            self.state.level:setupWave(wave, 0, 5 + wave * 5, self.spriteSheet)
+        end
+    end
 end
 
 -- 描画
@@ -120,20 +137,20 @@ function Game:draw()
         love.graphics.setColor(1, 1, 1)
         lg.printf('LIFE: ', 0, self.height - 16, self.width, 'left')
         local color = { lume.color('#ffffff') }
-        local rate = self.state.character.life / self.state.character.lifeMax
+        local rate = self.state.player.life / self.state.player.lifeMax
         if rate <= 0.3 then
             color = { lume.color('rgb(255, 0, 0)') }
         elseif rate <= 0.5 then
             color = { lume.color('rgb(255, 255, 0)') }
         end
         love.graphics.setColor(color)
-        lg.printf(self.state.character.life, 32, self.height - 16, self.width, 'left')
+        lg.printf(self.state.player.life, 32, self.height - 16, self.width, 'left')
     end
 
     -- 残弾数
     love.graphics.setColor(1, 1, 1)
     lg.printf(
-        'AMMO: ' .. self.state.character:getWeaponAmmo() .. '/' .. self.state.character:getWeaponMaxAmmo(),
+        'AMMO: ' .. self.state.player:getWeaponAmmo() .. '/' .. self.state.player:getWeaponMaxAmmo(),
         0,
         self.height - 16,
         self.width,
@@ -142,15 +159,25 @@ function Game:draw()
 
     -- 座標（デバッグ）
     love.graphics.setColor(1, 1, 1)
-    lg.printf('x: ' .. math.ceil(cx) .. ', y: ' .. math.ceil(cy), 0, 0, self.width, 'right')
+    lg.printf('x: ' .. math.ceil(cx) .. ', y: ' .. math.ceil(cy), 0, self.height * 0.5 - 16, self.width, 'right')
 
     -- ウェーブ
-    love.graphics.setColor(1, 1, 1)
-    lg.printf('WAVE: ' .. self.state.level.wave, 0, 0, self.width, 'left')
+    if self.state.level.wave > 0 then
+        love.graphics.setColor(1, 1, 1)
+        lg.printf('WAVE: ' .. self.state.level.wave, 0, 0, self.width, 'left')
+    end
 
     -- 残り時間
-    love.graphics.setColor(1, 1, 1)
-    lg.printf(math.floor(self.state.level:getWaveTime()), 0, 0, self.width, 'center')
+    if self.state.level:hasWaveTime() then
+        love.graphics.setColor(1, 1, 1)
+        lg.printf(math.floor(self.state.level:getWaveTime()), 0, 0, self.width, 'center')
+    end
+
+    -- 敵
+    if self.state.level:getMaxSpawn() > 0 then
+        love.graphics.setColor(1, 1, 1)
+        lg.printf('KILL: ' .. (self.state.level:getNumSpawned() - #self.state.level:getEnemies()) .. '/' .. self.state.level:getMaxSpawn(), 0, 0, self.width, 'right')
+    end
 end
 
 -- キー入力
@@ -161,8 +188,10 @@ end
 
 -- プレイヤー操作
 function Game:controlPlayer()
+    local player = self.state.player
+
     -- プレイヤーがノンアクティブなら操作しない
-    if not self.state.character:isActive() then
+    if not player:isActive() then
         return
     end
 
@@ -180,14 +209,14 @@ function Game:controlPlayer()
     elseif input:down('right') then
         x = 1
     end
-    self.state.character:setColliderVelocity(x, y, self.state.character.speed)
-    self.state.character:setRotationTo(self:getMousePosition())
+    player:setColliderVelocity(x, y, player.speed)
+    player:setRotationTo(self:getMousePosition())
 
     -- 射撃
-    if input:down('fire', self.state.character:getWeaponDelay()) then
-        if self.state.character:hasWeaponAmmo() then
+    if input:down('fire', player:getWeaponDelay()) then
+        if player:hasWeaponAmmo() then
             -- 射撃実行
-            self.state.character:fireWeapon()
+            player:fireWeapon()
 
             -- 画面のシェイク
             self.state.camera:shake(8, 0.1, 60)
@@ -201,23 +230,23 @@ function Game:controlPlayer()
                 local entity = collider:getObject()
                 if entity and entity.alive then
                     entity:damage(
-                        self.state.character:getWeaponDamage(),
-                        self.state.character.rotation,
-                        self.state.character:getWeaponPower(),
-                        self.state.character
+                        player:getWeaponDamage(),
+                        player.rotation,
+                        player:getWeaponPower(),
+                        player
                     )
                 end
             end
-        elseif self.state.character:canReloadWeapon() then
+        elseif player:canReloadWeapon() then
             -- リロード
-            self.state.character:reloadWeapon()
+            player:reloadWeapon()
         end
     end
 end
 
 -- プレイヤーのワールド座標を返す
 function Game:getPlayerPosition()
-    return self.state.character:getPosition()
+    return self.state.player:getPosition()
 end
 
 -- マウスのワールド座標を返す

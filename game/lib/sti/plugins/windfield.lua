@@ -9,6 +9,15 @@ local utils = require((...):gsub('plugins.windfield', 'utils'))
 local lg    = require((...):gsub('plugins.windfield', 'graphics'))
 local wf = rawget(_G, "windfield") or require((...):gsub('sti.plugins.windfield', "windfield"))
 
+local function UUID()
+    local fn = function(x)
+        local r = love.math.random(16) - 1
+        r = (x == "x") and (r + 1) or (r % 4) + 9
+        return ("0123456789abcdef"):sub(r, r)
+    end
+    return (("xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx"):gsub("[xy]", fn))
+end
+
 return {
 	windfield_LICENSE     = "MIT/X11",
 	windfield_URL         = "https://github.com/adnzzzzZ/windfield",
@@ -23,8 +32,11 @@ return {
 		local collision = {
 		}
 
-		local function addObjectToWorld(objshape, vertices, userdata, object)
+		local function addObjectToWorld(objshape, vertices, userdata, object, baseObj)
 			local collider
+
+			local objprop = object and object.properties or {}
+			local baseobjprop = baseObj and baseObj.properties or {}
 
 			if objshape == "polyline" then
 				if #vertices == 4 then
@@ -36,25 +48,28 @@ return {
 				collider = world:newPolygonCollider(vertices)
 			end
 
-			if userdata.properties.dynamic == true then
+			if userdata.properties.dynamic == true --[[or objprop.dynamic == true]] then
 				collider:setType('dynamic')
 			else
 				collider:setType('kinematic')
 			end
 
-			collider:setFriction(userdata.properties.friction       or 0.2)
-			collider:setRestitution(userdata.properties.restitution or 0.0)
-			collider:setLinearDamping(userdata.properties.linearDamping or 0.0)
-			collider:setAngularDamping(userdata.properties.angularDamping or 0.0)
+			collider:setFriction(userdata.properties.friction or objprop.friction or baseobjprop.friction or 0.2)
+			collider:setRestitution(userdata.properties.restitution or objprop.restitution or baseobjprop.restitution or 0.0)
+			collider:setLinearDamping(userdata.properties.linearDamping or objprop.linearDamping or baseobjprop.linearDamping or 0.0)
+			collider:setAngularDamping(userdata.properties.angularDamping or objprop.angularDamping or baseobjprop.angularDamping or 0.0)
 			--collider:setSensor(userdata.properties.sensor           or false)
-			collider:setMass(userdata.properties.mass               or collider:getMass())
-			collider:setCollisionClass(userdata.properties.class    or 'object')
+			--collider:setMass(userdata.properties.mass or objprop.mass or baseobjprop.mass or collider:getMass())
+			collider:setCollisionClass(userdata.properties.class or objprop.class or baseobjprop.class or 'object')
 
 			local obj = {
 				object   = object,
+				baseObj  = baseObj,
 				collider = collider,
 				userdata = userdata,
 			}
+
+			collider:setObject(obj)
 
 			table.insert(collision, obj)
 
@@ -71,7 +86,7 @@ return {
 			return vertices
 		end
 
-		local function calculateObjectPosition(object, tile)
+		local function calculateObjectPosition(object, tile, baseTile, parent)
 			local o = {
 				shape   = object.shape,
 				x       = (object.dx or object.x) + map.offsetx,
@@ -85,13 +100,16 @@ return {
 				sub     = object.sub
 			}
 
+			local addedObj
+
 			local userdata = {
 				object     = o,
 				properties = object.properties
 			}
+			local oy = 0
 
 			if o.shape == "rectangle" then
-				local oy  = 0
+				oy  = 0
 
 				if object.gid then
 					local tileset = map.tilesets[map.tiles[object.gid].tileset]
@@ -110,6 +128,7 @@ return {
 					end
 
 					if t.objectGroup then
+						local first
 						for _, obj in ipairs(t.objectGroup.objects) do
 							local tileobj = {
 								shape      = obj.shape,
@@ -132,10 +151,15 @@ return {
 								sub = true,
 							}
 							-- Every object in the tile
-							calculateObjectPosition(tileobj, object)
+							if first == nil then
+								addedObj = calculateObjectPosition(tileobj, object, tile)
+								first = addedObj
+							else
+								calculateObjectPosition(tileobj, object, tile, first)
+							end
 						end
 
-						return
+						return addedObj
 					else
 						oy = 0
 						o.w = map.tiles[object.gid].width
@@ -174,6 +198,11 @@ return {
 					end
 				end
 
+				if parent then
+					parent.collider:addShape(UUID(), 'PolygonShape', unpack(polygon))
+					return
+				end
+
 				local cos = math.cos(math.rad(o_r))
 				local sin = math.sin(math.rad(o_r))
 				for _, vertex in ipairs(polygon) do
@@ -184,7 +213,7 @@ return {
 				end
 
 				local vertices = getPolygonVertices({ polygon = polygon })
-				addObjectToWorld(o.shape, vertices, userdata, tile or object)
+				addedObj = addObjectToWorld(o.shape, vertices, userdata, tile or object, baseTile)
 			elseif o.shape == "ellipse" then
 				local cos = math.cos(math.rad(o.r))
 				local sin = math.sin(math.rad(o.r))
@@ -214,10 +243,10 @@ return {
 				local vertices  = getPolygonVertices(o)
 				local triangles = love.math.triangulate(vertices)
 
-				local obj = addObjectToWorld(o.shape, triangles[1], userdata, tile or object)
+				addedObj = addObjectToWorld(o.shape, triangles[1], userdata, tile or object, baseTile)
 				for i, triangle in ipairs(triangles) do
 					if i > 1 then
-						obj.collider:addShape(tostring(i), 'PolygonShape', unpack(triangle))
+						addedObj.collider:addShape(tostring(i), 'PolygonShape', unpack(triangle))
 					end
 				end
 			elseif o.shape == "polygon" then
@@ -259,16 +288,18 @@ return {
 				local vertices  = getPolygonVertices({ polygon = polygon })
 				local triangles = love.math.triangulate(vertices)
 
-				local obj = addObjectToWorld(o.shape, triangles[1], userdata, tile or object)
+				addedObj = addObjectToWorld(o.shape, triangles[1], userdata, tile or object, baseTile)
 				for i, triangle in ipairs(triangles) do
 					if i > 1 then
-						obj.collider:addShape(tostring(i), 'PolygonShape', unpack(triangle))
+						addedObj.collider:addShape(tostring(i), 'PolygonShape', unpack(triangle))
 					end
 				end
 			elseif o.shape == "polyline" then
 				local vertices = getPolygonVertices(o)
-				addObjectToWorld(o.shape, vertices, userdata, tile or object)
+				addedObj = addObjectToWorld(o.shape, vertices, userdata, tile or object, baseTile)
 			end
+
+			return addedObj
 		end
 
 		for _, layer in ipairs(map.layers) do
@@ -337,6 +368,34 @@ return {
 				table.remove(collision, i)
 			end
 		end
+	end,
+
+	windfield_update = function(map, dt)
+		--[[
+		local updateLayers = {}
+		for _, collision in ipairs(map.windfield_collision) do
+			if collision.object.layer and collision.object.layer.type == 'objectgroup' and collision.object.gid then
+				local x, y = collision.collider:getPosition()
+				if x ~= collision.object.x or y ~= collision.object.y then
+					print(collision.object.x, collision.object.y, x, y)
+					--collision.object.x, collision.object.y = x, y
+					local found = false
+					for _, layer in ipairs(updateLayers) do
+						if collision.object.layer == layer then
+							found = true
+							break
+						end
+					end
+					if not found then
+						table.insert(updateLayers, collision.object.layer)
+					end
+				end
+			end
+		end
+		for _, layer in ipairs(updateLayers) do
+			map:setObjectSpriteBatches(layer)
+		end
+		--]]
 	end,
 
 	--- Draw windfield physics world.

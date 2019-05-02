@@ -326,8 +326,16 @@
   </properties>
  </tile>
  <tile id="170">
+  <properties>
+   <property name="class" value="building"/>
+   <property name="collidable" type="bool" value="true"/>
+  </properties>
   <objectgroup draworder="index">
-   <object id="1" x="6" y="6" width="52" height="52"/>
+   <object id="1" x="6" y="6" width="52" height="52">
+    <properties>
+     <property name="collidable" type="bool" value="true"/>
+    </properties>
+   </object>
   </objectgroup>
  </tile>
  <tile id="171">
@@ -370,9 +378,33 @@
    <property name="collidable" type="bool" value="true"/>
   </properties>
  </tile>
+ <tile id="179">
+  <properties>
+   <property name="class" value="building"/>
+  </properties>
+ </tile>
  <tile id="180">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+  </properties>
   <objectgroup draworder="index">
    <object id="1" x="32" y="32" width="64" height="64">
+    <properties>
+     <property name="collidable" type="bool" value="true"/>
+    </properties>
+    <ellipse/>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="182">
+  <properties>
+   <property name="collidable" type="bool" value="true"/>
+  </properties>
+  <objectgroup draworder="index">
+   <object id="1" x="20" y="20" width="24" height="24">
+    <properties>
+     <property name="collidable" type="bool" value="true"/>
+    </properties>
     <ellipse/>
    </object>
   </objectgroup>
@@ -412,6 +444,34 @@
    <property name="collidable" type="bool" value="true"/>
   </properties>
  </tile>
+ <tile id="196">
+  <properties>
+   <property name="class" value="building"/>
+   <property name="collidable" type="bool" value="true"/>
+  </properties>
+  <objectgroup draworder="index">
+   <object id="2" x="0" y="0" width="64" height="64">
+    <properties>
+     <property name="collidable" type="bool" value="true"/>
+    </properties>
+    <ellipse/>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="197">
+  <properties>
+   <property name="class" value="building"/>
+   <property name="collidable" type="bool" value="true"/>
+  </properties>
+  <objectgroup draworder="index">
+   <object id="2" x="10" y="10" width="44" height="44">
+    <properties>
+     <property name="collidable" type="bool" value="true"/>
+    </properties>
+    <ellipse/>
+   </object>
+  </objectgroup>
+ </tile>
  <tile id="198">
   <properties>
    <property name="collidable" type="bool" value="true"/>
@@ -446,6 +506,26 @@
   <properties>
    <property name="collidable" type="bool" value="true"/>
   </properties>
+ </tile>
+ <tile id="205">
+  <properties>
+   <property name="class" value="building"/>
+  </properties>
+ </tile>
+ <tile id="206">
+  <properties>
+   <property name="class" value="building"/>
+  </properties>
+ </tile>
+ <tile id="209">
+  <objectgroup draworder="index">
+   <object id="1" x="27" y="22" width="20" height="20">
+    <properties>
+     <property name="collidable" type="bool" value="true"/>
+    </properties>
+    <ellipse/>
+   </object>
+  </objectgroup>
  </tile>
  <tile id="216">
   <properties>
@@ -517,6 +597,15 @@
    <property name="collidable" type="bool" value="true"/>
   </properties>
  </tile>
+ <tile id="242">
+  <objectgroup draworder="index">
+   <object id="1" x="0" y="32" width="64" height="32">
+    <properties>
+     <property name="collidable" type="bool" value="true"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </tile>
  <tile id="243">
   <properties>
    <property name="collidable" type="bool" value="true"/>
@@ -586,6 +675,15 @@
   <properties>
    <property name="collidable" type="bool" value="true"/>
   </properties>
+ </tile>
+ <tile id="269">
+  <objectgroup draworder="index">
+   <object id="1" x="0" y="32" width="64" height="32">
+    <properties>
+     <property name="collidable" type="bool" value="true"/>
+    </properties>
+   </object>
+  </objectgroup>
  </tile>
  <tile id="270">
   <properties>
@@ -1110,5 +1208,95 @@
   <properties>
    <property name="collidable" type="bool" value="true"/>
   </properties>
+ </tile>
+ <tile id="452">
+  <objectgroup draworder="index">
+   <object id="1" x="2" y="2" width="62" height="60">
+    <properties>
+     <property name="collidable" type="bool" value="true"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="453">
+  <objectgroup draworder="index">
+   <object id="1" x="0" y="2" width="64" height="60">
+    <properties>
+     <property name="collidable" type="bool" value="true"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="454">
+  <objectgroup draworder="index">
+   <object id="1" x="0" y="2" width="62" height="60">
+    <properties>
+     <property name="collidable" type="bool" value="true"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="479">
+  <objectgroup draworder="index">
+   <object id="1" x="2" y="2" width="62" height="60">
+    <properties>
+     <property name="collidable" type="bool" value="true"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="480">
+  <objectgroup draworder="index">
+   <object id="1" x="0" y="2" width="64" height="60">
+    <properties>
+     <property name="collidable" type="bool" value="true"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="481">
+  <objectgroup draworder="index">
+   <object id="1" x="0" y="2" width="62" height="60">
+    <properties>
+     <property name="collidable" type="bool" value="true"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="527">
+  <objectgroup draworder="index">
+   <object id="1" x="12" y="11" width="41" height="43">
+    <properties>
+     <property name="collidable" type="bool" value="false"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="528">
+  <objectgroup draworder="index">
+   <object id="1" x="13" y="13" width="38" height="40">
+    <properties>
+     <property name="collidable" type="bool" value="false"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="529">
+  <objectgroup draworder="index">
+   <object id="1" x="13" y="13" width="38" height="40">
+    <properties>
+     <property name="collidable" type="bool" value="false"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="530">
+  <objectgroup draworder="index">
+   <object id="1" x="13" y="13" width="38" height="40">
+    <properties>
+     <property name="collidable" type="bool" value="false"/>
+    </properties>
+   </object>
+  </objectgroup>
  </tile>
 </tileset>

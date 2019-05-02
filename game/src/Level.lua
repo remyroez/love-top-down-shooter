@@ -15,9 +15,16 @@ local Level = class 'Level'
 
 -- コリジョンクラス
 local collisionClasses = {
+    'frame',
+    'player',
+    'enemy',
+    'friend',
+    'building',
+    'object',
+    frame = {},
     player = {},
-    enemy = {},
-    friend = {},
+    enemy = { ignores = { 'frame' } },
+    friend = { ignores = { 'frame' } },
     building = {},
     object = {},
 }
@@ -80,7 +87,8 @@ function Level:initialize(map)
     self.world = wf.newWorld(0, 0, true)
 
     -- コリジョンクラスの追加
-    for name, klass in pairs(collisionClasses) do
+    for index, name in ipairs(collisionClasses) do
+        local klass = collisionClasses[name]
         self.world:addCollisionClass(name, klass)
         self.characters[name] = {}
     end
@@ -88,6 +96,98 @@ function Level:initialize(map)
     -- マップ
     self.map = sti(map, { 'windfield' })
     self.map:windfield_init(self.world)
+
+    -- マップ情報の取得
+    self.left = 0
+    self.right = 0
+    self.top = 0
+    self.bottom = 0
+    local customIndex = nil
+    for index, layer in ipairs(self.map.layers) do
+        if layer == self.map.layers['character'] then
+            customIndex = index
+        end
+        if layer.type == 'tilelayer' then
+            -- チャンクから上下左右の端を取得
+            if layer.chunks then
+                for __, chunk in ipairs(layer.chunks) do
+                    if chunk.x < self.left then
+                        self.left = chunk.x
+                    end
+                    if chunk.y < self.top then
+                        self.top = chunk.y
+                    end
+                    if chunk.x + chunk.width > self.right then
+                        self.right = chunk.x + chunk.width
+                    end
+                    if chunk.y + chunk.height > self.bottom then
+                        self.bottom = chunk.y + chunk.height
+                    end
+                end
+            end
+        end
+    end
+    self.left = self.left * self.map.tilewidth
+    self.right = self.right * self.map.tilewidth
+    self.top = self.top * self.map.tileheight
+    self.bottom = self.bottom * self.map.tileheight
+    self.width = self.right - self.left
+    self.height = self.bottom - self.top
+
+    self.frames = {}
+    do
+        local rects = {
+            { self.left - 8, self.top - 8, 8, self.height + 16, dir = 'left' },
+            { self.left - 8, self.top - 8, self.width + 16, 8, dir = 'up' },
+            { self.right, self.top - 8, 8, self.height + 16, dir = 'right' },
+            { self.left - 8, self.bottom, self.width + 16, 8, dir = 'down' },
+        }
+        for _, rect in ipairs(rects) do
+            local r = rect
+            local frame = self.world:newRectangleCollider(unpack(rect))
+            frame:setCollisionClass('frame')
+            frame:setType('static')
+            frame:setPreSolve(
+                function(collider_1, collider_2, contact)
+                    if collider_1.collision_class ~= 'frame' and collider_2.collision_class == 'frame' then
+                        local x1, y1 = collider_1:getPosition()
+                        local x2, y2 = collider_2:getPosition()
+                        print(x1, y1, x2, y2)
+                        if r.dir == 'left' then
+                            if x1 > x2 then contact:setEnabled(false) end
+                        elseif r.dir == 'up' then
+                            if y1 > y2 then contact:setEnabled(false) end
+                        elseif r.dir == 'right' then
+                            if x1 < x2 then contact:setEnabled(false) end
+                        elseif r.dir == 'down' then
+                            if y1 < y2 then contact:setEnabled(false) end
+                        end
+                    end
+                end
+            )
+            table.insert(self.frames, frame)
+        end
+    end
+
+    -- カスタムレイヤー
+    if customIndex then
+        local level = self
+        local layer = self.map:addCustomLayer('entity', customIndex)
+        function layer:update(dt)
+            lume.each(level.entities, 'update', dt)
+        end
+        function layer:draw()
+            lume.each(level.entities, 'draw')
+        end
+    end
+
+    for _, collision in ipairs(self.map.windfield_collision) do
+        if collision.object.layer and collision.object.layer.type == 'tilelayer' then
+            collision.collider:setCollisionClass('building')
+        elseif collision.baseObj and collision.baseObj.layer and collision.baseObj.layer.type == 'tilelayer' then
+            collision.collider:setCollisionClass('building')
+        end
+    end
 
     -- エンティティ
     self.entities = {}
@@ -199,7 +299,7 @@ end
 -- ウェーブのセットアップ
 function Level:setupWave(wave, time, max, spriteSheet)
     self.wave = wave or 0
-    self.time = time or 30
+    self.time = time or 0
 
     -- スポナー情報のクリア
     self.spawner = {
@@ -211,21 +311,43 @@ function Level:setupWave(wave, time, max, spriteSheet)
     self.timer:destroy()
 
     -- スポナーセットアップ
-    self:setupSpawners(spriteSheet)
+    if self.spawner.max > 0 then
+        self:setupSpawners(spriteSheet)
+    end
 
     -- 制限時間
-    self.timer:after(
-        self.time,
-        function ()
-            self.timer:destroy()
-        end,
-        'wave'
-    )
+    if self.time > 0 then
+        self.timer:after(
+            self.time,
+            function ()
+                self.timer:destroy()
+            end,
+            'wave'
+        )
+    end
 end
 
 -- ウェーブのタイム
 function Level:getWaveTime()
     return self.time - (self.timer.timers['wave'] and self.timer:getTime('wave') or self.time)
+end
+
+-- ウェーブの制限時間があるかどうか
+function Level:hasWaveTime()
+    return self.time > 0
+end
+
+-- ウェーブをクリアしたかどうか
+function Level:isClearWave()
+    local clear = false
+
+    if self:hasWaveTime() and self:getWaveTime() == 0 then
+        clear = true
+    elseif self:isAllSpawned() and #self:getEnemies() == 0 then
+        clear = true
+    end
+
+    return clear
 end
 
 -- ウェーブのセットアップ
@@ -328,16 +450,14 @@ end
 function Level:update(dt)
     self.timer:update(dt)
     self.world:update(dt)
-    lume.each(self.entities, 'update', dt)
+    self.map:update(dt)
+    self.map:windfield_update(dt)
 end
 
 -- 描画
 function Level:draw(x, y, scale)
     -- マップの描画
     self.map:draw(x, y, scale)
-
-    -- エンティティの描画
-    lume.each(self.entities, 'draw')
 
     -- ワールドのデバッグ描画
     self.world:draw(0.5)
@@ -406,6 +526,21 @@ end
 -- プレイヤーの取得
 function Level:getPlayer()
     return lume.first(self:getPlayers())
+end
+
+-- スポーン済みの数
+function Level:getNumSpawned()
+    return self.spawner.current
+end
+
+-- スポーン最大数
+function Level:getMaxSpawn()
+    return self.spawner.max
+end
+
+-- 全てスポーン済みかどうか
+function Level:isAllSpawned()
+    return self:getNumSpawned() >= self:getMaxSpawn()
 end
 
 return Level
