@@ -679,7 +679,8 @@ return {
         {
           id = 170,
           properties = {
-            ["class"] = "building"
+            ["class"] = "building",
+            ["collidable"] = true
           },
           objectGroup = {
             type = "objectgroup",
@@ -702,7 +703,9 @@ return {
                 height = 52,
                 rotation = 0,
                 visible = true,
-                properties = {}
+                properties = {
+                  ["collidable"] = true
+                }
               }
             }
           }
@@ -872,13 +875,69 @@ return {
         {
           id = 196,
           properties = {
-            ["class"] = "building"
+            ["class"] = "building",
+            ["collidable"] = true
+          },
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 2,
+                name = "",
+                type = "",
+                shape = "ellipse",
+                x = 0,
+                y = 0,
+                width = 64,
+                height = 64,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["collidable"] = true
+                }
+              }
+            }
           }
         },
         {
           id = 197,
           properties = {
-            ["class"] = "building"
+            ["class"] = "building",
+            ["collidable"] = true
+          },
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 2,
+                name = "",
+                type = "",
+                shape = "ellipse",
+                x = 10,
+                y = 10,
+                width = 44,
+                height = 44,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["collidable"] = true
+                }
+              }
+            }
           }
         },
         {
@@ -2306,7 +2365,7 @@ return {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 433, 0, 0, 0, 0, 0, 0, 0, 434, 0, 0, 0, 0,
-            0, 0, 0, 433, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 198, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 447, 448, 449, 434, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -2411,62 +2470,6 @@ return {
           properties = {}
         },
         {
-          id = 6,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 666,
-          y = 578,
-          width = 64,
-          height = 64,
-          rotation = 0,
-          gid = 134,
-          visible = true,
-          properties = {
-            ["angularDamping"] = 10,
-            ["collidable"] = true,
-            ["dynamic"] = true,
-            ["linearDamping"] = 10,
-            ["mass"] = 2
-          }
-        },
-        {
-          id = 7,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 444,
-          y = 710,
-          width = 64,
-          height = 64,
-          rotation = 0,
-          gid = 132,
-          visible = true,
-          properties = {
-            ["angularDamping"] = 10,
-            ["collidable"] = true,
-            ["dynamic"] = true,
-            ["linearDamping"] = 10,
-            ["mass"] = 2
-          }
-        },
-        {
-          id = 8,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 478,
-          y = 640,
-          width = 64,
-          height = 64,
-          rotation = 0,
-          gid = 171,
-          visible = true,
-          properties = {
-            ["collidable"] = true
-          }
-        },
-        {
           id = 9,
           name = "",
           type = "",
@@ -2512,86 +2515,6 @@ return {
           visible = true,
           properties = {
             ["collidable"] = true
-          }
-        },
-        {
-          id = 38,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 290.089,
-          y = 667.975,
-          width = 64,
-          height = 64,
-          rotation = -4.15506,
-          gid = 529,
-          visible = true,
-          properties = {
-            ["angularDamping"] = 10,
-            ["collidable"] = false,
-            ["dynamic"] = false,
-            ["linearDamping"] = 10,
-            ["mass"] = 2
-          }
-        },
-        {
-          id = 39,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 367.032,
-          y = 664.391,
-          width = 64,
-          height = 64,
-          rotation = -4.15506,
-          gid = 529,
-          visible = true,
-          properties = {
-            ["angularDamping"] = 10,
-            ["collidable"] = false,
-            ["dynamic"] = false,
-            ["linearDamping"] = 10,
-            ["mass"] = 2
-          }
-        },
-        {
-          id = 40,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 341.598,
-          y = 526.549,
-          width = 64,
-          height = 64,
-          rotation = -186.575,
-          gid = 529,
-          visible = true,
-          properties = {
-            ["angularDamping"] = 10,
-            ["collidable"] = false,
-            ["dynamic"] = false,
-            ["linearDamping"] = 10,
-            ["mass"] = 2
-          }
-        },
-        {
-          id = 41,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 424.602,
-          y = 524.422,
-          width = 64,
-          height = 64,
-          rotation = -183.142,
-          gid = 529,
-          visible = true,
-          properties = {
-            ["angularDamping"] = 10,
-            ["collidable"] = false,
-            ["dynamic"] = false,
-            ["linearDamping"] = 10,
-            ["mass"] = 2
           }
         },
         {
@@ -2675,8 +2598,8 @@ return {
           name = "",
           type = "",
           shape = "rectangle",
-          x = 149.333,
-          y = 565.333,
+          x = 246.667,
+          y = 642.667,
           width = 64,
           height = 64,
           rotation = 0,
@@ -2796,46 +2719,6 @@ return {
       properties = {},
       objects = {
         {
-          id = 45,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 293.904,
-          y = 630.768,
-          width = 64,
-          height = 64,
-          rotation = -4.15506,
-          gid = 453,
-          visible = true,
-          properties = {
-            ["angularDamping"] = 10,
-            ["collidable"] = true,
-            ["dynamic"] = true,
-            ["linearDamping"] = 10,
-            ["mass"] = 2
-          }
-        },
-        {
-          id = 46,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 357.735,
-          y = 626.131,
-          width = 64,
-          height = 64,
-          rotation = -4.15506,
-          gid = 455,
-          visible = true,
-          properties = {
-            ["angularDamping"] = 10,
-            ["collidable"] = true,
-            ["dynamic"] = true,
-            ["linearDamping"] = 10,
-            ["mass"] = 2
-          }
-        },
-        {
           id = 12,
           name = "",
           type = "",
@@ -2848,46 +2731,6 @@ return {
           gid = 268,
           visible = true,
           properties = {}
-        },
-        {
-          id = 51,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 558.771,
-          y = 609.208,
-          width = 64,
-          height = 64,
-          rotation = 17.012,
-          gid = 480,
-          visible = true,
-          properties = {
-            ["angularDamping"] = 10,
-            ["collidable"] = true,
-            ["dynamic"] = true,
-            ["linearDamping"] = 10,
-            ["mass"] = 2
-          }
-        },
-        {
-          id = 52,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 619.971,
-          y = 627.933,
-          width = 64,
-          height = 64,
-          rotation = 17.012,
-          gid = 482,
-          visible = true,
-          properties = {
-            ["angularDamping"] = 10,
-            ["collidable"] = true,
-            ["dynamic"] = true,
-            ["linearDamping"] = 10,
-            ["mass"] = 2
-          }
         }
       }
     },
@@ -3212,8 +3055,8 @@ return {
           name = "",
           type = "",
           shape = "point",
-          x = 605,
-          y = 547,
+          x = 609,
+          y = 539,
           width = 0,
           height = 0,
           rotation = 0,
@@ -3252,7 +3095,7 @@ return {
           type = "",
           shape = "point",
           x = 613,
-          y = 683,
+          y = 684.333,
           width = 0,
           height = 0,
           rotation = 0,

@@ -23,7 +23,7 @@
 </chunk>
   </data>
  </layer>
- <layer id="2" name="interior" width="16" height="16" locked="1">
+ <layer id="2" name="interior" width="16" height="16">
   <data encoding="csv">
    <chunk x="0" y="0" width="16" height="16">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -35,7 +35,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,433,0,0,0,0,0,0,0,434,0,0,0,0,
-0,0,0,433,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,198,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,447,448,449,434,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -67,29 +67,6 @@
   </object>
   <object id="4" gid="266" x="843.378" y="501.991" width="64" height="64" rotation="-31.4254"/>
   <object id="5" gid="293" x="854.8" y="543.776" width="64" height="64" rotation="-312.184"/>
-  <object id="6" gid="134" x="666" y="578" width="64" height="64">
-   <properties>
-    <property name="angularDamping" type="float" value="10"/>
-    <property name="collidable" type="bool" value="true"/>
-    <property name="dynamic" type="bool" value="true"/>
-    <property name="linearDamping" type="float" value="10"/>
-    <property name="mass" type="float" value="2"/>
-   </properties>
-  </object>
-  <object id="7" gid="132" x="444" y="710" width="64" height="64">
-   <properties>
-    <property name="angularDamping" type="float" value="10"/>
-    <property name="collidable" type="bool" value="true"/>
-    <property name="dynamic" type="bool" value="true"/>
-    <property name="linearDamping" type="float" value="10"/>
-    <property name="mass" type="float" value="2"/>
-   </properties>
-  </object>
-  <object id="8" gid="171" x="478" y="640" width="64" height="64">
-   <properties>
-    <property name="collidable" type="bool" value="true"/>
-   </properties>
-  </object>
   <object id="9" gid="324" x="320" y="448" width="64" height="64" rotation="180">
    <properties>
     <property name="collidable" type="bool" value="true"/>
@@ -105,42 +82,6 @@
     <property name="collidable" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="38" gid="529" x="290.089" y="667.975" width="64" height="64" rotation="-4.15506">
-   <properties>
-    <property name="angularDamping" type="float" value="10"/>
-    <property name="collidable" type="bool" value="false"/>
-    <property name="dynamic" type="bool" value="false"/>
-    <property name="linearDamping" type="float" value="10"/>
-    <property name="mass" type="float" value="2"/>
-   </properties>
-  </object>
-  <object id="39" gid="529" x="367.032" y="664.391" width="64" height="64" rotation="-4.15506">
-   <properties>
-    <property name="angularDamping" type="float" value="10"/>
-    <property name="collidable" type="bool" value="false"/>
-    <property name="dynamic" type="bool" value="false"/>
-    <property name="linearDamping" type="float" value="10"/>
-    <property name="mass" type="float" value="2"/>
-   </properties>
-  </object>
-  <object id="40" gid="529" x="341.598" y="526.549" width="64" height="64" rotation="-186.575">
-   <properties>
-    <property name="angularDamping" type="float" value="10"/>
-    <property name="collidable" type="bool" value="false"/>
-    <property name="dynamic" type="bool" value="false"/>
-    <property name="linearDamping" type="float" value="10"/>
-    <property name="mass" type="float" value="2"/>
-   </properties>
-  </object>
-  <object id="41" gid="529" x="424.602" y="524.422" width="64" height="64" rotation="-183.142">
-   <properties>
-    <property name="angularDamping" type="float" value="10"/>
-    <property name="collidable" type="bool" value="false"/>
-    <property name="dynamic" type="bool" value="false"/>
-    <property name="linearDamping" type="float" value="10"/>
-    <property name="mass" type="float" value="2"/>
-   </properties>
-  </object>
   <object id="47" gid="270" x="287" y="704" width="64" height="64">
    <properties>
     <property name="angularDamping" type="float" value="10"/>
@@ -154,7 +95,7 @@
   <object id="50" gid="345" x="618.862" y="611.724" width="64" height="64" rotation="-7.53399"/>
   <object id="56" gid="264" x="169.333" y="646.667" width="64" height="64"/>
   <object id="57" gid="289" x="128" y="481.333" width="64" height="64"/>
-  <object id="58" gid="291" x="149.333" y="565.333" width="64" height="64"/>
+  <object id="58" gid="291" x="246.667" y="642.667" width="64" height="64"/>
   <object id="59" gid="213" x="169.333" y="282.667" width="64" height="64"/>
   <object id="60" gid="213" x="336.297" y="186.281" width="64" height="64" rotation="-286.32"/>
   <object id="61" gid="213" x="384.438" y="942.953" width="64" height="64" rotation="-68.1221"/>
@@ -163,44 +104,8 @@
   <object id="64" gid="265" x="492.878" y="305.73" width="64" height="64" rotation="27.3391"/>
   <object id="65" gid="266" x="520.34" y="336.683" width="64" height="64" rotation="-28.3142"/>
  </objectgroup>
- <objectgroup id="7" name="object2" locked="1">
-  <object id="45" gid="453" x="293.904" y="630.768" width="64" height="64" rotation="-4.15506">
-   <properties>
-    <property name="angularDamping" type="float" value="10"/>
-    <property name="collidable" type="bool" value="true"/>
-    <property name="dynamic" type="bool" value="true"/>
-    <property name="linearDamping" type="float" value="10"/>
-    <property name="mass" type="float" value="2"/>
-   </properties>
-  </object>
-  <object id="46" gid="455" x="357.735" y="626.131" width="64" height="64" rotation="-4.15506">
-   <properties>
-    <property name="angularDamping" type="float" value="10"/>
-    <property name="collidable" type="bool" value="true"/>
-    <property name="dynamic" type="bool" value="true"/>
-    <property name="linearDamping" type="float" value="10"/>
-    <property name="mass" type="float" value="2"/>
-   </properties>
-  </object>
+ <objectgroup id="7" name="object2">
   <object id="12" gid="268" x="389.25" y="511.75" width="64" height="64"/>
-  <object id="51" gid="480" x="558.771" y="609.208" width="64" height="64" rotation="17.012">
-   <properties>
-    <property name="angularDamping" type="float" value="10"/>
-    <property name="collidable" type="bool" value="true"/>
-    <property name="dynamic" type="bool" value="true"/>
-    <property name="linearDamping" type="float" value="10"/>
-    <property name="mass" type="float" value="2"/>
-   </properties>
-  </object>
-  <object id="52" gid="482" x="619.971" y="627.933" width="64" height="64" rotation="17.012">
-   <properties>
-    <property name="angularDamping" type="float" value="10"/>
-    <property name="collidable" type="bool" value="true"/>
-    <property name="dynamic" type="bool" value="true"/>
-    <property name="linearDamping" type="float" value="10"/>
-    <property name="mass" type="float" value="2"/>
-   </properties>
-  </object>
  </objectgroup>
  <objectgroup id="4" name="character" locked="1">
   <object id="13" name="player" type="player" x="601.333" y="352">
@@ -320,7 +225,7 @@
   <object id="28" x="607" y="355">
    <point/>
   </object>
-  <object id="29" x="605" y="547">
+  <object id="29" x="609" y="539">
    <point/>
   </object>
   <object id="30" x="488.667" y="545">
@@ -329,7 +234,7 @@
   <object id="31" x="113" y="116.333">
    <point/>
   </object>
-  <object id="32" x="613" y="683">
+  <object id="32" x="613" y="684.333">
    <point/>
   </object>
   <object id="33" x="788.667" y="165">
