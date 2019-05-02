@@ -162,17 +162,17 @@ function Character:damage(damage, rotation, power, attacker)
         self.collider:applyLinearImpulse(lume.vector(rotation, power))
     end
 
+    -- ダメージコールバック
+    self.onDamage(self)
+    if self.behavior and self.alive then
+        self.behavior:onDamage(attacker)
+    end
+
     -- ０以下になったら死ぬ
     if self.life <= 0 then
         self:gotoState 'dying'
     else
         self:pushState('wait', power / 10000)
-    end
-
-    -- ダメージコールバック
-    self.onDamage(self)
-    if self.behavior and self.alive then
-        self.behavior:onDamage(attacker)
     end
 end
 
