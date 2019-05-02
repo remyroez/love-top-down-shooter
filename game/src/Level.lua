@@ -199,7 +199,7 @@ end
 -- ウェーブのセットアップ
 function Level:setupWave(wave, time, max, spriteSheet)
     self.wave = wave or 0
-    self.time = time or 30
+    self.time = time or 0
 
     -- スポナー情報のクリア
     self.spawner = {
@@ -211,21 +211,43 @@ function Level:setupWave(wave, time, max, spriteSheet)
     self.timer:destroy()
 
     -- スポナーセットアップ
-    self:setupSpawners(spriteSheet)
+    if self.spawner.max > 0 then
+        self:setupSpawners(spriteSheet)
+    end
 
     -- 制限時間
-    self.timer:after(
-        self.time,
-        function ()
-            self.timer:destroy()
-        end,
-        'wave'
-    )
+    if self.time > 0 then
+        self.timer:after(
+            self.time,
+            function ()
+                self.timer:destroy()
+            end,
+            'wave'
+        )
+    end
 end
 
 -- ウェーブのタイム
 function Level:getWaveTime()
     return self.time - (self.timer.timers['wave'] and self.timer:getTime('wave') or self.time)
+end
+
+-- ウェーブの制限時間があるかどうか
+function Level:hasWaveTime()
+    return self.time > 0
+end
+
+-- ウェーブをクリアしたかどうか
+function Level:isClearWave()
+    local clear = false
+
+    if self:hasWaveTime() and self:getWaveTime() == 0 then
+        clear = true
+    elseif self:isAllSpawned() and #self:getEnemies() == 0 then
+        clear = true
+    end
+
+    return clear
 end
 
 -- ウェーブのセットアップ
@@ -406,6 +428,21 @@ end
 -- プレイヤーの取得
 function Level:getPlayer()
     return lume.first(self:getPlayers())
+end
+
+-- スポーン済みの数
+function Level:getNumSpawned()
+    return self.spawner.current
+end
+
+-- スポーン最大数
+function Level:getMaxSpawn()
+    return self.spawner.max
+end
+
+-- 全てスポーン済みかどうか
+function Level:isAllSpawned()
+    return self:getNumSpawned() >= self:getMaxSpawn()
 end
 
 return Level
