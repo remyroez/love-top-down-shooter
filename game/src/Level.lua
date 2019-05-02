@@ -51,6 +51,7 @@ local weaponData = {
         ammo = 8,
         sound = 20,
         delay = 0.5,
+        range = 500,
     },
     machine = {
         name = 'machine',
@@ -59,6 +60,7 @@ local weaponData = {
         ammo = 30,
         sound = 10,
         delay = 0.1,
+        range = 500,
     },
     silencer = {
         name = 'silencer',
@@ -67,6 +69,7 @@ local weaponData = {
         ammo = 8,
         sound = 5,
         delay = 0.5,
+        range = 300,
     },
     hand = {
         name = 'hold',
@@ -75,6 +78,7 @@ local weaponData = {
         ammo = -1,
         sound = 1,
         delay = 1,
+        range = 16,
     },
 }
 

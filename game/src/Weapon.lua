@@ -63,6 +63,11 @@ function Weapon:getWeaponDelay()
     return self._weapon.properties.delay or 1
 end
 
+-- 武器の射程
+function Weapon:getWeaponRange()
+    return self._weapon.properties.range or 0
+end
+
 -- 武器の残り弾数があるかどうか
 function Weapon:hasWeaponAmmo()
     return self:getWeaponAmmo() > 0
