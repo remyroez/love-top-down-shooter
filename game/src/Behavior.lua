@@ -1,5 +1,6 @@
 
 local class = require 'middleclass'
+local lume = require 'lume'
 
 -- クラス
 local Timer = require 'Timer'
@@ -31,6 +32,7 @@ function Behavior:initialize(character, baseState)
     self.character = character
     self.baseState = baseState
     self.timer = Timer()
+    self.first = true
     self:gotoBaseState()
 end
 
@@ -60,6 +62,7 @@ end
 
 -- ステート終了
 function Behavior:exitedState(...)
+    self.first = false
     self.timer:destroy()
 end
 

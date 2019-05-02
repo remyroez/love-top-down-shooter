@@ -79,6 +79,28 @@ end
 -- 検索
 local Search = ZombieBehavior:newState 'search'
 
+-- 検索: 周囲を探す
+function Search:tweenSearch(rotate)
+    self.timer:tween(
+        3,
+        self.character,
+        { rotation = self.character.rotation + rotate },
+        'in-out-cubic',
+        function ()
+            self:tweenSearch(math.pi / 2 * love.math.random(-1, 1))
+        end,
+        'search'
+    )
+end
+
+-- 検索: キャラクターのナビゲート
+function Search:navigateCharacter()
+    local navi = self.character:findNavigation(love.math.random(1, 2) == 1)
+    if navi then
+        self:gotoState('goto', navi.x, navi.y)
+    end
+end
+
 -- 検索: ステート開始
 function Search:enteredState(rotate)
     rotate = rotate or (math.pi / 2)
@@ -87,15 +109,7 @@ function Search:enteredState(rotate)
     self:setCharacterState('stand')
 
     -- 一定間隔で左右を見る
-    self.timer:tween(
-        3,
-        self.character,
-        { rotation = self.character.rotation + rotate },
-        'in-out-cubic',
-        function ()
-            self:gotoState('search', math.pi / 2 * love.math.random(-1, 1))
-        end
-    )
+    self:tweenSearch(rotate)
 
     -- 視界内の相手を探す
     self.timer:every(
@@ -115,6 +129,27 @@ function Search:enteredState(rotate)
             end
         end
     )
+
+    -- 定期的にナビゲーション先を探す
+    self.timer:every(
+        5,
+        function ()
+            self:navigateCharacter()
+        end
+    )
+
+    -- 定期的にナビゲーションをリセット
+    self.timer:every(
+        60,
+        function ()
+            self.character:resetNavigation()
+        end
+    )
+
+    -- 最初に一回ナビゲートする
+    if self.first then
+        self:navigateCharacter()
+    end
 end
 
 -- 描画
@@ -145,6 +180,9 @@ function Attack:enteredState(target)
 
     -- キャラクターは追跡状態に
     self:setCharacterState('goto', self.character.speed * 1.5, self.target)
+
+    -- ナビゲーションのリセット
+    self.character:resetNavigation()
 
     -- 視界内の相手を探す
     self.timer:every(

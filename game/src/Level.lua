@@ -102,6 +102,9 @@ function Level:initialize(map)
         current = 0,
         max = 0,
     }
+
+    -- ナビ
+    self.navigation = {}
 end
 
 -- キャラクターのセットアップ
@@ -225,6 +228,24 @@ function Level:getWaveTime()
     return self.time - (self.timer.timers['wave'] and self.timer:getTime('wave') or self.time)
 end
 
+-- ウェーブのセットアップ
+function Level:setupNavigation()
+    lume.clear(self.navigation)
+
+    -- navi レイヤー
+    local layer = self.map.layers['navi']
+    if not layer then
+        return
+    end
+
+    layer.visible = false
+
+    -- オブジェクトからナビゲーション生成
+    for _, object in ipairs(layer.objects) do
+        table.insert(self.navigation, { x = object.x, y = object.y })
+    end
+end
+
 -- キャラクターのスポーン
 function Level:spawnCharacter(object, spriteSheet)
     -- デフォルトスプライト
@@ -280,6 +301,7 @@ function Level:spawnCharacter(object, spriteSheet)
             collisionClass = object.type,
             behavior = behavior,
             world = self.world,
+            navigation = self.navigation,
             life = object.properties.life,
             onDead = function (character) self:deregisterEntity(character) end
         }

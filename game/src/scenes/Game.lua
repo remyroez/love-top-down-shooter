@@ -54,6 +54,7 @@ function Game:enteredState(...)
     self.state.level:resizeMapCanvas(self.width, self.height, self.state.camera.scale)
     self.state.level:setupCharacters(self.spriteSheet)
     self.state.level:setupWave(1, 30, 10, self.spriteSheet)
+    self.state.level:setupNavigation()
 
     -- プレイヤー
     self.state.character = self.state.level:getPlayer() or self.state.level:registerEntity(

@@ -30,6 +30,9 @@ function Character:initialize(args)
     self.life = args.life or 10
     self.lifeMax = self.life
 
+    self.navigation = args.navigation or {}
+    self.visitedNavi = {}
+
     -- スプライト
     if type(args.sprite) == 'table' then
         self.sprite = args.sprite[love.math.random(#args.sprite)]
@@ -252,6 +255,50 @@ function Character:watchCharacter(target, range, circle, targetClass, sight)
     end
 
     return isFound
+end
+
+-- ナビゲーションを探す
+function Character:findNavigation(reverse, reset)
+    local reverse = reverse or false
+    local nearestNavi
+    local nearestDist = reverse and 0 or 99999999
+    -- すでに全てのナビゲーションを訪問していたら、記憶をリセット
+    if reset or #self.visitedNavi >= #self.navigation then
+        self:resetNavigation()
+    end
+    for _, navi in ipairs(self.navigation) do
+        if not lume.find(self.visitedNavi, navi) then
+            local dist = lume.distance(self.x, self.y, navi.x, navi.y)
+            local check = reverse and (dist > nearestDist) or (dist < nearestDist)
+            if check then
+                local ok = true
+
+                -- 障害物がないかチェック
+                local founds = self.world:queryLine(navi.x, navi.y, self.x, self.y, { 'All', except = { self.type } })
+                for __, found in pairs(founds) do
+                    if found.collision_class == 'building' or found.collision_class == 'object' then
+                        ok = false
+                        break
+                    end
+                end
+
+                -- 障害物がなかった
+                if ok then
+                    nearestNavi = navi
+                    nearestDist = dist
+                end
+            end
+        end
+    end
+    if nearestNavi then
+        table.insert(self.visitedNavi, nearestNavi)
+    end
+    return nearestNavi
+end
+
+-- 過去に訪問したナビゲーションのリセット
+function Character:resetNavigation()
+    self.visitedNavi = {}
 end
 
 -- 立つ
