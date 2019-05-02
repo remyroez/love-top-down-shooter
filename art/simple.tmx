@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="16" height="16" tilewidth="64" tileheight="64" infinite="1" nextlayerid="8" nextobjectid="54">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="16" height="16" tilewidth="64" tileheight="64" infinite="1" nextlayerid="9" nextobjectid="67">
  <tileset firstgid="1" source="tilesheet.tsx"/>
  <layer id="1" name="ground" width="16" height="16" locked="1">
   <data encoding="csv">
@@ -28,9 +28,9 @@
    <chunk x="0" y="0" width="16" height="16">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,181,182,0,0,0,0,0,0,0,0,0,0,
-0,0,183,0,208,209,0,0,0,0,0,0,0,0,0,0,
-0,0,0,183,0,0,0,433,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,433,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,318,0,0,0,0,441,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -65,8 +65,8 @@
     <property name="mass" type="float" value="2"/>
    </properties>
   </object>
-  <object id="4" gid="266" x="822" y="490" width="64" height="64"/>
-  <object id="5" gid="293" x="868" y="578" width="64" height="64"/>
+  <object id="4" gid="266" x="843.378" y="501.991" width="64" height="64" rotation="-31.4254"/>
+  <object id="5" gid="293" x="854.8" y="543.776" width="64" height="64" rotation="-312.184"/>
   <object id="6" gid="134" x="666" y="578" width="64" height="64">
    <properties>
     <property name="angularDamping" type="float" value="10"/>
@@ -152,6 +152,16 @@
   </object>
   <object id="49" gid="343" x="555.415" y="620.115" width="64" height="64" rotation="-7.53399"/>
   <object id="50" gid="345" x="618.862" y="611.724" width="64" height="64" rotation="-7.53399"/>
+  <object id="56" gid="264" x="169.333" y="646.667" width="64" height="64"/>
+  <object id="57" gid="289" x="128" y="481.333" width="64" height="64"/>
+  <object id="58" gid="291" x="149.333" y="565.333" width="64" height="64"/>
+  <object id="59" gid="213" x="169.333" y="282.667" width="64" height="64"/>
+  <object id="60" gid="213" x="336.297" y="186.281" width="64" height="64" rotation="-286.32"/>
+  <object id="61" gid="213" x="384.438" y="942.953" width="64" height="64" rotation="-68.1221"/>
+  <object id="62" gid="213" x="616.598" y="933.048" width="64" height="64" rotation="19.1747"/>
+  <object id="63" gid="213" x="621.263" y="918.124" width="64" height="64" rotation="164.955"/>
+  <object id="64" gid="265" x="492.878" y="305.73" width="64" height="64" rotation="27.3391"/>
+  <object id="65" gid="266" x="520.34" y="336.683" width="64" height="64" rotation="-28.3142"/>
  </objectgroup>
  <objectgroup id="7" name="object2" locked="1">
   <object id="45" gid="453" x="293.904" y="630.768" width="64" height="64" rotation="-4.15506">
@@ -203,6 +213,28 @@
    </properties>
   </object>
  </objectgroup>
+ <layer id="8" name="exterior" width="16" height="16">
+  <data encoding="csv">
+   <chunk x="0" y="0" width="16" height="16">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,181,182,0,
+0,0,0,0,181,182,0,0,0,0,0,0,0,208,209,0,
+0,0,183,0,208,209,0,0,0,0,0,0,0,0,0,0,
+0,0,0,183,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,181,182,0,
+0,0,0,0,181,182,0,0,0,0,0,0,0,208,209,0,
+0,0,0,0,208,209,0,0,0,181,182,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,208,209,0,0,0,0,0
+</chunk>
+  </data>
+ </layer>
  <objectgroup id="5" name="spawner" locked="1">
   <object id="15" name="zombie" type="enemy" x="1150.67" y="354.667" rotation="90">
    <properties>
@@ -269,7 +301,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="6" name="navi" locked="1">
+ <objectgroup id="6" name="navi">
   <object id="23" x="786" y="351">
    <point/>
   </object>
@@ -316,6 +348,15 @@
    <point/>
   </object>
   <object id="53" x="304" y="358.667">
+   <point/>
+  </object>
+  <object id="54" x="216" y="1008">
+   <point/>
+  </object>
+  <object id="55" x="500" y="913.333">
+   <point/>
+  </object>
+  <object id="66" x="433.333" y="688">
    <point/>
   </object>
  </objectgroup>
