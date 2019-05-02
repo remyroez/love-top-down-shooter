@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="16" height="16" tilewidth="64" tileheight="64" infinite="1" nextlayerid="6" nextobjectid="23">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="16" height="16" tilewidth="64" tileheight="64" infinite="1" nextlayerid="7" nextobjectid="38">
  <tileset firstgid="1" source="tilesheet.tsx"/>
  <layer id="1" name="ground" width="16" height="16">
   <data encoding="csv">
@@ -46,17 +46,68 @@
   </data>
  </layer>
  <objectgroup id="3" name="object">
+  <properties>
+   <property name="collidable" type="bool" value="false"/>
+  </properties>
   <object id="1" gid="450" x="669.072" y="457.242" width="64" height="64" rotation="-46.36"/>
-  <object id="2" gid="157" x="638" y="324" width="64" height="64"/>
-  <object id="3" gid="134" x="510" y="452" width="64" height="64"/>
+  <object id="2" gid="157" x="638" y="324" width="64" height="64">
+   <properties>
+    <property name="angularDamping" type="float" value="10"/>
+    <property name="collidable" type="bool" value="true"/>
+    <property name="dynamic" type="bool" value="true"/>
+    <property name="linearDamping" type="float" value="10"/>
+    <property name="mass" type="float" value="2"/>
+   </properties>
+  </object>
+  <object id="3" gid="134" x="510" y="452" width="64" height="64">
+   <properties>
+    <property name="angularDamping" type="float" value="10"/>
+    <property name="collidable" type="bool" value="true"/>
+    <property name="dynamic" type="bool" value="true"/>
+    <property name="linearDamping" type="float" value="10"/>
+    <property name="mass" type="float" value="2"/>
+   </properties>
+  </object>
   <object id="4" gid="266" x="822" y="490" width="64" height="64"/>
   <object id="5" gid="293" x="868" y="578" width="64" height="64"/>
-  <object id="6" gid="134" x="666" y="578" width="64" height="64"/>
-  <object id="7" gid="132" x="444" y="710" width="64" height="64"/>
-  <object id="8" gid="171" x="478" y="640" width="64" height="64"/>
-  <object id="9" gid="324" x="320" y="448" width="64" height="64" rotation="180"/>
-  <object id="10" gid="323" x="384" y="448" width="64" height="64" rotation="180"/>
-  <object id="11" gid="321" x="448" y="448" width="64" height="64" rotation="180"/>
+  <object id="6" gid="134" x="666" y="578" width="64" height="64">
+   <properties>
+    <property name="angularDamping" type="float" value="10"/>
+    <property name="collidable" type="bool" value="true"/>
+    <property name="dynamic" type="bool" value="true"/>
+    <property name="linearDamping" type="float" value="10"/>
+    <property name="mass" type="float" value="2"/>
+   </properties>
+  </object>
+  <object id="7" gid="132" x="444" y="710" width="64" height="64">
+   <properties>
+    <property name="angularDamping" type="float" value="10"/>
+    <property name="collidable" type="bool" value="true"/>
+    <property name="dynamic" type="bool" value="true"/>
+    <property name="linearDamping" type="float" value="10"/>
+    <property name="mass" type="float" value="2"/>
+   </properties>
+  </object>
+  <object id="8" gid="171" x="478" y="640" width="64" height="64">
+   <properties>
+    <property name="collidable" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="9" gid="324" x="320" y="448" width="64" height="64" rotation="180">
+   <properties>
+    <property name="collidable" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="10" gid="323" x="384" y="448" width="64" height="64" rotation="180">
+   <properties>
+    <property name="collidable" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="11" gid="321" x="448" y="448" width="64" height="64" rotation="180">
+   <properties>
+    <property name="collidable" type="bool" value="true"/>
+   </properties>
+  </object>
   <object id="12" gid="268" x="389.25" y="511.75" width="64" height="64"/>
  </objectgroup>
  <objectgroup id="4" name="character">
@@ -134,6 +185,53 @@
     <property name="rotate" value="random"/>
     <property name="wave" type="int" value="5"/>
    </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="6" name="navi">
+  <object id="23" x="786" y="351">
+   <point/>
+  </object>
+  <object id="24" x="780" y="549">
+   <point/>
+  </object>
+  <object id="25" x="780" y="676">
+   <point/>
+  </object>
+  <object id="26" x="436" y="287">
+   <point/>
+  </object>
+  <object id="27" x="173" y="579">
+   <point/>
+  </object>
+  <object id="28" x="607" y="355">
+   <point/>
+  </object>
+  <object id="29" x="605" y="547">
+   <point/>
+  </object>
+  <object id="30" x="378" y="549">
+   <point/>
+  </object>
+  <object id="31" x="377" y="679">
+   <point/>
+  </object>
+  <object id="32" x="613" y="683">
+   <point/>
+  </object>
+  <object id="33" x="802" y="153">
+   <point/>
+  </object>
+  <object id="34" x="411" y="159">
+   <point/>
+  </object>
+  <object id="35" x="133" y="367">
+   <point/>
+  </object>
+  <object id="36" x="128" y="815">
+   <point/>
+  </object>
+  <object id="37" x="799" y="829">
+   <point/>
   </object>
  </objectgroup>
 </map>
