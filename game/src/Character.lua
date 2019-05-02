@@ -468,16 +468,19 @@ function Goto:update(dt)
     --self:setRotationTo(self._goto.x, self._goto.y)
     local rotating = false
     do
+        local rate = dt
         local rotate = math.rad(self.anglarSpeed)
         local to = lume.angle(self.x, self.y, self._goto.x, self._goto.y) - self.rotation
         if to > math.pi then
             to = to - math.pi * 2
+        elseif to < -math.pi then
+            to = to + math.pi * 2
         end
         if math.abs(to) > math.pi * 0.1 then
             rotating = true
         end
         if math.abs(to) > math.pi * 0.001 then
-            self:rotate((to < 0 and -rotate or rotate) * dt)
+            self:rotate((to < 0 and -rotate or rotate) * rate)
         end
     end
 
