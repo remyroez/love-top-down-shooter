@@ -15,9 +15,16 @@ local Level = class 'Level'
 
 -- コリジョンクラス
 local collisionClasses = {
+    'frame',
+    'player',
+    'enemy',
+    'friend',
+    'building',
+    'object',
+    frame = {},
     player = {},
-    enemy = {},
-    friend = {},
+    enemy = { ignores = { 'frame' } },
+    friend = { ignores = { 'frame' } },
     building = {},
     object = {},
 }
@@ -80,7 +87,8 @@ function Level:initialize(map)
     self.world = wf.newWorld(0, 0, true)
 
     -- コリジョンクラスの追加
-    for name, klass in pairs(collisionClasses) do
+    for index, name in ipairs(collisionClasses) do
+        local klass = collisionClasses[name]
         self.world:addCollisionClass(name, klass)
         self.characters[name] = {}
     end
@@ -125,6 +133,41 @@ function Level:initialize(map)
     self.bottom = self.bottom * self.map.tileheight
     self.width = self.right - self.left
     self.height = self.bottom - self.top
+
+    self.frames = {}
+    do
+        local rects = {
+            { self.left - 8, self.top - 8, 8, self.height + 16, dir = 'left' },
+            { self.left - 8, self.top - 8, self.width + 16, 8, dir = 'up' },
+            { self.right, self.top - 8, 8, self.height + 16, dir = 'right' },
+            { self.left - 8, self.bottom, self.width + 16, 8, dir = 'down' },
+        }
+        for _, rect in ipairs(rects) do
+            local r = rect
+            local frame = self.world:newRectangleCollider(unpack(rect))
+            frame:setCollisionClass('frame')
+            frame:setType('static')
+            frame:setPreSolve(
+                function(collider_1, collider_2, contact)
+                    if collider_1.collision_class ~= 'frame' and collider_2.collision_class == 'frame' then
+                        local x1, y1 = collider_1:getPosition()
+                        local x2, y2 = collider_2:getPosition()
+                        print(x1, y1, x2, y2)
+                        if r.dir == 'left' then
+                            if x1 > x2 then contact:setEnabled(false) end
+                        elseif r.dir == 'up' then
+                            if y1 > y2 then contact:setEnabled(false) end
+                        elseif r.dir == 'right' then
+                            if x1 < x2 then contact:setEnabled(false) end
+                        elseif r.dir == 'down' then
+                            if y1 < y2 then contact:setEnabled(false) end
+                        end
+                    end
+                end
+            )
+            table.insert(self.frames, frame)
+        end
+    end
 
     -- カスタムレイヤー
     if customIndex then

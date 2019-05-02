@@ -191,7 +191,7 @@ function Character:findCharacter(range, circle, targetClass)
         local isFound = true
         local cx, cy = collider:getPosition()
 
-        local founds = self.world:queryLine(cx, cy, self.x, self.y, { 'All', except = { self.type } })
+        local founds = self.world:queryLine(cx, cy, self.x, self.y, { 'All', except = { self.type, 'frame' } })
         for __, found in pairs(founds) do
             if found ~= collider then
                 isFound = false
@@ -213,7 +213,7 @@ end
 function Character:watchPoint(x, y)
     local isFound = true
 
-    local founds = self.world:queryLine(x, y, self.x, self.y, { 'All', except = { self.type } })
+    local founds = self.world:queryLine(x, y, self.x, self.y, { 'All', except = { self.type, 'frame' } })
     for __, found in pairs(founds) do
         if found:getType() ~= 'dynamic' and found.collision_class == 'building' then
             isFound = false
@@ -238,7 +238,7 @@ function Character:watchCharacter(target, range, circle, targetClass, sight)
         isFound = true
         local collider = target.collider
         local cx, cy = collider:getPosition()
-        local founds = self.world:queryLine(cx, cy, self.x, self.y, { 'All', except = { self.type } })
+        local founds = self.world:queryLine(cx, cy, self.x, self.y, { 'All', except = { self.type, 'frame' } })
         for __, found in pairs(founds) do
             -- 視界に別のコライダーが邪魔した
             if found ~= collider and found:getType() ~= 'dynamic' and found.collision_class == 'building' then
@@ -257,7 +257,7 @@ function Character:watchCharacter(target, range, circle, targetClass, sight)
                 -- ターゲットが居た
                 isFound = true
                 local cx, cy = collider:getPosition()
-                local founds = self.world:queryLine(cx, cy, self.x, self.y, { 'All', except = { self.type } })
+                local founds = self.world:queryLine(cx, cy, self.x, self.y, { 'All', except = { self.type, 'frame' } })
                 for __, found in pairs(founds) do
                     -- 視界に別のコライダーが邪魔した
                     if found ~= collider and found:getType() ~= 'dynamic' and found.collision_class == 'building' then
@@ -319,7 +319,7 @@ function Character:findNavigations(reset)
             local ok = true
 
             -- 障害物がないかチェック
-            local founds = self.world:queryLine(navi.x, navi.y, self.x, self.y, { 'All', except = { self.type } })
+            local founds = self.world:queryLine(navi.x, navi.y, self.x, self.y, { 'All', except = { self.type, 'frame' } })
             for __, found in pairs(founds) do
                 if found:getType() ~= 'dynamic' then
                     ok = false
