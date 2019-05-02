@@ -25,6 +25,7 @@ function Character:initialize(args)
 
     self.type = args.type or 'object'
     self.speed = args.speed or 100
+    self.anglarSpeed = args.anglarSpeed or 90
     self.world = args.world
     self.color = args.color or { lume.color('#ffffff') }
     self.life = args.life or 10
@@ -434,11 +435,25 @@ function Goto:update(dt)
     end
 
     -- 目的地を向く
-    self:setRotationTo(self._goto.x, self._goto.y)
+    --self:setRotationTo(self._goto.x, self._goto.y)
+    local rotating = false
+    do
+        local rotate = math.rad(self.anglarSpeed)
+        local to = lume.angle(self.x, self.y, self._goto.x, self._goto.y) - self.rotation
+        if to > math.pi then
+            to = to - math.pi * 2
+        end
+        if math.abs(to) > math.pi * 0.1 then
+            rotating = true
+        end
+        if math.abs(to) > math.pi * 0.001 then
+            self:rotate((to < 0 and -rotate or rotate) * dt)
+        end
+    end
 
     -- 移動
     local x, y = self:forward()
-    self:setColliderVelocity(x, y, self._goto.speed)
+    self:setColliderVelocity(x, y, self._goto.speed * (rotating and 0.5 or 1))
 
     -- 親更新
     Character.update(self, dt)
