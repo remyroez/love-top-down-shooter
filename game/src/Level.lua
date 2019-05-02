@@ -94,7 +94,11 @@ function Level:initialize(map)
     self.right = 0
     self.top = 0
     self.bottom = 0
-    for _, layer in pairs(self.map.layers) do
+    local customIndex = nil
+    for index, layer in ipairs(self.map.layers) do
+        if layer == self.map.layers['character'] then
+            customIndex = index
+        end
         if layer.type == 'tilelayer' then
             -- チャンクから上下左右の端を取得
             if layer.chunks then
@@ -122,6 +126,17 @@ function Level:initialize(map)
     self.width = self.right - self.left
     self.height = self.bottom - self.top
 
+    -- カスタムレイヤー
+    if customIndex then
+        local level = self
+        local layer = self.map:addCustomLayer('entity', customIndex)
+        function layer:update(dt)
+            lume.each(level.entities, 'update', dt)
+        end
+        function layer:draw()
+            lume.each(level.entities, 'draw')
+        end
+    end
 
     for _, collision in ipairs(self.map.windfield_collision) do
         if collision.object.layer and collision.object.layer.type == 'tilelayer' then
@@ -394,16 +409,12 @@ function Level:update(dt)
     self.world:update(dt)
     self.map:update(dt)
     self.map:windfield_update(dt)
-    lume.each(self.entities, 'update', dt)
 end
 
 -- 描画
 function Level:draw(x, y, scale)
     -- マップの描画
     self.map:draw(x, y, scale)
-
-    -- エンティティの描画
-    lume.each(self.entities, 'draw')
 
     -- ワールドのデバッグ描画
     self.world:draw(0.5)
