@@ -276,7 +276,7 @@ function Character:findNavigation(reverse, reset)
                 -- 障害物がないかチェック
                 local founds = self.world:queryLine(navi.x, navi.y, self.x, self.y, { 'All', except = { self.type } })
                 for __, found in pairs(founds) do
-                    if found.collision_class == 'building' or found.collision_class == 'object' then
+                    if found:getType() ~= 'dynamic' then
                         ok = false
                         break
                     end
