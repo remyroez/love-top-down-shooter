@@ -296,8 +296,12 @@ function Goto:enteredState(x, y)
                 self:gotoState('attack', target)
             end
 
-            -- 到着したら検索へ
+            -- 終了判定
             if lume.distance(self.character.x, self.character.y, self._goto.x, self._goto.y) < 10 * scale then
+                -- 到着したら捜索へ
+                self:gotoState('search')
+            elseif not self.character:watchPoint(self._goto.x, self._goto.y) then
+                -- 地点が見えなかったら捜索へ
                 self:gotoState('search')
             end
 

@@ -209,6 +209,21 @@ function Character:findCharacter(range, circle, targetClass)
     return target
 end
 
+-- ある地点を監視する
+function Character:watchPoint(x, y)
+    local isFound = true
+
+    local founds = self.world:queryLine(x, y, self.x, self.y, { 'All', except = { self.type } })
+    for __, found in pairs(founds) do
+        if found:getType() ~= 'dynamic' then
+            isFound = false
+            break
+        end
+    end
+
+    return isFound
+end
+
 -- キャラクターを監視する
 function Character:watchCharacter(target, range, circle, targetClass, sight)
     range = range or 64
@@ -226,7 +241,7 @@ function Character:watchCharacter(target, range, circle, targetClass, sight)
         local founds = self.world:queryLine(cx, cy, self.x, self.y, { 'All', except = { self.type } })
         for __, found in pairs(founds) do
             -- 視界に別のコライダーが邪魔した
-            if found ~= collider then
+            if found ~= collider and found:getType() ~= 'dynamic' then
                 isFound = false
                 break
             end
@@ -245,7 +260,7 @@ function Character:watchCharacter(target, range, circle, targetClass, sight)
                 local founds = self.world:queryLine(cx, cy, self.x, self.y, { 'All', except = { self.type } })
                 for __, found in pairs(founds) do
                     -- 視界に別のコライダーが邪魔した
-                    if found ~= collider then
+                    if found ~= collider and found:getType() ~= 'dynamic' then
                         isFound = false
                         break
                     end
