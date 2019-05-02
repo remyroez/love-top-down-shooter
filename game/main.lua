@@ -20,7 +20,7 @@ local scene = Scene()
 scene:gotoState 'boot'
 
 -- ステートの描画フラグ
-local printStates = true
+local printStates = false
 
 -- ホットスワップ後の対応
 lurker.postswap = function (f)

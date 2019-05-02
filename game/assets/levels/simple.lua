@@ -4,12 +4,12 @@ return {
   tiledversion = "1.2.3",
   orientation = "orthogonal",
   renderorder = "right-down",
-  width = 18,
-  height = 17,
+  width = 16,
+  height = 16,
   tilewidth = 64,
   tileheight = 64,
   nextlayerid = 7,
-  nextobjectid = 45,
+  nextobjectid = 38,
   properties = {},
   tilesets = {
     {
@@ -337,43 +337,117 @@ return {
                 properties = {
                   ["collidable"] = true
                 }
-              },
+              }
+            }
+          }
+        },
+        {
+          id = 129,
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
               {
-                id = 2,
+                id = 1,
                 name = "",
                 type = "",
-                shape = "polygon",
-                x = 37.3333,
-                y = -34,
-                width = 0,
-                height = 0,
-                rotation = 10,
+                shape = "rectangle",
+                x = 15,
+                y = 14,
+                width = 35,
+                height = 36,
+                rotation = 0,
                 visible = true,
-                polygon = {
-                  { x = 0, y = 0 },
-                  { x = 6, y = -14 },
-                  { x = 12, y = 2 },
-                  { x = 27.3333, y = 5.33333 },
-                  { x = 16, y = 12.6667 },
-                  { x = 21.3333, y = 24.6667 },
-                  { x = 10, y = 20.6667 },
-                  { x = -4.66667, y = 18.6667 },
-                  { x = 1.33333, y = 8.66667 },
-                  { x = -7.33333, y = 0 }
-                },
                 properties = {
                   ["collidable"] = true
                 }
-              },
+              }
+            }
+          }
+        },
+        {
+          id = 131,
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
               {
-                id = 3,
+                id = 1,
                 name = "",
                 type = "",
                 shape = "ellipse",
-                x = -22,
-                y = -30,
-                width = 27.6667,
-                height = 26.3333,
+                x = 12,
+                y = 13,
+                width = 40,
+                height = 40,
+                rotation = 0,
+                visible = true,
+                properties = {}
+              }
+            }
+          }
+        },
+        {
+          id = 132,
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 14,
+                y = 14,
+                width = 36,
+                height = 36,
+                rotation = 0,
+                visible = true,
+                properties = {}
+              }
+            }
+          }
+        },
+        {
+          id = 133,
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "ellipse",
+                x = 21,
+                y = 16,
+                width = 30,
+                height = 30,
                 rotation = 0,
                 visible = true,
                 properties = {
@@ -520,23 +594,33 @@ return {
                 properties = {
                   ["collidable"] = true
                 }
-              },
+              }
+            }
+          }
+        },
+        {
+          id = 156,
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
               {
-                id = 2,
+                id = 1,
                 name = "",
                 type = "",
-                shape = "polygon",
-                x = 3.33333,
-                y = 72.6667,
-                width = 0,
-                height = 0,
-                rotation = 0,
+                shape = "rectangle",
+                x = 18,
+                y = 12,
+                width = 35,
+                height = 36,
+                rotation = 8.87473,
                 visible = true,
-                polygon = {
-                  { x = 0, y = 0 },
-                  { x = 18.6667, y = 1.33333 },
-                  { x = 6, y = 20 }
-                },
                 properties = {
                   ["collidable"] = true
                 }
@@ -590,6 +674,34 @@ return {
           id = 169,
           properties = {
             ["collidable"] = true
+          }
+        },
+        {
+          id = 170,
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 6,
+                y = 6,
+                width = 52,
+                height = 52,
+                rotation = 0,
+                visible = true,
+                properties = {}
+              }
+            }
           }
         },
         {
@@ -658,34 +770,6 @@ return {
                 type = "",
                 shape = "ellipse",
                 x = 32,
-                y = 32,
-                width = 64,
-                height = 64,
-                rotation = 0,
-                visible = true,
-                properties = {}
-              }
-            }
-          }
-        },
-        {
-          id = 181,
-          objectGroup = {
-            type = "objectgroup",
-            name = "",
-            visible = true,
-            opacity = 1,
-            offsetx = 0,
-            offsety = 0,
-            draworder = "index",
-            properties = {},
-            objects = {
-              {
-                id = 1,
-                name = "",
-                type = "",
-                shape = "ellipse",
-                x = -32,
                 y = 32,
                 width = 64,
                 height = 64,
@@ -1057,6 +1141,96 @@ return {
           }
         },
         {
+          id = 293,
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 0,
+                y = 2,
+                width = 64,
+                height = 62,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["collidable"] = true
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 295,
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 0,
+                y = 2,
+                width = 64,
+                height = 62,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["collidable"] = true
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 296,
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 0,
+                y = 2,
+                width = 64,
+                height = 62,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["collidable"] = true
+                }
+              }
+            }
+          }
+        },
+        {
           id = 297,
           properties = {
             ["collidable"] = true
@@ -1162,6 +1336,96 @@ return {
           id = 314,
           properties = {
             ["collidable"] = true
+          }
+        },
+        {
+          id = 320,
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 0,
+                y = 2,
+                width = 64,
+                height = 62,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["collidable"] = true
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 322,
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 0,
+                y = 2,
+                width = 64,
+                height = 62,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["collidable"] = true
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 323,
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 0,
+                y = 2,
+                width = 64,
+                height = 62,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["collidable"] = true
+                }
+              }
+            }
           }
         },
         {
@@ -1522,122 +1786,79 @@ return {
       name = "ground",
       x = 0,
       y = 0,
-      width = 18,
-      height = 17,
-      visible = true,
-      opacity = 1,
-      offsetx = 0,
-      offsety = 0,
-      properties = {
-        ["collidable"] = false
-      },
-      encoding = "lua",
-      chunks = {
-        {
-          x = 0, y = -16, width = 16, height = 16,
-          data = {
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            40, 37, 37, 41, 40, 37, 41, 40, 37, 41, 40, 37, 41, 0, 0, 0
-          }
-        },
-        {
-          x = -16, y = 0, width = 16, height = 16,
-          data = {
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 40,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 35,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 35,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 35,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 67,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-          }
-        },
-        {
-          x = 0, y = 0, width = 16, height = 16,
-          data = {
-            35, 93, 93, 36, 35, 93, 36, 35, 93, 36, 35, 93, 36, 0, 0, 0,
-            67, 64, 64, 40, 66, 38, 68, 35, 93, 36, 67, 39, 65, 41, 0, 0,
-            37, 37, 37, 66, 93, 65, 37, 66, 93, 65, 41, 67, 64, 68, 0, 0,
-            95, 95, 93, 38, 39, 38, 64, 64, 64, 39, 36, 33, 30, 34, 0, 0,
-            92, 90, 93, 36, 35, 36, 33, 30, 34, 35, 36, 28, 86, 29, 0, 0,
-            93, 93, 93, 36, 67, 68, 28, 86, 29, 35, 36, 28, 86, 29, 0, 0,
-            64, 39, 93, 36, 0, 0, 60, 57, 61, 35, 36, 60, 32, 58, 34, 0,
-            0, 35, 93, 36, 0, 40, 41, 0, 0, 67, 68, 0, 118, 120, 120, 119,
-            0, 35, 93, 36, 0, 67, 68, 33, 30, 34, 0, 33, 124, 31, 61, 147,
-            0, 67, 64, 68, 129, 0, 0, 28, 86, 29, 0, 28, 86, 29, 0, 147,
-            0, 0, 0, 0, 0, 0, 156, 60, 57, 61, 0, 60, 151, 120, 120, 146,
-            4, 3, 3, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 1, 3, 1, 3, 3, 1, 3, 0, 0, 6, 6, 5, 5, 5, 6,
-            4, 1, 1, 3, 3, 1, 2, 1, 0, 0, 5, 5, 5, 5, 6, 5,
-            0, 0, 1, 4, 2, 4, 1, 0, 0, 0, 0, 5, 5, 5, 6, 6,
-            0, 0, 0, 0, 4, 2, 0, 0, 0, 0, 0, 5, 5, 6, 5, 5
-          }
-        },
-        {
-          x = 16, y = 0, width = 16, height = 16,
-          data = {
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-          }
-        }
-      }
-    },
-    {
-      type = "tilelayer",
-      id = 4,
-      name = "interior",
-      x = 0,
-      y = 0,
-      width = 18,
-      height = 17,
+      width = 16,
+      height = 16,
       visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
       properties = {},
       encoding = "lua",
-      chunks = {}
+      chunks = {
+        {
+          x = 0, y = 0, width = 16, height = 16,
+          data = {
+            1, 2, 2, 1, 2, 1, 3, 4, 4, 3, 3, 3, 4, 3, 1, 4,
+            3, 3, 4, 2, 3, 2, 3, 2, 2, 3, 4, 4, 2, 2, 3, 3,
+            2, 1, 2, 2, 2, 1, 3, 3, 1, 2, 4, 2, 3, 2, 1, 2,
+            2, 1, 2, 4, 4, 4, 1, 142, 111, 111, 111, 110, 3, 3, 2, 4,
+            1, 4, 1, 1, 4, 4, 2, 11, 11, 11, 11, 115, 4, 1, 4, 2,
+            1, 2, 2, 4, 4, 1, 1, 141, 11, 11, 11, 11, 1, 4, 3, 1,
+            1, 2, 2, 109, 111, 111, 111, 140, 11, 11, 11, 141, 2, 2, 3, 3,
+            1, 2, 4, 115, 96, 96, 96, 136, 114, 96, 142, 137, 2, 4, 1, 2,
+            2, 1, 4, 96, 96, 96, 96, 96, 96, 96, 96, 96, 1, 3, 4, 4,
+            4, 3, 3, 96, 96, 96, 96, 96, 96, 96, 96, 196, 2, 1, 2, 1,
+            3, 3, 4, 141, 96, 96, 96, 96, 96, 96, 96, 96, 1, 3, 2, 3,
+            3, 2, 1, 136, 111, 111, 111, 111, 111, 111, 111, 114, 4, 1, 3, 1,
+            4, 3, 4, 1, 1, 2, 2, 3, 4, 3, 1, 2, 3, 4, 3, 3,
+            1, 4, 3, 4, 1, 3, 1, 2, 4, 2, 4, 4, 4, 2, 1, 2,
+            2, 4, 2, 2, 3, 2, 1, 4, 3, 1, 1, 3, 4, 2, 2, 4,
+            3, 2, 2, 1, 2, 2, 3, 2, 3, 3, 1, 4, 1, 4, 4, 3
+          }
+        }
+      }
+    },
+    {
+      type = "tilelayer",
+      id = 2,
+      name = "interior",
+      x = 0,
+      y = 0,
+      width = 16,
+      height = 16,
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      properties = {},
+      encoding = "lua",
+      chunks = {
+        {
+          x = 0, y = 0, width = 16, height = 16,
+          data = {
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 433, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 441, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 433, 0, 0, 0, 0, 0, 0, 0, 434, 0, 0, 0, 0,
+            0, 0, 0, 433, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 434, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+          }
+        }
+      }
     },
     {
       type = "objectgroup",
-      id = 2,
+      id = 3,
       name = "object",
       visible = true,
       opacity = 1,
@@ -1649,60 +1870,31 @@ return {
       },
       objects = {
         {
-          id = 15,
-          name = "box",
+          id = 1,
+          name = "",
           type = "",
           shape = "rectangle",
-          x = 372.219,
-          y = 556.581,
+          x = 669.072,
+          y = 457.242,
           width = 64,
           height = 64,
-          rotation = 90,
-          gid = 129,
+          rotation = -46.36,
+          gid = 450,
           visible = true,
-          properties = {
-            ["collidable"] = true
-          }
+          properties = {}
         },
         {
-          id = 17,
-          name = "circle",
+          id = 2,
+          name = "",
           type = "",
-          shape = "ellipse",
-          x = 612,
-          y = 188,
-          width = 98,
-          height = 94,
+          shape = "rectangle",
+          x = 638,
+          y = 324,
+          width = 64,
+          height = 64,
           rotation = 0,
+          gid = 157,
           visible = true,
-          properties = {
-            ["collidable"] = true,
-            ["dynamic"] = true
-          }
-        },
-        {
-          id = 18,
-          name = "star",
-          type = "",
-          shape = "polygon",
-          x = 154,
-          y = 92,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          polygon = {
-            { x = 0, y = 0 },
-            { x = -14, y = 84 },
-            { x = -116, y = 92 },
-            { x = -40, y = 154 },
-            { x = -46, y = 246 },
-            { x = 34, y = 178 },
-            { x = 120, y = 216 },
-            { x = 64, y = 130 },
-            { x = 134, y = 82 },
-            { x = 32, y = 66 }
-          },
           properties = {
             ["angularDamping"] = 10,
             ["collidable"] = true,
@@ -1712,39 +1904,176 @@ return {
           }
         },
         {
-          id = 19,
-          name = "square",
+          id = 3,
+          name = "",
           type = "",
           shape = "rectangle",
-          x = 435.137,
-          y = 198.562,
-          width = 60,
-          height = 58,
+          x = 510,
+          y = 452,
+          width = 64,
+          height = 64,
           rotation = 0,
+          gid = 134,
+          visible = true,
+          properties = {
+            ["angularDamping"] = 10,
+            ["collidable"] = true,
+            ["dynamic"] = true,
+            ["linearDamping"] = 10,
+            ["mass"] = 2
+          }
+        },
+        {
+          id = 4,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 822,
+          y = 490,
+          width = 64,
+          height = 64,
+          rotation = 0,
+          gid = 266,
           visible = true,
           properties = {}
         },
         {
-          id = 21,
-          name = "box2",
+          id = 5,
+          name = "",
           type = "",
           shape = "rectangle",
-          x = 514,
-          y = 704,
+          x = 868,
+          y = 578,
           width = 64,
           height = 64,
-          rotation = 90,
-          gid = 156,
+          rotation = 0,
+          gid = 293,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 6,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 666,
+          y = 578,
+          width = 64,
+          height = 64,
+          rotation = 0,
+          gid = 134,
+          visible = true,
+          properties = {
+            ["angularDamping"] = 10,
+            ["collidable"] = true,
+            ["dynamic"] = true,
+            ["linearDamping"] = 10,
+            ["mass"] = 2
+          }
+        },
+        {
+          id = 7,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 444,
+          y = 710,
+          width = 64,
+          height = 64,
+          rotation = 0,
+          gid = 132,
+          visible = true,
+          properties = {
+            ["angularDamping"] = 10,
+            ["collidable"] = true,
+            ["dynamic"] = true,
+            ["linearDamping"] = 10,
+            ["mass"] = 2
+          }
+        },
+        {
+          id = 8,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 478,
+          y = 640,
+          width = 64,
+          height = 64,
+          rotation = 0,
+          gid = 171,
           visible = true,
           properties = {
             ["collidable"] = true
           }
+        },
+        {
+          id = 9,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 320,
+          y = 448,
+          width = 64,
+          height = 64,
+          rotation = 180,
+          gid = 324,
+          visible = true,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 10,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 384,
+          y = 448,
+          width = 64,
+          height = 64,
+          rotation = 180,
+          gid = 323,
+          visible = true,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 11,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 448,
+          y = 448,
+          width = 64,
+          height = 64,
+          rotation = 180,
+          gid = 321,
+          visible = true,
+          properties = {
+            ["collidable"] = true
+          }
+        },
+        {
+          id = 12,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 389.25,
+          y = 511.75,
+          width = 64,
+          height = 64,
+          rotation = 0,
+          gid = 268,
+          visible = true,
+          properties = {}
         }
       }
     },
     {
       type = "objectgroup",
-      id = 5,
+      id = 4,
       name = "character",
       visible = true,
       opacity = 1,
@@ -1754,12 +2083,12 @@ return {
       properties = {},
       objects = {
         {
-          id = 24,
+          id = 13,
           name = "player",
           type = "player",
           shape = "rectangle",
-          x = 448.667,
-          y = 325.333,
+          x = 601.333,
+          y = 352,
           width = 0,
           height = 0,
           rotation = 0,
@@ -1771,327 +2100,12 @@ return {
             ["state"] = "lookAtPlayer",
             ["weapon"] = "machine"
           }
-        },
-        {
-          id = 25,
-          name = "zombie",
-          type = "enemy",
-          shape = "rectangle",
-          x = 366.667,
-          y = 125.333,
-          width = 0,
-          height = 0,
-          rotation = 90,
-          visible = true,
-          properties = {
-            ["behavior"] = "zombie",
-            ["life"] = 20,
-            ["rotate"] = "random",
-            ["scale"] = 2
-          }
-        },
-        {
-          id = 26,
-          name = "zombie",
-          type = "enemy",
-          shape = "rectangle",
-          x = 342.667,
-          y = 189.333,
-          width = 0,
-          height = 0,
-          rotation = 90,
-          visible = true,
-          properties = {
-            ["behavior"] = "zombie",
-            ["life"] = 10,
-            ["rotate"] = "random"
-          }
-        },
-        {
-          id = 27,
-          name = "zombie",
-          type = "enemy",
-          shape = "rectangle",
-          x = 534.667,
-          y = 165.333,
-          width = 0,
-          height = 0,
-          rotation = 90,
-          visible = true,
-          properties = {
-            ["behavior"] = "zombie",
-            ["life"] = 30,
-            ["rotate"] = "random",
-            ["scale"] = 3
-          }
-        },
-        {
-          id = 28,
-          name = "zombie",
-          type = "enemy",
-          shape = "rectangle",
-          x = 449.667,
-          y = 248.333,
-          width = 0,
-          height = 0,
-          rotation = 90,
-          visible = true,
-          properties = {
-            ["behavior"] = "zombie",
-            ["life"] = 5,
-            ["rotate"] = "random",
-            ["scale"] = 0.5
-          }
-        },
-        {
-          id = 29,
-          name = "man",
-          type = "friend",
-          shape = "rectangle",
-          x = 410,
-          y = 436,
-          width = 0,
-          height = 0,
-          rotation = 90,
-          visible = true,
-          properties = {
-            ["rotate"] = "random",
-            ["sprite"] = "man",
-            ["state"] = "lookAtPlayer"
-          }
-        },
-        {
-          id = 30,
-          name = "woman",
-          type = "friend",
-          shape = "rectangle",
-          x = 450,
-          y = 483,
-          width = 0,
-          height = 0,
-          rotation = 90,
-          visible = true,
-          properties = {
-            ["rotate"] = "random",
-            ["sprite"] = "woman",
-            ["state"] = "lookAtPlayer"
-          }
-        },
-        {
-          id = 31,
-          name = "man",
-          type = "friend",
-          shape = "rectangle",
-          x = 381.333,
-          y = 498.667,
-          width = 0,
-          height = 0,
-          rotation = 90,
-          visible = true,
-          properties = {
-            ["rotate"] = "random",
-            ["sprite"] = "man",
-            ["state"] = "lookAtPlayer"
-          }
-        },
-        {
-          id = 32,
-          name = "man",
-          type = "friend",
-          shape = "rectangle",
-          x = 350,
-          y = 450,
-          width = 0,
-          height = 0,
-          rotation = 90,
-          visible = true,
-          properties = {
-            ["rotate"] = "random",
-            ["sprite"] = "man",
-            ["state"] = "lookAtPlayer"
-          }
-        },
-        {
-          id = 33,
-          name = "woman_old",
-          type = "friend",
-          shape = "rectangle",
-          x = 602.667,
-          y = 408,
-          width = 0,
-          height = 0,
-          rotation = 90,
-          visible = true,
-          properties = {
-            ["rotate"] = "random",
-            ["sprite"] = "woman_old",
-            ["state"] = "lookAtPlayer"
-          }
-        },
-        {
-          id = 34,
-          name = "man_old",
-          type = "friend",
-          shape = "rectangle",
-          x = 534.667,
-          y = 450,
-          width = 0,
-          height = 0,
-          rotation = 90,
-          visible = true,
-          properties = {
-            ["rotate"] = "random",
-            ["sprite"] = "man_old",
-            ["state"] = "lookAtPlayer"
-          }
-        },
-        {
-          id = 35,
-          name = "robot",
-          type = "friend",
-          shape = "rectangle",
-          x = 576,
-          y = 328,
-          width = 0,
-          height = 0,
-          rotation = 90,
-          visible = true,
-          properties = {
-            ["rotate"] = "player",
-            ["sprite"] = "robot",
-            ["state"] = "lookAtPlayer",
-            ["weapon"] = "gun"
-          }
-        },
-        {
-          id = 37,
-          name = "robot",
-          type = "friend",
-          shape = "rectangle",
-          x = 537.333,
-          y = 284,
-          width = 0,
-          height = 0,
-          rotation = 90,
-          visible = true,
-          properties = {
-            ["rotate"] = "player",
-            ["sprite"] = "robot",
-            ["state"] = "lookAtPlayer",
-            ["weapon"] = "gun"
-          }
-        },
-        {
-          id = 38,
-          name = "robot",
-          type = "friend",
-          shape = "rectangle",
-          x = 598.667,
-          y = 280,
-          width = 0,
-          height = 0,
-          rotation = 90,
-          visible = true,
-          properties = {
-            ["rotate"] = "player",
-            ["sprite"] = "robot",
-            ["state"] = "lookAtPlayer",
-            ["weapon"] = "gun"
-          }
-        },
-        {
-          id = 39,
-          name = "soldier",
-          type = "friend",
-          shape = "rectangle",
-          x = 324,
-          y = 288,
-          width = 0,
-          height = 0,
-          rotation = 90,
-          visible = true,
-          properties = {
-            ["rotate"] = "player",
-            ["sprite"] = "soldier",
-            ["state"] = "lookAtPlayer",
-            ["weapon"] = "machine"
-          }
-        },
-        {
-          id = 40,
-          name = "soldier",
-          type = "friend",
-          shape = "rectangle",
-          x = 284,
-          y = 326.667,
-          width = 0,
-          height = 0,
-          rotation = 90,
-          visible = true,
-          properties = {
-            ["rotate"] = "player",
-            ["sprite"] = "soldier",
-            ["state"] = "lookAtPlayer",
-            ["weapon"] = "machine"
-          }
-        },
-        {
-          id = 41,
-          name = "soldier",
-          type = "friend",
-          shape = "rectangle",
-          x = 348,
-          y = 325.333,
-          width = 0,
-          height = 0,
-          rotation = 90,
-          visible = true,
-          properties = {
-            ["rotate"] = "player",
-            ["sprite"] = "soldier",
-            ["state"] = "lookAtPlayer",
-            ["weapon"] = "machine"
-          }
-        },
-        {
-          id = 42,
-          name = "survivor",
-          type = "friend",
-          shape = "rectangle",
-          x = 480,
-          y = 397.333,
-          width = 0,
-          height = 0,
-          rotation = 90,
-          visible = true,
-          properties = {
-            ["rotate"] = "random",
-            ["sprite"] = "survivor",
-            ["state"] = "lookAtPlayer"
-          }
-        },
-        {
-          id = 43,
-          name = "survivor",
-          type = "friend",
-          shape = "rectangle",
-          x = 538.667,
-          y = 382.667,
-          width = 0,
-          height = 0,
-          rotation = 90,
-          visible = true,
-          properties = {
-            ["rotate"] = "random",
-            ["sprite"] = "survivor",
-            ["state"] = "lookAtPlayer"
-          }
         }
       }
     },
     {
       type = "objectgroup",
-      id = 6,
+      id = 5,
       name = "spawner",
       visible = true,
       opacity = 1,
@@ -2101,12 +2115,12 @@ return {
       properties = {},
       objects = {
         {
-          id = 44,
+          id = 15,
           name = "zombie",
           type = "enemy",
           shape = "rectangle",
-          x = 432,
-          y = 56,
+          x = 1150.67,
+          y = 354.667,
           width = 0,
           height = 0,
           rotation = 90,
@@ -2114,8 +2128,343 @@ return {
           properties = {
             ["behavior"] = "zombie",
             ["delay"] = 1,
-            ["rotate"] = "random"
+            ["rotate"] = "random",
+            ["wave"] = 0
           }
+        },
+        {
+          id = 16,
+          name = "zombie",
+          type = "enemy",
+          shape = "rectangle",
+          x = -112.667,
+          y = 580,
+          width = 0,
+          height = 0,
+          rotation = 90,
+          visible = true,
+          properties = {
+            ["behavior"] = "zombie",
+            ["delay"] = 1,
+            ["rotate"] = "random",
+            ["wave"] = 2
+          }
+        },
+        {
+          id = 17,
+          name = "zombie",
+          type = "enemy",
+          shape = "rectangle",
+          x = 496,
+          y = -92,
+          width = 0,
+          height = 0,
+          rotation = 90,
+          visible = true,
+          properties = {
+            ["behavior"] = "zombie",
+            ["delay"] = 1,
+            ["rotate"] = "random",
+            ["wave"] = 3
+          }
+        },
+        {
+          id = 18,
+          name = "zombie",
+          type = "enemy",
+          shape = "rectangle",
+          x = 520,
+          y = 1156,
+          width = 0,
+          height = 0,
+          rotation = 90,
+          visible = true,
+          properties = {
+            ["behavior"] = "zombie",
+            ["delay"] = 1,
+            ["rotate"] = "random",
+            ["wave"] = 3
+          }
+        },
+        {
+          id = 19,
+          name = "zombie",
+          type = "enemy",
+          shape = "rectangle",
+          x = -96,
+          y = -68,
+          width = 0,
+          height = 0,
+          rotation = 90,
+          visible = true,
+          properties = {
+            ["behavior"] = "zombie",
+            ["delay"] = 1,
+            ["rotate"] = "random",
+            ["wave"] = 5
+          }
+        },
+        {
+          id = 20,
+          name = "zombie",
+          type = "enemy",
+          shape = "rectangle",
+          x = 1142,
+          y = -48,
+          width = 0,
+          height = 0,
+          rotation = 90,
+          visible = true,
+          properties = {
+            ["behavior"] = "zombie",
+            ["delay"] = 1,
+            ["rotate"] = "random",
+            ["wave"] = 5
+          }
+        },
+        {
+          id = 21,
+          name = "zombie",
+          type = "enemy",
+          shape = "rectangle",
+          x = 1214,
+          y = 1110,
+          width = 0,
+          height = 0,
+          rotation = 90,
+          visible = true,
+          properties = {
+            ["behavior"] = "zombie",
+            ["delay"] = 1,
+            ["rotate"] = "random",
+            ["wave"] = 5
+          }
+        },
+        {
+          id = 22,
+          name = "zombie",
+          type = "enemy",
+          shape = "rectangle",
+          x = -122,
+          y = 1128,
+          width = 0,
+          height = 0,
+          rotation = 90,
+          visible = true,
+          properties = {
+            ["behavior"] = "zombie",
+            ["delay"] = 1,
+            ["rotate"] = "random",
+            ["wave"] = 5
+          }
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      id = 6,
+      name = "navi",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      draworder = "topdown",
+      properties = {},
+      objects = {
+        {
+          id = 23,
+          name = "",
+          type = "",
+          shape = "point",
+          x = 786,
+          y = 351,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 24,
+          name = "",
+          type = "",
+          shape = "point",
+          x = 780,
+          y = 549,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 25,
+          name = "",
+          type = "",
+          shape = "point",
+          x = 780,
+          y = 676,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 26,
+          name = "",
+          type = "",
+          shape = "point",
+          x = 436,
+          y = 287,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 27,
+          name = "",
+          type = "",
+          shape = "point",
+          x = 173,
+          y = 579,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 28,
+          name = "",
+          type = "",
+          shape = "point",
+          x = 607,
+          y = 355,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 29,
+          name = "",
+          type = "",
+          shape = "point",
+          x = 605,
+          y = 547,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 30,
+          name = "",
+          type = "",
+          shape = "point",
+          x = 378,
+          y = 549,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 31,
+          name = "",
+          type = "",
+          shape = "point",
+          x = 377,
+          y = 679,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 32,
+          name = "",
+          type = "",
+          shape = "point",
+          x = 613,
+          y = 683,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 33,
+          name = "",
+          type = "",
+          shape = "point",
+          x = 802,
+          y = 153,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 34,
+          name = "",
+          type = "",
+          shape = "point",
+          x = 411,
+          y = 159,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 35,
+          name = "",
+          type = "",
+          shape = "point",
+          x = 133,
+          y = 367,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 36,
+          name = "",
+          type = "",
+          shape = "point",
+          x = 128,
+          y = 815,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 37,
+          name = "",
+          type = "",
+          shape = "point",
+          x = 799,
+          y = 829,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     }

@@ -19,15 +19,21 @@ function Transform:initializeTransform(x, y, rotation, scale, pivotX, pivotY)
     self._transform = {}
 end
 
+-- ピボット
+function Transform:setPivot(pivotX, pivotY)
+    self.pivotX = pivotX or self.pivotX or 0
+    self.pivotY = pivotY or self.pivotY or 0
+end
+
 -- 座標
 function Transform:getPosition()
     return self.x, self.y
 end
 
--- ピボット
-function Transform:setPivot(pivotX, pivotY)
-    self.pivotX = pivotX or self.pivotX or 0
-    self.pivotY = pivotY or self.pivotY or 0
+-- 移動
+function Transform:move(x, y)
+    self.x = self.x + x
+    self.y = self.y + y
 end
 
 -- 回転
@@ -44,9 +50,14 @@ function Transform:setRotationTo(x, y)
     self.rotation = lume.angle(self.x, self.y, x, y)
 end
 
--- 前方への正規化ベクトルを返す
-function Transform:forward()
-    return lume.vector(self.rotation, 1)
+-- 前方へのベクトルを返す
+function Transform:forward(magnitude)
+    return lume.vector(self.rotation, magnitude or 1)
+end
+
+-- 前方へ移動する
+function Transform:moveForward(magnitude)
+    return self:move(self:forward(magnitude))
 end
 
 -- トランスフォームを積む

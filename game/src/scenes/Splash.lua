@@ -39,7 +39,7 @@ function Splash:keypressed(key, scancode, isrepeat)
 end
 
 -- マウス入力
-function Scene:mousepressed(x, y, button, istouch, presses)
+function Splash:mousepressed(x, y, button, istouch, presses)
     self.state.splash:skip()
 end
 

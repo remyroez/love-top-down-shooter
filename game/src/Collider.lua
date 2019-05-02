@@ -17,12 +17,17 @@ end
 
 -- 破棄
 function Collider:destroyCollider()
-    self.collider:destroy()
+    if self.collider then
+        self.collider:destroy()
+        self.collider = nil
+    end
 end
 
 -- コライダー座標の更新
 function Collider:setColliderVelocity(x, y, speed)
-    if (x == 0 and y == 0) or speed == 0 then
+    if self.collider == nil then
+        -- no collider
+    elseif (x == 0 and y == 0) or speed == 0 then
         self.collider:setLinearVelocity(0, 0)
     else
         self.collider:setLinearVelocity(lume.vector(lume.angle(self.x, self.y, self.x + x, self.y + y), speed))
@@ -31,12 +36,16 @@ end
 
 -- コライダーへ座標を適用
 function Collider:applyPositionToCollider()
-    self.collider:setPosition(self.x, self.y)
+    if self.collider then
+        self.collider:setPosition(self.x, self.y)
+    end
 end
 
 -- コライダーから座標を適用
 function Collider:applyPositionFromCollider()
-    self.x, self.y = self.collider:getPosition()
+    if self.collider then
+        self.x, self.y = self.collider:getPosition()
+    end
 end
 
 return Collider

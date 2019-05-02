@@ -11,18 +11,36 @@ local Scene = require 'Scene'
 local Character = require 'Character'
 local Level = require 'Level'
 local Camera = require 'Camera'
+local Input = require 'Input'
 
 -- ゲーム
 local Game = Scene:newState 'game'
 
+-- バインドする入力
+local bindInputs = {
+    up = { 'w', 'up', 'dpup' },
+    down = { 's', 'down', 'dpdown' },
+    left = { 'a', 'left', 'dpleft' },
+    right = { 'd', 'right', 'dpright' },
+    fire = { 'mouse1', 'space', 'fdown' },
+}
+
 -- 読み込み
 function Game:load()
+    self.state.input = Input()
 end
 
 -- ステート開始
 function Game:enteredState(...)
     -- 親
     Scene.enteredState(self, ...)
+
+    -- 入力
+    for action, inputs in pairs(bindInputs) do
+        for _, input in pairs(inputs) do
+            self.state.input:bind(input, action)
+        end
+    end
 
     -- カメラ
     self.state.camera = Camera()
@@ -32,9 +50,11 @@ function Game:enteredState(...)
     self.state.camera.scale = 1
 
     -- レベル
-    self.state.level = Level('assets/levels/prototype.lua')
+    self.state.level = Level('assets/levels/simple.lua')
     self.state.level:resizeMapCanvas(self.width, self.height, self.state.camera.scale)
     self.state.level:setupCharacters(self.spriteSheet)
+    self.state.level:setupWave(1, 30, 10, self.spriteSheet)
+    self.state.level:setupNavigation()
 
     -- プレイヤー
     self.state.character = self.state.level:getPlayer() or self.state.level:registerEntity(
@@ -48,30 +68,22 @@ function Game:enteredState(...)
             collisionClass = 'player'
         }
     )
+    self.state.character.onDamage = function (character, attacker)
+        self.state.camera:flash(0.1, { 1, 0, 0, 0.5 })
+        self.state.camera:shake(8, 0.2, 60)
+    end
 end
 
 -- ステート終了
 function Game:exitedState(...)
+    self.state.input:unbindAll()
     self.state.level:destroy()
 end
 
 -- 更新
 function Game:update(dt)
     -- プレイヤー操作
-    local speed = 300
-    local x, y = 0, 0
-    if lk.isDown('w') or lk.isDown('up') then
-        y = -1
-    elseif lk.isDown('s') or lk.isDown('down') then
-        y = 1
-    end
-    if lk.isDown('a') or lk.isDown('left') then
-        x = -1
-    elseif lk.isDown('d') or lk.isDown('right') then
-        x = 1
-    end
-    self.state.character:setColliderVelocity(x, y, speed)
-    self.state.character:setRotationTo(self:getMousePosition())
+    self:controlPlayer()
 
     -- レベル更新
     self.state.level:update(dt)
@@ -103,7 +115,42 @@ function Game:draw()
     -- カメラ描画
     self.state.camera:draw()
 
-    lg.printf('x: ' .. math.ceil(cx) .. ', y: ' .. math.ceil(cy), 0, self.height - 16, self.width, 'left')
+    -- ライフ
+    do
+        love.graphics.setColor(1, 1, 1)
+        lg.printf('LIFE: ', 0, self.height - 16, self.width, 'left')
+        local color = { lume.color('#ffffff') }
+        local rate = self.state.character.life / self.state.character.lifeMax
+        if rate <= 0.3 then
+            color = { lume.color('rgb(255, 0, 0)') }
+        elseif rate <= 0.5 then
+            color = { lume.color('rgb(255, 255, 0)') }
+        end
+        love.graphics.setColor(color)
+        lg.printf(self.state.character.life, 32, self.height - 16, self.width, 'left')
+    end
+
+    -- 残弾数
+    love.graphics.setColor(1, 1, 1)
+    lg.printf(
+        'AMMO: ' .. self.state.character:getWeaponAmmo() .. '/' .. self.state.character:getWeaponMaxAmmo(),
+        0,
+        self.height - 16,
+        self.width,
+        'right'
+    )
+
+    -- 座標（デバッグ）
+    love.graphics.setColor(1, 1, 1)
+    lg.printf('x: ' .. math.ceil(cx) .. ', y: ' .. math.ceil(cy), 0, 0, self.width, 'right')
+
+    -- ウェーブ
+    love.graphics.setColor(1, 1, 1)
+    lg.printf('WAVE: ' .. self.state.level.wave, 0, 0, self.width, 'left')
+
+    -- 残り時間
+    love.graphics.setColor(1, 1, 1)
+    lg.printf(math.floor(self.state.level:getWaveTime()), 0, 0, self.width, 'center')
 end
 
 -- キー入力
@@ -112,20 +159,58 @@ function Game:keypressed(key, scancode, isrepeat)
     end
 end
 
--- マウス入力
-function Game:mousepressed(x, y, button, istouch, presses)
-    x, y = self.state.camera:toWorldCoords(x, y)
-    if button == 1 then
-        local cx, cy = self:getPlayerPosition()
-        local mx, my = (x - cx) * 10000 + cx, (y - cy) * 10000 + cy
-        local colliders = self.state.level.world:queryLine(cx, cy, mx, my, { 'All', except = { 'player', 'friend' } })
-        for _, collider in ipairs(colliders) do
-            --print(tostring(collider))
-            --collider:applyLinearImpulse(lume.vector(lume.angle(cx, cy, collider:getPosition()), 3000))
-            local entity = collider:getObject()
-            if entity then
-                self.state.level:deregisterEntity(entity)
+-- プレイヤー操作
+function Game:controlPlayer()
+    -- プレイヤーがノンアクティブなら操作しない
+    if not self.state.character:isActive() then
+        return
+    end
+
+    local input = self.state.input
+
+    -- 移動
+    local x, y = 0, 0
+    if input:down('up') then
+        y = -1
+    elseif input:down('down') then
+        y = 1
+    end
+    if input:down('left') then
+        x = -1
+    elseif input:down('right') then
+        x = 1
+    end
+    self.state.character:setColliderVelocity(x, y, self.state.character.speed)
+    self.state.character:setRotationTo(self:getMousePosition())
+
+    -- 射撃
+    if input:down('fire', self.state.character:getWeaponDelay()) then
+        if self.state.character:hasWeaponAmmo() then
+            -- 射撃実行
+            self.state.character:fireWeapon()
+
+            -- 画面のシェイク
+            self.state.camera:shake(8, 0.1, 60)
+
+            -- 斜線の敵を探す
+            local cx, cy = self:getPlayerPosition()
+            local mx, my = self:getMousePosition()
+            local fx, fy = (mx - cx) * 1000 + cx, (my - cy) * 1000 + cy
+            local colliders = self.state.level.world:queryLine(cx, cy, fx, fy, { 'All', except = { 'player', 'friend' } })
+            for _, collider in ipairs(colliders) do
+                local entity = collider:getObject()
+                if entity and entity.alive then
+                    entity:damage(
+                        self.state.character:getWeaponDamage(),
+                        self.state.character.rotation,
+                        self.state.character:getWeaponPower(),
+                        self.state.character
+                    )
+                end
             end
+        elseif self.state.character:canReloadWeapon() then
+            -- リロード
+            self.state.character:reloadWeapon()
         end
     end
 end

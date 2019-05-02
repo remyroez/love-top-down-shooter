@@ -38,6 +38,11 @@ function Weapon:getWeaponDamage()
     return self._weapon.properties.damage or 0
 end
 
+-- 武器のパワー
+function Weapon:getWeaponPower()
+    return self._weapon.properties.power or 0
+end
+
 -- 武器の音
 function Weapon:getWeaponSound()
     return self._weapon.properties.sound or 0
@@ -46,6 +51,36 @@ end
 -- 武器の残り弾数
 function Weapon:getWeaponAmmo()
     return self._weapon.ammo or 0
+end
+
+-- 武器の最大弾数
+function Weapon:getWeaponMaxAmmo()
+    return self._weapon.properties.ammo or 0
+end
+
+-- 武器のディレイ
+function Weapon:getWeaponDelay()
+    return self._weapon.properties.delay or 1
+end
+
+-- 武器の残り弾数があるかどうか
+function Weapon:hasWeaponAmmo()
+    return self:getWeaponAmmo() > 0
+end
+
+-- 武器のリロードができるかどうか
+function Weapon:canReloadWeapon()
+    return self:getWeaponMaxAmmo() > 0
+end
+
+-- 武器の発射
+function Weapon:fireWeapon()
+    self._weapon.ammo = self._weapon.ammo - 1
+end
+
+-- 武器のリロード
+function Weapon:reloadWeapon()
+    self._weapon.ammo = self:getWeaponMaxAmmo()
 end
 
 return Weapon
