@@ -258,43 +258,73 @@ function Character:watchCharacter(target, range, circle, targetClass, sight)
     return isFound
 end
 
+-- 一番近いナビゲーションを探す
+function Character:findNearestNavigation(reverse, reset)
+    reverse = reverse or false
+    local navi
+    local navis = self:findNavigations(reset)
+    if #navis > 0 then
+        local sortnavis = lume.sort(
+            navis,
+            function (a, b)
+                if reverse then
+                    return (a.dist > b.dist)
+                else
+                    return (a.dist < b.dist)
+                end
+            end
+        )
+        navi = lume.first(sortnavis)
+    end
+    return navi
+end
+
+-- ランダムでナビゲーションを返す
+function Character:findRandomNavigation(reset)
+    local navi
+    local navis = self:findNavigations(reset)
+    if #navis > 0 then
+        navi = navis[love.math.random(#navis)]
+    end
+    return navi
+end
+
 -- ナビゲーションを探す
-function Character:findNavigation(reverse, reset)
-    local reverse = reverse or false
-    local nearestNavi
-    local nearestDist = reverse and 0 or 99999999
+function Character:findNavigations(reset)
+    local navis = {}
+
     -- すでに全てのナビゲーションを訪問していたら、記憶をリセット
     if reset or #self.visitedNavi >= #self.navigation then
         self:resetNavigation()
     end
+
+    -- 視線が通るナビゲーションをリストアップ
     for _, navi in ipairs(self.navigation) do
         if not lume.find(self.visitedNavi, navi) then
-            local dist = lume.distance(self.x, self.y, navi.x, navi.y)
-            local check = reverse and (dist > nearestDist) or (dist < nearestDist)
-            if check then
-                local ok = true
+            local ok = true
 
-                -- 障害物がないかチェック
-                local founds = self.world:queryLine(navi.x, navi.y, self.x, self.y, { 'All', except = { self.type } })
-                for __, found in pairs(founds) do
-                    if found:getType() ~= 'dynamic' then
-                        ok = false
-                        break
-                    end
+            -- 障害物がないかチェック
+            local founds = self.world:queryLine(navi.x, navi.y, self.x, self.y, { 'All', except = { self.type } })
+            for __, found in pairs(founds) do
+                if found:getType() ~= 'dynamic' then
+                    ok = false
+                    break
                 end
+            end
 
-                -- 障害物がなかった
-                if ok then
-                    nearestNavi = navi
-                    nearestDist = dist
-                end
+            -- 障害物がなかった
+            if ok then
+                table.insert(navis, { x = navi.x, y = navi.y, dist = lume.distance(self.x, self.y, navi.x, navi.y) })
             end
         end
     end
-    if nearestNavi then
-        table.insert(self.visitedNavi, nearestNavi)
-    end
-    return nearestNavi
+
+    return navis
+end
+
+-- ナビゲーションの訪問
+function Character:visitNavigation(navi)
+    table.insert(self.visitedNavi, navi)
 end
 
 -- 過去に訪問したナビゲーションのリセット

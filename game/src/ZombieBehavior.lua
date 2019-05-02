@@ -81,21 +81,30 @@ local Search = ZombieBehavior:newState 'search'
 
 -- 検索: 周囲を探す
 function Search:tweenSearch(rotate)
+    local this = self
+
     self.timer:tween(
         3,
         self.character,
         { rotation = self.character.rotation + rotate },
         'in-out-cubic',
         function ()
-            self:tweenSearch(math.pi / 2 * love.math.random(-1, 1))
+            this:tweenSearch(math.pi / 2 * love.math.random(-1, 1))
         end,
         'search'
     )
 end
 
 -- 検索: キャラクターのナビゲート
-function Search:navigateCharacter()
-    local navi = self.character:findNavigation(love.math.random(1, 2) == 1)
+function Search:navigateCharacter(random)
+    local navi
+
+    if random then
+        navi = self.character:findRandomNavigation()
+    else
+        navi = self.character:findNearestNavigation(love.math.random(1, 2) == 1)
+    end
+
     if navi then
         self:gotoState('goto', navi.x, navi.y)
     end
@@ -104,6 +113,8 @@ end
 -- 検索: ステート開始
 function Search:enteredState(rotate)
     rotate = rotate or (math.pi / 2)
+
+    local this = self
 
     -- キャラクターは立ち状態に
     self:setCharacterState('stand')
@@ -115,17 +126,17 @@ function Search:enteredState(rotate)
     self.timer:every(
         0.1,
         function ()
-            local scale = self.character.scale
+            local scale = this.character.scale
 
             -- キャラクターを探す
-            local target = self.character:findCharacter(64 * scale, 64 * scale, { 'player', 'friend' })
+            local target = this.character:findCharacter(64 * scale, 64 * scale, { 'player', 'friend' })
             if target == nil then
-                target = self.character:findCharacter(128 * scale, 96 * scale, { 'player', 'friend' })
+                target = this.character:findCharacter(128 * scale, 96 * scale, { 'player', 'friend' })
             end
 
             -- ターゲットを定めたら攻撃へ
             if target then
-                self:gotoState('attack', target)
+                this:gotoState('attack', target)
             end
         end
     )
@@ -134,7 +145,7 @@ function Search:enteredState(rotate)
     self.timer:every(
         5,
         function ()
-            self:navigateCharacter()
+            this:navigateCharacter()
         end
     )
 
@@ -142,13 +153,13 @@ function Search:enteredState(rotate)
     self.timer:every(
         60,
         function ()
-            self.character:resetNavigation()
+            this.character:resetNavigation()
         end
     )
 
     -- 最初に一回ナビゲートする
     if self.first then
-        self:navigateCharacter()
+        self:navigateCharacter(true)
     end
 end
 
