@@ -244,14 +244,30 @@ function Game:controlPlayer()
             local bullet = { line = { cx, cy, cx + rx, cy + ry }, color = { 1.0, 0, 0, 0.5 }}
             table.insert(self.state.bullets, bullet)
 
-            self.state.level.world:rayCast(
-                cx, cy, cx + rx, cy + ry,
-                function (fixture, x, y, xn, yn, fraction)
-                    bullet.line[3] = x
-                    bullet.line[4] = y
-                    return 0
+            -- 一番近いヒット地点を探す
+            do
+                local hits = {}
+                self.state.level.world:rayCast(
+                    cx, cy, cx + rx, cy + ry,
+                    function (fixture, x, y, xn, yn, fraction)
+                        table.insert(hits, { x = x, y = y })
+                        return 1
+                    end
+                )
+                local nearestDist = player:getWeaponRange()
+                local nearest
+                for _, hit in ipairs(hits) do
+                    local dist = lume.distance(cx, cy, hit.x, hit.y)
+                    if dist < nearestDist then
+                        nearestDist = dist
+                        nearest = hit
+                    end
                 end
-            )
+                if nearest then
+                    bullet.line[3] = nearest.x
+                    bullet.line[4] = nearest.y
+                end
+            end
 
             self.state.timer:tween(
                 0.1,
