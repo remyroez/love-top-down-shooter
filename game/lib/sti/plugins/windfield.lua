@@ -106,9 +106,10 @@ return {
 				object     = o,
 				properties = object.properties
 			}
+			local oy = 0
 
 			if o.shape == "rectangle" then
-				local oy  = 0
+				oy  = 0
 
 				if object.gid then
 					local tileset = map.tilesets[map.tiles[object.gid].tileset]
