@@ -44,10 +44,6 @@ function Game:enteredState(...)
 
     -- カメラ
     self.state.camera = Camera()
-    self.state.camera:setFollowLerp(0.1)
-    self.state.camera:setFollowLead(2)
-    self.state.camera:setFollowStyle('TOPDOWN_TIGHT')
-    self.state.camera.scale = 1
 
     -- レベル
     self.state.level = Level('assets/levels/simple.lua')
@@ -72,6 +68,14 @@ function Game:enteredState(...)
         self.state.camera:flash(0.1, { 1, 0, 0, 0.5 })
         self.state.camera:shake(8, 0.2, 60)
     end
+
+    -- カメラ初期設定
+    self.state.camera:follow(self:getPlayerPosition())
+    self.state.camera:setFollowLerp(0.1)
+    self.state.camera:setFollowLead(2)
+    self.state.camera:setFollowStyle('TOPDOWN_TIGHT')
+    self.state.camera:setBounds(self.state.level.left, self.state.level.top, self.state.level.width, self.state.level.height)
+    self.state.camera.scale = 1
 end
 
 -- ステート終了

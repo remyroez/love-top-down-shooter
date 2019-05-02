@@ -88,6 +88,35 @@ function Level:initialize(map)
     -- マップ
     self.map = sti(map, { 'windfield' })
     self.map:windfield_init(self.world)
+    self.left = 0
+    self.right = 0
+    self.top = 0
+    self.bottom = 0
+    for _, layer in pairs(self.map.layers) do
+        if layer.type == 'tilelayer' and layer.chunks then
+            for __, chunk in ipairs(layer.chunks) do
+                if chunk.x < self.left then
+                    self.left = chunk.x
+                end
+                if chunk.y < self.top then
+                    self.top = chunk.y
+                end
+                if chunk.x + chunk.width > self.right then
+                    self.right = chunk.x + chunk.width
+                end
+                if chunk.y + chunk.height > self.bottom then
+                    self.bottom = chunk.y + chunk.height
+                end
+            end
+        end
+    end
+    self.left = self.left * self.map.tilewidth
+    self.right = self.right * self.map.tilewidth
+    self.top = self.top * self.map.tileheight
+    self.bottom = self.bottom * self.map.tileheight
+    self.width = self.right - self.left
+    self.height = self.bottom - self.top
+    print(self.left, self.top, self.width, self.height)
 
     -- エンティティ
     self.entities = {}
