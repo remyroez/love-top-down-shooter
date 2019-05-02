@@ -188,6 +188,8 @@ function Attack:enteredState(target)
     self._attack = {}
     self._attack.targetX, self._attack.targetY = self.target:getPosition()
     self._attack.wait = false
+    self._attack.lastX, self._attack.lastY = self.character.x, self.character.y
+    self._attack.nomove = 0
 
     -- キャラクターは追跡状態に
     self:setCharacterState('goto', self.character.speed * 1.5, self.target)
@@ -224,7 +226,23 @@ function Attack:enteredState(target)
                 )
                 self._attack.wait = true
                 self.timer:after(self.character:getWeaponDelay(), function () self._attack.wait = false end)
+                self._attack.nomove = 0
+            else
+                -- 移動していなかったらカウントアップ
+                if math.abs(self.character.x - self._attack.lastX) < 4 and math.abs(self.character.y - self._attack.lastY) < 4 then
+                    self._attack.nomove = self._attack.nomove + love.timer.getDelta() / 0.1
+                else
+                    self._attack.nomove = 0
+                end
+
+                -- 一定時間移動しなかったら検索へ
+                if self._attack.nomove > 3 then
+                    self:gotoState('search')
+                end
             end
+
+            -- 現在のキャラの座標を記憶
+            self._attack.lastX, self._attack.lastY = self.character.x, self.character.y
         end
     )
 end
@@ -255,6 +273,8 @@ local Goto = ZombieBehavior:newState 'goto'
 function Goto:enteredState(x, y)
     self._goto = {}
     self._goto.x, self._goto.y = x or 0, y or 0
+    self._goto.lastX, self._goto.lastY = self.character.x, self.character.y
+    self._goto.nomove = 0
 
     -- キャラクターは追跡状態に
     self:setCharacterState('goto', self.character.speed, x, y)
@@ -280,6 +300,21 @@ function Goto:enteredState(x, y)
             if lume.distance(self.character.x, self.character.y, self._goto.x, self._goto.y) < 10 * scale then
                 self:gotoState('search')
             end
+
+            -- 移動していなかったらカウントアップ
+            if math.abs(self.character.x - self._goto.lastX) < 4 and math.abs(self.character.y - self._goto.lastY) < 4 then
+                self._goto.nomove = self._goto.nomove + love.timer.getDelta() / 0.1
+            else
+                self._goto.nomove = 0
+            end
+
+            -- 一定時間移動しなかったら検索へ
+            if self._goto.nomove > 3 then
+                self:gotoState('search')
+            end
+
+            -- 現在のキャラの座標を記憶
+            self._goto.lastX, self._goto.lastY = self.character.x, self.character.y
         end
     )
 end
