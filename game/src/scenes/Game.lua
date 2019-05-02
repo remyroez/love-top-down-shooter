@@ -49,7 +49,7 @@ function Game:enteredState(...)
     self.state.level = Level('assets/levels/simple.lua')
     self.state.level:resizeMapCanvas(self.width, self.height, self.state.camera.scale)
     self.state.level:setupCharacters(self.spriteSheet)
-    self.state.level:setupWave(0, 30, 10, self.spriteSheet)
+    self.state.level:setupWave(1, 0, 10, self.spriteSheet)
     self.state.level:setupNavigation()
 
     -- プレイヤー
