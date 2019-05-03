@@ -1,7 +1,7 @@
 # TOP DOWN SHOOTER
 :gun: Top down shooter with LÖVE
 
-![Screenshot](https://user-images.githubusercontent.com/1193542/56808809-56e3bb80-686d-11e9-8c7e-f87a519f458a.png)
+![Screenshot](https://user-images.githubusercontent.com/1193542/57123252-1c71a580-6dbc-11e9-8891-8fd36957b539.png)
 
 ## Controls
 
@@ -10,6 +10,7 @@
 - Reload: Sub mouse button
 - Restart: F5
 - Debug mode: F12
+- Print screen: Capture a screenshot and save it to a [save-directory](https://love2d.org/wiki/love.filesystem)
 
 ## Getting Started
 
