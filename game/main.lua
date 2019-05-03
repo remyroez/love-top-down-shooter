@@ -33,9 +33,12 @@ lurker.postswap = function (f)
     end
 end
 
+local width, height = 0, 0
+
 -- 読み込み
 function love.load()
     love.math.setRandomSeed(love.timer.getTime())
+    width, height = love.graphics.getDimensions()
 end
 
 -- 更新
@@ -55,7 +58,7 @@ function love.draw()
     -- ステートの描画
     if printStates then
         love.graphics.setColor(1, 1, 1)
-        scene:printStates()
+        scene:printStates(0, height * 0.5)
     end
 end
 
@@ -76,6 +79,7 @@ function love.keypressed(key, scancode, isrepeat)
     elseif key == 'f12' then
         -- ステートの描画
         printStates = not printStates
+        scene:setDebug(printStates)
     else
         -- シーンに処理を渡す
         scene:keypressed(key, scancode, isrepeat)

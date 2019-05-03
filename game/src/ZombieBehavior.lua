@@ -23,6 +23,11 @@ function ZombieBehavior:onDamage(attacker)
     self:gotoState('attack', attacker)
 end
 
+-- ヒア時のコールバック
+function ZombieBehavior:onHear(source)
+    self:gotoState('goto', source.x, source.y)
+end
+
 -- 待機
 local Wait = ZombieBehavior:newState 'wait'
 
@@ -89,6 +94,10 @@ function Search:tweenSearch(rotate)
         { rotation = self.character.rotation + rotate },
         'in-out-cubic',
         function ()
+            if this == nil then
+                self.timer:destroy()
+                return
+            end
             this:tweenSearch(math.pi / 2 * love.math.random(-1, 1))
         end,
         'search'
@@ -126,6 +135,10 @@ function Search:enteredState(rotate)
     self.timer:every(
         0.1,
         function ()
+            if this == nil then
+                self.timer:destroy()
+                return
+            end
             local scale = this.character.scale
 
             -- キャラクターを探す
@@ -145,6 +158,10 @@ function Search:enteredState(rotate)
     self.timer:every(
         5,
         function ()
+            if this == nil then
+                self.timer:destroy()
+                return
+            end
             this:navigateCharacter()
         end
     )
@@ -153,6 +170,10 @@ function Search:enteredState(rotate)
     self.timer:every(
         60,
         function ()
+            if this == nil then
+                self.timer:destroy()
+                return
+            end
             this.character:resetNavigation()
         end
     )
@@ -247,7 +268,7 @@ function Attack:enteredState(target)
     )
 end
 
--- 描画
+-- 攻撃: 描画
 function Attack:draw()
     ZombieBehavior.draw(self)
 
@@ -264,6 +285,10 @@ function Attack:draw()
         local x, y = self.character:forward(128 * scale)
         love.graphics.circle('line', x + self.character.x, y + self.character.y, 96 * scale)
     end
+end
+
+-- 攻撃: ヒア時のコールバック
+function Attack:onHear(source)
 end
 
 -- 移動

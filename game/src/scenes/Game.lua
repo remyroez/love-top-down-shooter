@@ -12,6 +12,7 @@ local Character = require 'Character'
 local Level = require 'Level'
 local Camera = require 'Camera'
 local Input = require 'Input'
+local Timer = require 'Timer'
 
 -- ゲーム
 local Game = Scene:newState 'game'
@@ -22,12 +23,14 @@ local bindInputs = {
     down = { 's', 'down', 'dpdown' },
     left = { 'a', 'left', 'dpleft' },
     right = { 'd', 'right', 'dpright' },
-    fire = { 'mouse1', 'space', 'fdown' },
+    fire = { 'mouse1', 'fdown' },
+    reload = { 'mouse2', 'fright' },
 }
 
 -- 読み込み
 function Game:load()
     self.state.input = Input()
+    self.state.timer = Timer()
 end
 
 -- ステート開始
@@ -77,16 +80,37 @@ function Game:enteredState(...)
     self.state.camera:setFollowStyle('TOPDOWN_TIGHT')
     self.state.camera:setBounds(self.state.level.left, self.state.level.top, self.state.level.width, self.state.level.height)
     self.state.camera.scale = 1
+
+    -- 弾道
+    self.state.bullets = {}
+
+    -- 音
+    self.state.sounds = {}
+
+    -- デバッグモード
+    self:setDebug(false)
+
+    -- マウス
+    lm.setVisible(false)
+    lm.setGrabbed(true)
 end
 
 -- ステート終了
 function Game:exitedState(...)
     self.state.input:unbindAll()
     self.state.level:destroy()
+    self.state.timer:destroy()
+
+    -- マウス
+    lm.setVisible(true)
+    lm.setGrabbed(false)
 end
 
 -- 更新
 function Game:update(dt)
+    -- タイマー
+    self.state.timer:update(dt)
+
     -- プレイヤー操作
     self:controlPlayer()
 
@@ -123,14 +147,29 @@ function Game:draw()
             self.state.camera.h / 2 - self.state.camera.y,
             self.state.camera.scale)
 
-        -- マウスポインタ描画
-        local mx, my = self:getMousePosition()
-        lg.line(cx, cy, mx, my)
+        -- 弾道描画
+        for _, bullet in ipairs(self.state.bullets) do
+            lg.setColor(bullet.color)
+            lg.line(unpack(bullet.line))
+        end
+
+        -- サウンド描画
+        if self.debug then
+            for _, sound in ipairs(self.state.sounds) do
+                lg.setColor(sound.color)
+                lg.circle(unpack(sound.circle))
+            end
+        end
     end
     self.state.camera:detach()
 
     -- カメラ描画
     self.state.camera:draw()
+
+    -- 照準の描画
+    local mx, my = lm.getPosition()
+    lg.setColor(1, 1, 1)
+    lg.draw(self.crosshair, mx - self.crosshair:getWidth() * 0.5, my - self.crosshair:getHeight() * 0.5)
 
     -- ライフ
     do
@@ -150,7 +189,7 @@ function Game:draw()
     -- 残弾数
     love.graphics.setColor(1, 1, 1)
     lg.printf(
-        'AMMO: ' .. self.state.player:getWeaponAmmo() .. '/' .. self.state.player:getWeaponMaxAmmo(),
+        'AMMO: ' .. (self.state.player:isReloadingWeapon() and 'RELOADING...' or tostring(self.state.player:getWeaponAmmo())) .. '/' .. self.state.player:getWeaponMaxAmmo(),
         0,
         self.height - 16,
         self.width,
@@ -158,8 +197,10 @@ function Game:draw()
     )
 
     -- 座標（デバッグ）
-    love.graphics.setColor(1, 1, 1)
-    lg.printf('x: ' .. math.ceil(cx) .. ', y: ' .. math.ceil(cy), 0, self.height * 0.5 - 16, self.width, 'right')
+    if self.debug then
+        love.graphics.setColor(1, 1, 1)
+        lg.printf('x: ' .. math.ceil(cx) .. ', y: ' .. math.ceil(cy), 0, self.height * 0.5 - 16, self.width, 'right')
+    end
 
     -- ウェーブ
     if self.state.level.wave > 0 then
@@ -180,10 +221,10 @@ function Game:draw()
     end
 end
 
--- キー入力
-function Game:keypressed(key, scancode, isrepeat)
-    if key == 'space' then
-    end
+-- デバッグモード設定
+function Game:setDebug(enable)
+    self.debug = enable
+    self.state.level:setDebug(enable)
 end
 
 -- プレイヤー操作
@@ -213,23 +254,93 @@ function Game:controlPlayer()
     player:setRotationTo(self:getMousePosition())
 
     -- 射撃
-    if input:down('fire', player:getWeaponDelay()) then
+    if player:isReloadingWeapon() then
+        -- リロード中
+    elseif input:down('fire', player:getWeaponDelay()) then
         if player:hasWeaponAmmo() then
+            local cx, cy = self:getPlayerPosition()
+            local mx, my = self:getMousePosition()
+            local rx, ry = lume.vector(lume.angle(cx, cy, mx, my), player:getWeaponRange())
+            --[[
+            local gx, gy = cx, cy
+            do
+                local x, y = player:forward(32)
+                gx = gx + x
+                gy = gy + y
+            end
+            do
+                local x, y = lume.vector(player.rotation + math.pi * 0.5, 10 * player.scale)
+                gx = gx + x
+                gy = gy + y
+            end
+            --]]
+
             -- 射撃実行
             player:fireWeapon()
 
             -- 画面のシェイク
             self.state.camera:shake(8, 0.1, 60)
 
+            -- 弾道
+            local bullet = { line = { cx, cy, cx + rx, cy + ry }, color = { 1.0, 0, 0, 0.5 }}
+            table.insert(self.state.bullets, bullet)
+
+            -- 一番近いヒット地点を探す
+            do
+                local hits = {}
+                self.state.level.world:rayCast(
+                    cx, cy, cx + rx, cy + ry,
+                    function (fixture, x, y, xn, yn, fraction)
+                        table.insert(hits, { x = x, y = y })
+                        return 1
+                    end
+                )
+                local nearestDist = player:getWeaponRange()
+                local nearest
+                for _, hit in ipairs(hits) do
+                    local dist = lume.distance(cx, cy, hit.x, hit.y)
+                    if dist < nearestDist then
+                        nearestDist = dist
+                        nearest = hit
+                    end
+                end
+                if nearest then
+                    bullet.line[3] = nearest.x
+                    bullet.line[4] = nearest.y
+                end
+            end
+
+            self.state.timer:tween(
+                0.1,
+                bullet.color,
+                { [4] = 0 },
+                'in-out-cubic',
+                function ()
+                    lume.remove(self.state.bullets, bullet)
+                end
+            )
+
             -- 斜線の敵を探す
-            local cx, cy = self:getPlayerPosition()
-            local mx, my = self:getMousePosition()
-            local fx, fy = (mx - cx) * 1000 + cx, (my - cy) * 1000 + cy
-            local colliders = self.state.level.world:queryLine(cx, cy, fx, fy, { 'All', except = { 'player', 'friend' } })
-            for _, collider in ipairs(colliders) do
-                local entity = collider:getObject()
-                if entity and entity.alive then
-                    entity:damage(
+            do
+                local fx, fy = cx + rx, cy + ry
+                local colliders = self.state.level.world:queryLine(cx, cy, fx, fy, { 'All', except = { 'player', 'friend' } })
+                local nearestDist = player:getWeaponRange()
+                local nearest
+                local ok = true
+                for _, collider in ipairs(colliders) do
+                    local entity = collider:getObject()
+                    if entity and entity.alive then
+                        local dist = lume.distance(cx, cy, entity.x, entity.y)
+                        if dist < nearestDist then
+                            nearestDist = dist
+                            nearest = entity
+                        end
+                    elseif collider:getType() ~= 'dynamic' and collider.collision_class == 'building' then
+                        ok = false
+                    end
+                end
+                if ok and nearest then
+                    nearest:damage(
                         player:getWeaponDamage(),
                         player.rotation,
                         player:getWeaponPower(),
@@ -237,10 +348,41 @@ function Game:controlPlayer()
                     )
                 end
             end
+
+            -- 音エフェクト
+            if self.debug then
+                local sound = { circle = { 'line', cx, cy, player:getWeaponSound() }, color = { 1.0, 1.0, 0, 0.5 }}
+                table.insert(self.state.sounds, sound)
+                self.state.timer:tween(
+                    0.1,
+                    sound.color,
+                    { [4] = 0 },
+                    'in-out-cubic',
+                    function ()
+                        lume.remove(self.state.sounds, sound)
+                    end
+                )
+            end
+
+            -- 音を出す
+            do
+                local colliders = self.state.level.world:queryCircleArea(cx, cy, player:getWeaponSound(), { 'All', except = { 'player', 'friend' } })
+                for _, collider in ipairs(colliders) do
+                    local entity = collider:getObject()
+                    if entity and entity.alive then
+                        entity:hear(player)
+                    end
+                end
+            end
         elseif player:canReloadWeapon() then
             -- リロード
-            player:reloadWeapon()
+            player:reloadWeapon(1, function (p) p:resetSprite() end)
+            player:resetSprite()
         end
+    elseif input:pressed('reload') and player:canReloadWeapon() then
+        -- リロード
+        player:reloadWeapon(1, function (p) p:resetSprite() end)
+        player:resetSprite()
     end
 end
 

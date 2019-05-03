@@ -52,8 +52,8 @@ function Scene:resetState()
 end
 
 -- ステートの描画
-function Scene:printStates()
-    love.graphics.print('states: ' .. table.concat(self:getStateStackDebugInfo(), '/'))
+function Scene:printStates(x, y)
+    love.graphics.print('states: ' .. table.concat(self:getStateStackDebugInfo(), '/'), x, y)
 end
 
 -- ステート用テーブル

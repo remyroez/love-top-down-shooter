@@ -49,32 +49,36 @@ local weaponData = {
         damage = 4,
         power = 5000,
         ammo = 8,
-        sound = 20,
+        sound = 200,
         delay = 0.5,
+        range = 500,
     },
     machine = {
         name = 'machine',
         damage = 1,
         power = 3000,
         ammo = 30,
-        sound = 10,
+        sound = 300,
         delay = 0.1,
+        range = 500,
     },
     silencer = {
         name = 'silencer',
         damage = 3,
         power = 2000,
         ammo = 8,
-        sound = 5,
+        sound = 100,
         delay = 0.5,
+        range = 300,
     },
     hand = {
         name = 'hold',
         damage = 1,
         power = 5000,
         ammo = -1,
-        sound = 1,
+        sound = 50,
         delay = 1,
+        range = 16,
     },
 }
 
@@ -205,6 +209,9 @@ function Level:initialize(map)
 
     -- ナビ
     self.navigation = {}
+
+    -- デバッグモード
+    self.debug = true
 end
 
 -- キャラクターのセットアップ
@@ -425,7 +432,8 @@ function Level:spawnCharacter(object, spriteSheet)
             world = self.world,
             navigation = self.navigation,
             life = object.properties.life,
-            onDead = function (character) self:deregisterEntity(character) end
+            onDead = function (character) self:deregisterEntity(character) end,
+            debug = self.debug,
         }
     )
 
@@ -460,7 +468,15 @@ function Level:draw(x, y, scale)
     self.map:draw(x, y, scale)
 
     -- ワールドのデバッグ描画
-    self.world:draw(0.5)
+    if self.debug then
+        self.world:draw(0.5)
+    end
+end
+
+-- デバッグモード設定
+function Level:setDebug(enable)
+    self.debug = enable
+    lume.each(self.entities, function (entity) entity.debug = enable end)
 end
 
 -- マップキャンバスのリサイズ
