@@ -49,6 +49,9 @@ function Select:enteredState(...)
             self.state.action = false
         end
     )
+
+    -- ＢＧＭ
+    self.musics.outgame:play()
 end
 
 -- ステート終了
@@ -99,6 +102,7 @@ function Select:keypressed(key, scancode, isrepeat)
                 { [4] = 1 },
                 'in-out-cubic',
                 function ()
+                    self.musics.outgame:stop()
                     self:nextState(levels[self.selectedLevel].path)
                     self.state.action = false
                 end

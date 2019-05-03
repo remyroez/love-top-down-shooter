@@ -43,6 +43,9 @@ function Title:enteredState(...)
             self.state.action = false
         end
     )
+
+    -- ＢＧＭ
+    self.musics.outgame:play()
 end
 
 -- ステート終了

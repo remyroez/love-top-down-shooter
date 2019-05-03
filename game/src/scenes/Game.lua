@@ -110,6 +110,9 @@ function Game:enteredState(path, ...)
     self.state.youdied = { 1, 0, 0, 0 }
     self.state.gameover = false
     self.state.visiblePressAnyKey = true
+
+    -- ＢＧＭ
+    self.musics.ingame:play()
 end
 
 -- ステート終了
@@ -299,6 +302,9 @@ function Game:draw()
     -- ゲームオーバー操作
     if self:isPlayable() and self:isGameOver() then
         -- ゲームオーバー演出開始
+        self.musics.ingame:stop()
+        self.sounds.gameover:seek(0)
+        self.sounds.gameover:play()
         self.state.gameover = true
         self.state.action = true
         self.state.timer:tween(

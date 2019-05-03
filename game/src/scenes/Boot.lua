@@ -26,6 +26,27 @@ function Boot:load()
     -- 照準
     self.crosshair = lg.newImage('assets/crosshair038.png')
 
+    -- 音楽
+    local musics = {
+        ingame = 'assets/Space Cadet.ogg',
+        outgame = 'assets/Sad Descent.ogg',
+    }
+    self.musics = {}
+    for name, path in pairs(musics) do
+        self.musics[name] = love.audio.newSource(path, 'static')
+        self.musics[name]:setLooping(true)
+        self.musics[name]:setVolume(0.5)
+    end
+
+    -- ＳＥ
+    local sounds = {
+        gameover = 'assets/Serious ident.ogg',
+    }
+    self.sounds = {}
+    for name, path in pairs(sounds) do
+        self.sounds[name] = love.audio.newSource(path, 'static')
+    end
+
     -- フォント
     local font = 'assets/Kenney Thick.ttf'
     self.font16 = love.graphics.newFont(font, 16)
