@@ -70,7 +70,7 @@ function Boot:load()
 
     -- その他
     self.selectedLevel = 1
-    self.clearWave = { 1 }
+    self.clearWave = {}
 end
 
 -- 更新

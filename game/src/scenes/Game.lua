@@ -353,6 +353,15 @@ function Game:keypressed(key, scancode, isrepeat)
             { [4] = 1 },
             'in-out-cubic',
             function ()
+                -- クリアウェーブの更新
+                if self.state.level.wave > 0 then
+                    local clearWave = self.state.level.wave - 1
+                    if self.clearWave[self.selectedLevel] == nil then
+                        self.clearWave[self.selectedLevel] = clearWave
+                    elseif clearWave > self.clearWave[self.selectedLevel] then
+                        self.clearWave[self.selectedLevel] = clearWave
+                    end
+                end
                 self:gotoState 'select'
             end
         )
