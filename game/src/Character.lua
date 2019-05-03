@@ -22,6 +22,7 @@ function Character:initialize(args)
     self.alive = true
     self.onDead = args.onDead or function (character) end
     self.onDamage = args.onDamage or function (character, attacker) end
+    self.onHear = args.onHear or function (character, source) end
 
     self.type = args.type or 'object'
     self.speed = args.speed or 100
@@ -170,7 +171,7 @@ function Character:damage(damage, rotation, power, attacker)
     end
 
     -- ダメージコールバック
-    self.onDamage(self)
+    self.onDamage(self, attacker)
     if self.behavior and self.alive then
         self.behavior:onDamage(attacker)
     end
@@ -180,6 +181,19 @@ function Character:damage(damage, rotation, power, attacker)
         self:gotoState 'dying'
     else
         self:pushState('wait', power / 10000)
+    end
+end
+
+-- 音を聞いた
+function Character:hear(source)
+    if not self.alive then
+        return
+    end
+
+    -- ヒアコールバック
+    self.onHear(self, source)
+    if self.behavior and self.alive then
+        self.behavior:onHear(source)
     end
 end
 

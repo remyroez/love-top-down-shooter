@@ -84,6 +84,9 @@ function Game:enteredState(...)
     -- 弾道
     self.state.bullets = {}
 
+    -- 音
+    self.state.sounds = {}
+
     -- デバッグモード
     self:setDebug(false)
 end
@@ -140,6 +143,14 @@ function Game:draw()
         for _, bullet in ipairs(self.state.bullets) do
             lg.setColor(bullet.color)
             lg.line(unpack(bullet.line))
+        end
+
+        -- サウンド描画
+        if self.debug then
+            for _, sound in ipairs(self.state.sounds) do
+                lg.setColor(sound.color)
+                lg.circle(unpack(sound.circle))
+            end
         end
     end
     self.state.camera:detach()
@@ -297,27 +308,55 @@ function Game:controlPlayer()
             )
 
             -- 斜線の敵を探す
-            local fx, fy = cx + rx, cy + ry
-            local colliders = self.state.level.world:queryLine(cx, cy, fx, fy, { 'All', except = { 'player', 'friend' } })
-            local nearestDist = player:getWeaponRange()
-            local nearest
-            for _, collider in ipairs(colliders) do
-                local entity = collider:getObject()
-                if entity and entity.alive then
-                    local dist = lume.distance(cx, cy, entity.x, entity.y)
-                    if dist < nearestDist then
-                        nearestDist = dist
-                        nearest = entity
+            do
+                local fx, fy = cx + rx, cy + ry
+                local colliders = self.state.level.world:queryLine(cx, cy, fx, fy, { 'All', except = { 'player', 'friend' } })
+                local nearestDist = player:getWeaponRange()
+                local nearest
+                for _, collider in ipairs(colliders) do
+                    local entity = collider:getObject()
+                    if entity and entity.alive then
+                        local dist = lume.distance(cx, cy, entity.x, entity.y)
+                        if dist < nearestDist then
+                            nearestDist = dist
+                            nearest = entity
+                        end
                     end
                 end
+                if nearest then
+                    nearest:damage(
+                        player:getWeaponDamage(),
+                        player.rotation,
+                        player:getWeaponPower(),
+                        player
+                    )
+                end
             end
-            if nearest then
-                nearest:damage(
-                    player:getWeaponDamage(),
-                    player.rotation,
-                    player:getWeaponPower(),
-                    player
+
+            -- 音エフェクト
+            if self.debug then
+                local sound = { circle = { 'line', cx, cy, player:getWeaponSound() }, color = { 1.0, 1.0, 0, 0.5 }}
+                table.insert(self.state.sounds, sound)
+                self.state.timer:tween(
+                    0.1,
+                    sound.color,
+                    { [4] = 0 },
+                    'in-out-cubic',
+                    function ()
+                        lume.remove(self.state.sounds, sound)
+                    end
                 )
+            end
+
+            -- 音を出す
+            do
+                local colliders = self.state.level.world:queryCircleArea(cx, cy, player:getWeaponSound(), { 'All', except = { 'player', 'friend' } })
+                for _, collider in ipairs(colliders) do
+                    local entity = collider:getObject()
+                    if entity and entity.alive then
+                        entity:hear(player)
+                    end
+                end
             end
         elseif player:canReloadWeapon() then
             -- リロード

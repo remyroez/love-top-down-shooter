@@ -23,6 +23,11 @@ function ZombieBehavior:onDamage(attacker)
     self:gotoState('attack', attacker)
 end
 
+-- ヒア時のコールバック
+function ZombieBehavior:onHear(source)
+    self:gotoState('goto', source.x, source.y)
+end
+
 -- 待機
 local Wait = ZombieBehavior:newState 'wait'
 
@@ -263,7 +268,7 @@ function Attack:enteredState(target)
     )
 end
 
--- 描画
+-- 攻撃: 描画
 function Attack:draw()
     ZombieBehavior.draw(self)
 
@@ -280,6 +285,10 @@ function Attack:draw()
         local x, y = self.character:forward(128 * scale)
         love.graphics.circle('line', x + self.character.x, y + self.character.y, 96 * scale)
     end
+end
+
+-- 攻撃: ヒア時のコールバック
+function Attack:onHear(source)
 end
 
 -- 移動
