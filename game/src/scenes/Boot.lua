@@ -26,10 +26,15 @@ function Boot:load()
     -- 照準
     self.crosshair = lg.newImage('assets/crosshair038.png')
 
+    -- フォント
     local font = 'assets/Kenney Thick.ttf'
     self.font16 = love.graphics.newFont(font, 16)
     self.font32 = love.graphics.newFont(font, 32)
     self.font64 = love.graphics.newFont(font, 64)
+
+    -- その他
+    self.selectedLevel = 1
+    self.clearWave = { 1 }
 end
 
 -- 更新

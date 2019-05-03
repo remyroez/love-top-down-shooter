@@ -10,7 +10,7 @@ local Title = Scene:newState 'title'
 
 -- 次のステートへ
 function Title:nextState(...)
-    self:gotoState 'game'
+    self:gotoState 'select'
 end
 
 -- 読み込み
@@ -57,15 +57,20 @@ end
 
 -- 描画
 function Title:draw()
+    -- タイトル
     lg.setColor(1, 1, 1)
     lg.printf('TOP\nDOWN\nSHOOTER', self.font64, 16, self.height - self.font64:getHeight() * 3, self.width, 'left')
 
+    -- キー入力表示
     if self.state.visiblePressAnyKey and not self.state.action then
         lg.printf('PRESS ANY KEY', self.font32, -8, 8, self.width, 'right')
     end
 
-    lg.setColor(unpack(self.state.fade))
-    lg.rectangle('fill', 0, 0, self.width, self.height)
+    -- フェード
+    if self.state.fade[4] > 0 then
+        lg.setColor(unpack(self.state.fade))
+        lg.rectangle('fill', 0, 0, self.width, self.height)
+    end
 end
 
 -- キー入力
