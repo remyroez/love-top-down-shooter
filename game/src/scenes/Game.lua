@@ -233,6 +233,17 @@ function Game:controlPlayer()
             local cx, cy = self:getPlayerPosition()
             local mx, my = self:getMousePosition()
             local rx, ry = lume.vector(lume.angle(cx, cy, mx, my), player:getWeaponRange())
+            local gx, gy = cx, cy
+            do
+                local x, y = player:forward(32)
+                gx = gx + x
+                gy = gy + y
+            end
+            do
+                local x, y = lume.vector(player.rotation + math.pi * 0.5, 10 * player.scale)
+                gx = gx + x
+                gy = gy + y
+            end
 
             -- 射撃実行
             player:fireWeapon()
