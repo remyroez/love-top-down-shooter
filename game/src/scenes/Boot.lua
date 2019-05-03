@@ -22,6 +22,9 @@ function Boot:load()
 
     -- スプライトシートの読み込み
     self.spriteSheet = sbss:new('assets/spritesheet.xml')
+
+    -- 照準
+    self.crosshair = lg.newImage('assets/crosshair038.png')
 end
 
 -- 更新

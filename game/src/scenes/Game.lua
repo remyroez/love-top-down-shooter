@@ -89,6 +89,10 @@ function Game:enteredState(...)
 
     -- デバッグモード
     self:setDebug(false)
+
+    -- マウス
+    lm.setVisible(false)
+    lm.setGrabbed(true)
 end
 
 -- ステート終了
@@ -96,6 +100,10 @@ function Game:exitedState(...)
     self.state.input:unbindAll()
     self.state.level:destroy()
     self.state.timer:destroy()
+
+    -- マウス
+    lm.setVisible(true)
+    lm.setGrabbed(false)
 end
 
 -- 更新
@@ -157,6 +165,11 @@ function Game:draw()
 
     -- カメラ描画
     self.state.camera:draw()
+
+    -- 照準の描画
+    local mx, my = lm.getPosition()
+    lg.setColor(1, 1, 1)
+    lg.draw(self.crosshair, mx - self.crosshair:getWidth() * 0.5, my - self.crosshair:getHeight() * 0.5)
 
     -- ライフ
     do
