@@ -10,7 +10,7 @@ local Boot = Scene:newState 'boot'
 
 -- 次のステートへ
 function Boot:nextState(...)
-    self:gotoState 'game'
+    self:gotoState 'splash'
 end
 
 -- 読み込み
@@ -25,6 +25,11 @@ function Boot:load()
 
     -- 照準
     self.crosshair = lg.newImage('assets/crosshair038.png')
+
+    local font = 'assets/Kenney Thick.ttf'
+    self.font16 = love.graphics.newFont(font, 16)
+    self.font32 = love.graphics.newFont(font, 32)
+    self.font64 = love.graphics.newFont(font, 64)
 end
 
 -- 更新

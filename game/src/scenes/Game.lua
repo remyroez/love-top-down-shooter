@@ -174,7 +174,14 @@ function Game:draw()
     -- ライフ
     do
         love.graphics.setColor(1, 1, 1)
-        lg.printf('LIFE: ', 0, self.height - 16, self.width, 'left')
+        lg.printf(
+            'LIFE',
+            self.font16,
+            8,
+            self.height - self.font32:getHeight() - self.font16:getHeight(),
+            self.width,
+            'left'
+        )
         local color = { lume.color('#ffffff') }
         local rate = self.state.player.life / self.state.player.lifeMax
         if rate <= 0.3 then
@@ -183,18 +190,36 @@ function Game:draw()
             color = { lume.color('rgb(255, 255, 0)') }
         end
         love.graphics.setColor(color)
-        lg.printf(self.state.player.life, 32, self.height - 16, self.width, 'left')
+        lg.printf(
+            self.state.player.life,
+            self.font32,
+            8,
+            self.height - self.font32:getHeight(),
+            self.width,
+            'left'
+        )
     end
 
     -- 残弾数
-    love.graphics.setColor(1, 1, 1)
-    lg.printf(
-        'AMMO: ' .. (self.state.player:isReloadingWeapon() and 'RELOADING...' or tostring(self.state.player:getWeaponAmmo())) .. '/' .. self.state.player:getWeaponMaxAmmo(),
-        0,
-        self.height - 16,
-        self.width,
-        'right'
-    )
+    do
+        love.graphics.setColor(1, 1, 1)
+        lg.printf(
+            'AMMO',
+            self.font16,
+            -8,
+            self.height - self.font32:getHeight() - self.font16:getHeight(),
+            self.width,
+            'right'
+        )
+        lg.printf(
+            '' .. (self.state.player:isReloadingWeapon() and 'RELOADING...' or tostring(self.state.player:getWeaponAmmo())),
+            self.font32,
+            -8,
+            self.height - self.font32:getHeight(),
+            self.width,
+            'right'
+        )
+    end
 
     -- 座標（デバッグ）
     if self.debug then
@@ -205,19 +230,35 @@ function Game:draw()
     -- ウェーブ
     if self.state.level.wave > 0 then
         love.graphics.setColor(1, 1, 1)
-        lg.printf('WAVE: ' .. self.state.level.wave, 0, 0, self.width, 'left')
+        lg.printf('WAVE', self.font16, 8, 8, self.width, 'left')
+        lg.printf(
+            self.state.level.wave,
+            self.font32,
+            8,
+            8 + self.font16:getHeight(),
+            self.width,
+            'left'
+        )
     end
 
     -- 残り時間
     if self.state.level:hasWaveTime() then
         love.graphics.setColor(1, 1, 1)
-        lg.printf(math.floor(self.state.level:getWaveTime()), 0, 0, self.width, 'center')
+        lg.printf(math.floor(self.state.level:getWaveTime()), self.font32, 0, 0, self.width, 'center')
     end
 
     -- 敵
     if self.state.level:getMaxSpawn() > 0 then
         love.graphics.setColor(1, 1, 1)
-        lg.printf('KILL: ' .. (self.state.level:getNumSpawned() - #self.state.level:getEnemies()) .. '/' .. self.state.level:getMaxSpawn(), 0, 0, self.width, 'right')
+        lg.printf('ENEMIES', self.font16, -8, 8, self.width, 'right')
+        lg.printf(
+            self.state.level:getMaxSpawn() - (self.state.level:getNumSpawned() - #self.state.level:getEnemies()),
+            self.font32,
+            -8,
+            8 + self.font16:getHeight(),
+            self.width,
+            'right'
+        )
     end
 end
 
