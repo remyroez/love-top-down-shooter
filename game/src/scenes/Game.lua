@@ -49,7 +49,7 @@ function Game:enteredState(path, ...)
     self.state.camera = Camera()
 
     -- レベル
-    self.state.level = Level(path)
+    self.state.level = Level(path, self.soundPaths)
     self.state.level:resizeMapCanvas(self.width, self.height, self.state.camera.scale)
     self.state.level:setupCharacters(self.spriteSheet)
     self.state.level:setupWave(1, 0, 10, self.spriteSheet)

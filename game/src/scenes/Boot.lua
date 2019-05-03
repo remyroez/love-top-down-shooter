@@ -50,6 +50,15 @@ function Boot:load()
         self.sounds[name] = love.audio.newSource('assets/' .. path, 'static')
     end
 
+    -- ＳＥパス
+    self.soundPaths = {
+        zombie = {
+            damage = { 'assets/creature1.ogg', 'assets/creature2.ogg' },
+            random = { 'assets/creature3.ogg', 'assets/creature4.ogg' },
+            attack = { 'assets/creature5.ogg' }
+        }
+    }
+
     -- フォント
     local font = 'assets/Kenney Thick.ttf'
     self.font16 = love.graphics.newFont(font, 16)

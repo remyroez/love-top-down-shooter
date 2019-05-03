@@ -83,7 +83,10 @@ local weaponData = {
 }
 
 -- 初期化
-function Level:initialize(map)
+function Level:initialize(map, soundPaths)
+    -- サウンドパス
+    self.soundPaths = soundPaths or {}
+
     -- キャラクター
     self.characters = {}
 
@@ -380,12 +383,15 @@ function Level:spawnCharacter(object, spriteSheet)
     -- デフォルトスプライト
     local defaultSprite = (object.type == 'player') and spriteVariation.hitman or spriteVariation.zombie
 
-    -- デフォルト武器
+    -- デフォルト武器，ＳＥ
     local defaultWeapon
+    local defaultSoundPaths = {}
     if object.type == 'player' then
         defaultWeapon = weaponData.gun
+        defaultSoundPaths = {}
     elseif object.type == 'enemy' then
         defaultWeapon = weaponData.hand
+        defaultSoundPaths = self.soundPaths.zombie or {}
     end
 
     -- スプライト名
@@ -432,6 +438,7 @@ function Level:spawnCharacter(object, spriteSheet)
             world = self.world,
             navigation = self.navigation,
             life = object.properties.life,
+            soundPaths = defaultSoundPaths,
             onDead = function (character) self:deregisterEntity(character) end,
             debug = self.debug,
         }
