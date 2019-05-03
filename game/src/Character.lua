@@ -72,6 +72,9 @@ function Character:initialize(args)
     if args.behavior then
         self.behavior = args.behavior(self)
     end
+
+    -- デバッグモード
+    self.debug = args.debug == nil and true or false
 end
 
 -- 破棄
@@ -107,7 +110,7 @@ function Character:draw()
     self:popTransform()
 
     -- ビヘイビア
-    if self.behavior and self.alive then
+    if self.debug and self.behavior and self.alive then
         self.behavior:draw()
     end
 end

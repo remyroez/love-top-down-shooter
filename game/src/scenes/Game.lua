@@ -81,7 +81,11 @@ function Game:enteredState(...)
     self.state.camera:setBounds(self.state.level.left, self.state.level.top, self.state.level.width, self.state.level.height)
     self.state.camera.scale = 1
 
+    -- 弾道
     self.state.bullets = {}
+
+    -- デバッグモード
+    self:setDebug(false)
 end
 
 -- ステート終了
@@ -132,9 +136,7 @@ function Game:draw()
             self.state.camera.h / 2 - self.state.camera.y,
             self.state.camera.scale)
 
-        -- マウスポインタ描画
-        --local mx, my = self:getMousePosition()
-        --lg.line(cx, cy, mx, my)
+        -- 弾道描画
         for _, bullet in ipairs(self.state.bullets) do
             lg.setColor(bullet.color)
             lg.line(unpack(bullet.line))
@@ -171,8 +173,10 @@ function Game:draw()
     )
 
     -- 座標（デバッグ）
-    love.graphics.setColor(1, 1, 1)
-    lg.printf('x: ' .. math.ceil(cx) .. ', y: ' .. math.ceil(cy), 0, self.height * 0.5 - 16, self.width, 'right')
+    if self.debug then
+        love.graphics.setColor(1, 1, 1)
+        lg.printf('x: ' .. math.ceil(cx) .. ', y: ' .. math.ceil(cy), 0, self.height * 0.5 - 16, self.width, 'right')
+    end
 
     -- ウェーブ
     if self.state.level.wave > 0 then
@@ -193,10 +197,10 @@ function Game:draw()
     end
 end
 
--- キー入力
-function Game:keypressed(key, scancode, isrepeat)
-    if key == 'space' then
-    end
+-- デバッグモード設定
+function Game:setDebug(enable)
+    self.debug = enable
+    self.state.level:setDebug(enable)
 end
 
 -- プレイヤー操作
@@ -233,6 +237,7 @@ function Game:controlPlayer()
             local cx, cy = self:getPlayerPosition()
             local mx, my = self:getMousePosition()
             local rx, ry = lume.vector(lume.angle(cx, cy, mx, my), player:getWeaponRange())
+            --[[
             local gx, gy = cx, cy
             do
                 local x, y = player:forward(32)
@@ -244,6 +249,7 @@ function Game:controlPlayer()
                 gx = gx + x
                 gy = gy + y
             end
+            --]]
 
             -- 射撃実行
             player:fireWeapon()
