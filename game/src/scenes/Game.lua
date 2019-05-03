@@ -34,7 +34,7 @@ function Game:load()
 end
 
 -- ステート開始
-function Game:enteredState(...)
+function Game:enteredState(path, ...)
     -- 親
     Scene.enteredState(self, ...)
 
@@ -49,7 +49,7 @@ function Game:enteredState(...)
     self.state.camera = Camera()
 
     -- レベル
-    self.state.level = Level('assets/levels/simple.lua')
+    self.state.level = Level(path)
     self.state.level:resizeMapCanvas(self.width, self.height, self.state.camera.scale)
     self.state.level:setupCharacters(self.spriteSheet)
     self.state.level:setupWave(1, 0, 10, self.spriteSheet)
@@ -93,6 +93,23 @@ function Game:enteredState(...)
     -- マウス
     lm.setVisible(false)
     lm.setGrabbed(true)
+
+    -- フェード
+    self.state.fade = { 0, 0, 0, 1 }
+    self.state.fade2 = { 0, 0, 0, 0 }
+    self.state.action = true
+    self.state.timer:tween(
+        1,
+        self.state.fade,
+        { [4] = 0 },
+        'in-out-cubic',
+        function ()
+            self.state.action = false
+        end
+    )
+    self.state.youdied = { 1, 0, 0, 0 }
+    self.state.gameover = false
+    self.state.visiblePressAnyKey = true
 end
 
 -- ステート終了
@@ -108,9 +125,6 @@ end
 
 -- 更新
 function Game:update(dt)
-    -- タイマー
-    self.state.timer:update(dt)
-
     -- プレイヤー操作
     self:controlPlayer()
 
@@ -132,6 +146,9 @@ function Game:update(dt)
             self.state.level:setupWave(wave, 0, 5 + wave * 5, self.spriteSheet)
         end
     end
+
+    -- タイマー
+    self.state.timer:update(dt)
 end
 
 -- 描画
@@ -166,6 +183,12 @@ function Game:draw()
     -- カメラ描画
     self.state.camera:draw()
 
+    -- フェード2
+    if self.state.fade2[4] > 0 then
+        lg.setColor(unpack(self.state.fade2))
+        lg.rectangle('fill', 0, 0, self.width, self.height)
+    end
+
     -- 照準の描画
     local mx, my = lm.getPosition()
     lg.setColor(1, 1, 1)
@@ -174,7 +197,14 @@ function Game:draw()
     -- ライフ
     do
         love.graphics.setColor(1, 1, 1)
-        lg.printf('LIFE: ', 0, self.height - 16, self.width, 'left')
+        lg.printf(
+            'LIFE',
+            self.font16,
+            8,
+            self.height - self.font32:getHeight() - self.font16:getHeight(),
+            self.width,
+            'left'
+        )
         local color = { lume.color('#ffffff') }
         local rate = self.state.player.life / self.state.player.lifeMax
         if rate <= 0.3 then
@@ -183,18 +213,36 @@ function Game:draw()
             color = { lume.color('rgb(255, 255, 0)') }
         end
         love.graphics.setColor(color)
-        lg.printf(self.state.player.life, 32, self.height - 16, self.width, 'left')
+        lg.printf(
+            self.state.player.life,
+            self.font32,
+            8,
+            self.height - self.font32:getHeight(),
+            self.width,
+            'left'
+        )
     end
 
     -- 残弾数
-    love.graphics.setColor(1, 1, 1)
-    lg.printf(
-        'AMMO: ' .. (self.state.player:isReloadingWeapon() and 'RELOADING...' or tostring(self.state.player:getWeaponAmmo())) .. '/' .. self.state.player:getWeaponMaxAmmo(),
-        0,
-        self.height - 16,
-        self.width,
-        'right'
-    )
+    do
+        love.graphics.setColor(1, 1, 1)
+        lg.printf(
+            'AMMO',
+            self.font16,
+            -8,
+            self.height - self.font32:getHeight() - self.font16:getHeight(),
+            self.width,
+            'right'
+        )
+        lg.printf(
+            '' .. (self.state.player:isReloadingWeapon() and 'RELOADING...' or tostring(self.state.player:getWeaponAmmo())),
+            self.font32,
+            -8,
+            self.height - self.font32:getHeight(),
+            self.width,
+            'right'
+        )
+    end
 
     -- 座標（デバッグ）
     if self.debug then
@@ -205,19 +253,105 @@ function Game:draw()
     -- ウェーブ
     if self.state.level.wave > 0 then
         love.graphics.setColor(1, 1, 1)
-        lg.printf('WAVE: ' .. self.state.level.wave, 0, 0, self.width, 'left')
+        lg.printf('WAVE', self.font16, 8, 8, self.width, 'left')
+        lg.printf(
+            self.state.level.wave,
+            self.font32,
+            8,
+            8 + self.font16:getHeight(),
+            self.width,
+            'left'
+        )
     end
 
     -- 残り時間
     if self.state.level:hasWaveTime() then
         love.graphics.setColor(1, 1, 1)
-        lg.printf(math.floor(self.state.level:getWaveTime()), 0, 0, self.width, 'center')
+        lg.printf(math.floor(self.state.level:getWaveTime()), self.font32, 0, 0, self.width, 'center')
     end
 
     -- 敵
     if self.state.level:getMaxSpawn() > 0 then
         love.graphics.setColor(1, 1, 1)
-        lg.printf('KILL: ' .. (self.state.level:getNumSpawned() - #self.state.level:getEnemies()) .. '/' .. self.state.level:getMaxSpawn(), 0, 0, self.width, 'right')
+        lg.printf('ENEMIES', self.font16, -8, 8, self.width, 'right')
+        lg.printf(
+            self.state.level:getMaxSpawn() - (self.state.level:getNumSpawned() - #self.state.level:getEnemies()),
+            self.font32,
+            -8,
+            8 + self.font16:getHeight(),
+            self.width,
+            'right'
+        )
+    end
+
+    -- 死亡
+    if self.state.youdied[4] > 0 then
+        -- 死亡表示，操作
+        lg.setColor(unpack(self.state.youdied))
+        lg.printf('YOU DIED', self.font64, 0, (self.height - self.font64:getHeight()) * 0.5, self.width, 'center')
+
+        -- キー入力表示
+        if self.state.visiblePressAnyKey and not self.state.action then
+            lg.printf('PRESS ANY KEY', self.font32, 0, self.height - self.font32:getHeight(), self.width, 'center')
+        end
+    end
+
+    -- ゲームオーバー操作
+    if self:isPlayable() and self:isGameOver() then
+        -- ゲームオーバー演出開始
+        self.state.gameover = true
+        self.state.action = true
+        self.state.timer:tween(
+            1,
+            self.state.youdied,
+            { [4] = 1 },
+            'in-out-cubic',
+            function ()
+                self.state.timer:every(
+                    0.5,
+                    function ()
+                        self.state.visiblePressAnyKey = not self.state.visiblePressAnyKey
+                    end
+                )
+                self.state.action = false
+            end
+        )
+        self.state.timer:tween(
+            1,
+            self.state.fade2,
+            { [4] = 0.5 },
+            'in-out-cubic'
+        )
+    end
+
+    -- フェード
+    if self.state.fade[4] > 0 then
+        lg.setColor(unpack(self.state.fade))
+        lg.rectangle('fill', 0, 0, self.width, self.height)
+    end
+end
+
+-- キー入力
+function Game:keypressed(key, scancode, isrepeat)
+    if not self.state.action and self.state.gameover then
+        -- ゲームオーバーからレベル選択へ
+        self.state.action = true
+        self.state.timer:tween(
+            1,
+            self.state.fade,
+            { [4] = 1 },
+            'in-out-cubic',
+            function ()
+                self:gotoState 'select'
+            end
+        )
+    end
+end
+
+-- マウス入力
+function Game:mousepressed(x, y, button, istouch, presses)
+    if not self.state.action and self.state.gameover then
+        self:keypressed('space')
     end
 end
 
@@ -227,12 +361,28 @@ function Game:setDebug(enable)
     self.state.level:setDebug(enable)
 end
 
+-- ゲームオーバー判定
+function Game:isGameOver()
+    local gameover = true
+    if #self.state.level:getPlayers() > 0 then
+        gameover = false
+    elseif #self.state.level:getFriends() > 0 then
+        gameover = false
+    end
+    return gameover
+end
+
+-- プレイ可能かどうか
+function Game:isPlayable()
+    return not self.state.gameover and not self.state.action
+end
+
 -- プレイヤー操作
 function Game:controlPlayer()
     local player = self.state.player
 
     -- プレイヤーがノンアクティブなら操作しない
-    if not player:isActive() then
+    if not self:isPlayable() or not player:isActive() then
         return
     end
 

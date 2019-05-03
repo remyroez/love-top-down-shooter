@@ -28,6 +28,35 @@ function ZombieBehavior:onHear(source)
     self:gotoState('goto', source.x, source.y)
 end
 
+-- 周囲を探す
+function ZombieBehavior:tweenSearch(rotate)
+    self.timer:tween(
+        3,
+        self.character,
+        { rotation = self.character.rotation + rotate },
+        'in-out-cubic',
+        function ()
+            self:tweenSearch(math.pi / 2 * love.math.random(-1, 1))
+        end,
+        'search'
+    )
+end
+
+-- キャラクターのナビゲート
+function ZombieBehavior:navigateCharacter(random)
+    local navi
+
+    if random then
+        navi = self.character:findRandomNavigation()
+    else
+        navi = self.character:findNearestNavigation(love.math.random(1, 2) == 1)
+    end
+
+    if navi then
+        self:gotoState('goto', navi.x, navi.y)
+    end
+end
+
 -- 待機
 local Wait = ZombieBehavior:newState 'wait'
 
@@ -84,46 +113,9 @@ end
 -- 検索
 local Search = ZombieBehavior:newState 'search'
 
--- 検索: 周囲を探す
-function Search:tweenSearch(rotate)
-    local this = self
-
-    self.timer:tween(
-        3,
-        self.character,
-        { rotation = self.character.rotation + rotate },
-        'in-out-cubic',
-        function ()
-            if this == nil then
-                self.timer:destroy()
-                return
-            end
-            this:tweenSearch(math.pi / 2 * love.math.random(-1, 1))
-        end,
-        'search'
-    )
-end
-
--- 検索: キャラクターのナビゲート
-function Search:navigateCharacter(random)
-    local navi
-
-    if random then
-        navi = self.character:findRandomNavigation()
-    else
-        navi = self.character:findNearestNavigation(love.math.random(1, 2) == 1)
-    end
-
-    if navi then
-        self:gotoState('goto', navi.x, navi.y)
-    end
-end
-
 -- 検索: ステート開始
 function Search:enteredState(rotate)
     rotate = rotate or (math.pi / 2)
-
-    local this = self
 
     -- キャラクターは立ち状態に
     self:setCharacterState('stand')
@@ -135,21 +127,17 @@ function Search:enteredState(rotate)
     self.timer:every(
         0.1,
         function ()
-            if this == nil then
-                self.timer:destroy()
-                return
-            end
-            local scale = this.character.scale
+            local scale = self.character.scale
 
             -- キャラクターを探す
-            local target = this.character:findCharacter(64 * scale, 64 * scale, { 'player', 'friend' })
+            local target = self.character:findCharacter(64 * scale, 64 * scale, { 'player', 'friend' })
             if target == nil then
-                target = this.character:findCharacter(128 * scale, 96 * scale, { 'player', 'friend' })
+                target = self.character:findCharacter(128 * scale, 96 * scale, { 'player', 'friend' })
             end
 
             -- ターゲットを定めたら攻撃へ
             if target then
-                this:gotoState('attack', target)
+                self:gotoState('attack', target)
             end
         end
     )
@@ -158,11 +146,7 @@ function Search:enteredState(rotate)
     self.timer:every(
         5,
         function ()
-            if this == nil then
-                self.timer:destroy()
-                return
-            end
-            this:navigateCharacter()
+            self:navigateCharacter()
         end
     )
 
@@ -170,11 +154,7 @@ function Search:enteredState(rotate)
     self.timer:every(
         60,
         function ()
-            if this == nil then
-                self.timer:destroy()
-                return
-            end
-            this.character:resetNavigation()
+            self.character:resetNavigation()
         end
     )
 

@@ -7,6 +7,7 @@ local states = {
     "Boot",
     "Splash",
     "Title",
+    "Select",
     "Game"
 }
 
