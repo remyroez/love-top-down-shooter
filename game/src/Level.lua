@@ -524,6 +524,11 @@ function Level:getPlayers()
     return self:getCharacters('player')
 end
 
+-- 仲間リストの取得
+function Level:getFriends()
+    return self:getCharacters('friend')
+end
+
 -- エネミーリストの取得
 function Level:getEnemies()
     return self:getCharacters('enemy')
