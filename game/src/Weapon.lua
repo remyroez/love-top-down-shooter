@@ -84,7 +84,7 @@ end
 
 -- 武器のリロードができるかどうか
 function Weapon:canReloadWeapon()
-    return not self:hasWeaponAmmo() and self:getWeaponMaxAmmo() > 0
+    return (self:getWeaponAmmo() < self:getWeaponMaxAmmo()) and (self:getWeaponMaxAmmo() > 0)
 end
 
 -- 武器の発射
