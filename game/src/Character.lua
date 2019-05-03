@@ -197,6 +197,19 @@ function Character:damage(damage, rotation, power, attacker)
         self.behavior:onDamage(attacker)
     end
 
+    -- 演出
+    self.color[1] = 1
+    self.color[2] = 0
+    self.color[3] = 0
+    self.timer:tween(
+        0.5,
+        self.color,
+        { [1] = 1, [2] = 1, [3] = 1 },
+        'in-out-cubic',
+        function ()
+        end
+    )
+
     -- ０以下になったら死ぬ
     if self.life <= 0 then
         self:gotoState 'dying'
