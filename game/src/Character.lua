@@ -527,6 +527,9 @@ function Goto:enteredState(speed, targetOrTargetX, targetY)
     else
         self._goto.x, self._goto.y = targetOrTargetX, targetY
     end
+
+    -- 速度
+    self._goto.rate = 1
 end
 
 -- 移動: 更新
@@ -540,7 +543,6 @@ function Goto:update(dt)
     --self:setRotationTo(self._goto.x, self._goto.y)
     local rotating = false
     do
-        local rate = dt
         local rotate = math.rad(self.anglarSpeed)
         local to = lume.angle(self.x, self.y, self._goto.x, self._goto.y) - self.rotation
         if to > math.pi then
@@ -551,8 +553,18 @@ function Goto:update(dt)
         if math.abs(to) > math.pi * 0.1 then
             rotating = true
         end
+
+        -- 目的地が後ろ側なら早く振り向く
+        if math.abs(to) > math.pi * 0.3 and self._goto.rate < 2 then
+            self._goto.rate = 2
+        elseif math.abs(to) > math.pi * 0.5 and self._goto.rate < 3 then
+            self._goto.rate = 3
+        elseif math.abs(to) > math.pi * 0.75 and self._goto.rate < 4 then
+            self._goto.rate = 4
+        end
+
         if math.abs(to) > math.pi * 0.001 then
-            self:rotate((to < 0 and -rotate or rotate) * rate)
+            self:rotate((to < 0 and -rotate or rotate) * dt * self._goto.rate)
         end
     end
 
