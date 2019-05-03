@@ -90,6 +90,10 @@ function Title:keypressed(key, scancode, isrepeat)
                 self.state.action = false
             end
         )
+
+        -- ＳＥ
+        self.sounds.start:seek(0)
+        self.sounds.start:play()
     end
 end
 

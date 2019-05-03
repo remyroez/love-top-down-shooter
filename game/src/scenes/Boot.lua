@@ -43,7 +43,10 @@ function Boot:load()
         gameover = 'Serious ident.ogg',
         fire = 'hit5.ogg',
         reload = 'cloth1.ogg',
-        damage = 'hit3.ogg'
+        damage = 'hit3.ogg',
+        start = 'clothBelt.ogg',
+        select = 'bookFlip3.ogg',
+        back = 'bookClose.ogg'
     }
     self.sounds = {}
     for name, path in pairs(sounds) do

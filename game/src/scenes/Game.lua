@@ -356,6 +356,10 @@ function Game:keypressed(key, scancode, isrepeat)
                 self:gotoState 'select'
             end
         )
+
+        -- ＳＥ
+        self.sounds.back:seek(0)
+        self.sounds.back:play()
     end
 end
 
