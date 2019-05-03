@@ -353,6 +353,15 @@ function Game:keypressed(key, scancode, isrepeat)
             { [4] = 1 },
             'in-out-cubic',
             function ()
+                -- クリアウェーブの更新
+                if self.state.level.wave > 0 then
+                    local clearWave = self.state.level.wave - 1
+                    if self.clearWave[self.selectedLevel] == nil then
+                        self.clearWave[self.selectedLevel] = clearWave
+                    elseif clearWave > self.clearWave[self.selectedLevel] then
+                        self.clearWave[self.selectedLevel] = clearWave
+                    end
+                end
                 self:gotoState 'select'
             end
         )
@@ -493,22 +502,19 @@ function Game:controlPlayer()
             do
                 local fx, fy = cx + rx, cy + ry
                 local colliders = self.state.level.world:queryLine(cx, cy, fx, fy, { 'All', except = { 'player', 'friend' } })
-                local nearestDist = player:getWeaponRange()
+                local nearestDist = player:getWeaponRange() * 2
                 local nearest
-                local ok = true
                 for _, collider in ipairs(colliders) do
                     local entity = collider:getObject()
                     if entity and entity.alive then
                         local dist = lume.distance(cx, cy, entity.x, entity.y)
-                        if dist < nearestDist then
+                        if dist < nearestDist and player:watchPoint(entity.x, entity.y, {'enemy', 'friend'}) then
                             nearestDist = dist
                             nearest = entity
                         end
-                    elseif collider:getType() ~= 'dynamic' and collider.collision_class == 'building' then
-                        ok = false
                     end
                 end
-                if ok and nearest then
+                if nearest then
                     nearest:damage(
                         player:getWeaponDamage(),
                         player.rotation,
