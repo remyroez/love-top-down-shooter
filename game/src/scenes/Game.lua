@@ -68,8 +68,13 @@ function Game:enteredState(path, ...)
         }
     )
     self.state.player.onDamage = function (character, attacker)
+        -- 画面の演出
         self.state.camera:flash(0.1, { 1, 0, 0, 0.5 })
         self.state.camera:shake(8, 0.2, 60)
+
+        -- ＳＥ
+        self.sounds.damage:seek(0)
+        self.sounds.damage:play()
     end
 
     -- カメラ初期設定
@@ -434,6 +439,10 @@ function Game:controlPlayer()
             -- 射撃実行
             player:fireWeapon()
 
+            -- ＳＥ
+            self.sounds.fire:seek(0)
+            self.sounds.fire:play()
+
             -- 画面のシェイク
             self.state.camera:shake(8, 0.1, 60)
 
@@ -534,11 +543,19 @@ function Game:controlPlayer()
             -- リロード
             player:reloadWeapon(1, function (p) p:resetSprite() end)
             player:resetSprite()
+
+            -- ＳＥ
+            self.sounds.reload:seek(0)
+            self.sounds.reload:play()
         end
     elseif input:pressed('reload') and player:canReloadWeapon() then
         -- リロード
         player:reloadWeapon(1, function (p) p:resetSprite() end)
         player:resetSprite()
+
+        -- ＳＥ
+        self.sounds.reload:seek(0)
+        self.sounds.reload:play()
     end
 end
 

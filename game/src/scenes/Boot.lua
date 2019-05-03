@@ -28,23 +28,26 @@ function Boot:load()
 
     -- 音楽
     local musics = {
-        ingame = 'assets/Space Cadet.ogg',
-        outgame = 'assets/Sad Descent.ogg',
+        ingame = 'Space Cadet.ogg',
+        outgame = 'Sad Descent.ogg',
     }
     self.musics = {}
     for name, path in pairs(musics) do
-        self.musics[name] = love.audio.newSource(path, 'static')
+        self.musics[name] = love.audio.newSource('assets/' .. path, 'static')
         self.musics[name]:setLooping(true)
         self.musics[name]:setVolume(0.5)
     end
 
     -- ＳＥ
     local sounds = {
-        gameover = 'assets/Serious ident.ogg',
+        gameover = 'Serious ident.ogg',
+        fire = 'hit5.ogg',
+        reload = 'cloth1.ogg',
+        damage = 'hit3.ogg'
     }
     self.sounds = {}
     for name, path in pairs(sounds) do
-        self.sounds[name] = love.audio.newSource(path, 'static')
+        self.sounds[name] = love.audio.newSource('assets/' .. path, 'static')
     end
 
     -- フォント
