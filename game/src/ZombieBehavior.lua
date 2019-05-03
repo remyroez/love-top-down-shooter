@@ -20,7 +20,10 @@ end
 
 -- ダメージ時のコールバック
 function ZombieBehavior:onDamage(attacker)
-    self:gotoState('attack', attacker)
+    -- ＳＥ
+    self.character:playSound('damage')
+
+    self:gotoState('attack', attacker, true)
 end
 
 -- ヒア時のコールバック
@@ -146,6 +149,9 @@ function Search:enteredState(rotate)
     self.timer:every(
         5,
         function ()
+            if love.math.random(2) == 1 then
+                self.character:playSound('random')
+            end
             self:navigateCharacter()
         end
     )
@@ -160,6 +166,9 @@ function Search:enteredState(rotate)
 
     -- 最初に一回ナビゲートする
     if self.first then
+        if love.math.random(2) == 1 then
+            self.character:playSound('random')
+        end
         self:navigateCharacter(true)
     end
 end
@@ -183,7 +192,7 @@ end
 local Attack = ZombieBehavior:newState 'attack'
 
 -- 攻撃: ステート開始
-function Attack:enteredState(target)
+function Attack:enteredState(target, damaged)
     self.target = target
 
     self._attack = {}
@@ -246,6 +255,11 @@ function Attack:enteredState(target)
             self._attack.lastX, self._attack.lastY = self.character.x, self.character.y
         end
     )
+
+    -- ＳＥ
+    if damaged == nil or not damaged then
+        self.character:playSound('attack')
+    end
 end
 
 -- 攻撃: 描画

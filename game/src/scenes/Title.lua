@@ -43,6 +43,9 @@ function Title:enteredState(...)
             self.state.action = false
         end
     )
+
+    -- ＢＧＭ
+    self.musics.outgame:play()
 end
 
 -- ステート終了
@@ -87,6 +90,10 @@ function Title:keypressed(key, scancode, isrepeat)
                 self.state.action = false
             end
         )
+
+        -- ＳＥ
+        self.sounds.start:seek(0)
+        self.sounds.start:play()
     end
 end
 

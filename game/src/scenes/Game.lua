@@ -49,7 +49,7 @@ function Game:enteredState(path, ...)
     self.state.camera = Camera()
 
     -- レベル
-    self.state.level = Level(path)
+    self.state.level = Level(path, self.soundPaths)
     self.state.level:resizeMapCanvas(self.width, self.height, self.state.camera.scale)
     self.state.level:setupCharacters(self.spriteSheet)
     self.state.level:setupWave(1, 0, 10, self.spriteSheet)
@@ -68,8 +68,13 @@ function Game:enteredState(path, ...)
         }
     )
     self.state.player.onDamage = function (character, attacker)
+        -- 画面の演出
         self.state.camera:flash(0.1, { 1, 0, 0, 0.5 })
         self.state.camera:shake(8, 0.2, 60)
+
+        -- ＳＥ
+        self.sounds.damage:seek(0)
+        self.sounds.damage:play()
     end
 
     -- カメラ初期設定
@@ -110,6 +115,9 @@ function Game:enteredState(path, ...)
     self.state.youdied = { 1, 0, 0, 0 }
     self.state.gameover = false
     self.state.visiblePressAnyKey = true
+
+    -- ＢＧＭ
+    self.musics.ingame:play()
 end
 
 -- ステート終了
@@ -299,6 +307,9 @@ function Game:draw()
     -- ゲームオーバー操作
     if self:isPlayable() and self:isGameOver() then
         -- ゲームオーバー演出開始
+        self.musics.ingame:stop()
+        self.sounds.gameover:seek(0)
+        self.sounds.gameover:play()
         self.state.gameover = true
         self.state.action = true
         self.state.timer:tween(
@@ -345,6 +356,10 @@ function Game:keypressed(key, scancode, isrepeat)
                 self:gotoState 'select'
             end
         )
+
+        -- ＳＥ
+        self.sounds.back:seek(0)
+        self.sounds.back:play()
     end
 end
 
@@ -427,6 +442,10 @@ function Game:controlPlayer()
 
             -- 射撃実行
             player:fireWeapon()
+
+            -- ＳＥ
+            self.sounds.fire:seek(0)
+            self.sounds.fire:play()
 
             -- 画面のシェイク
             self.state.camera:shake(8, 0.1, 60)
@@ -528,11 +547,19 @@ function Game:controlPlayer()
             -- リロード
             player:reloadWeapon(1, function (p) p:resetSprite() end)
             player:resetSprite()
+
+            -- ＳＥ
+            self.sounds.reload:seek(0)
+            self.sounds.reload:play()
         end
     elseif input:pressed('reload') and player:canReloadWeapon() then
         -- リロード
         player:reloadWeapon(1, function (p) p:resetSprite() end)
         player:resetSprite()
+
+        -- ＳＥ
+        self.sounds.reload:seek(0)
+        self.sounds.reload:play()
     end
 end
 

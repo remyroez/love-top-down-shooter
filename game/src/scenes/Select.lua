@@ -49,6 +49,9 @@ function Select:enteredState(...)
             self.state.action = false
         end
     )
+
+    -- ＢＧＭ
+    self.musics.outgame:play()
 end
 
 -- ステート終了
@@ -99,10 +102,16 @@ function Select:keypressed(key, scancode, isrepeat)
                 { [4] = 1 },
                 'in-out-cubic',
                 function ()
+                    self.musics.outgame:stop()
                     self:nextState(levels[self.selectedLevel].path)
                     self.state.action = false
                 end
             )
+
+            -- ＳＥ
+            self.sounds.start:seek(0)
+            self.sounds.start:play()
+
         elseif key == 'left' or key == 'a' then
             -- 前のレベル
             self.selectedLevel = self.selectedLevel - 1
@@ -119,6 +128,10 @@ function Select:keypressed(key, scancode, isrepeat)
                 'select'
             )
 
+            -- ＳＥ
+            self.sounds.select:seek(0)
+            self.sounds.select:play()
+
         elseif key == 'right' or key == 'd' then
             -- 次のレベル
             self.selectedLevel = self.selectedLevel + 1
@@ -134,6 +147,10 @@ function Select:keypressed(key, scancode, isrepeat)
                 'out-elastic',
                 'select'
             )
+
+            -- ＳＥ
+            self.sounds.select:seek(0)
+            self.sounds.select:play()
         end
     end
 end

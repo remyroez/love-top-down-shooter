@@ -35,6 +35,15 @@ function Character:initialize(args)
     self.navigation = args.navigation or {}
     self.visitedNavi = {}
 
+    -- サウンド
+    self.sounds = {}
+    for name, list in pairs(args.soundPaths) do
+        self.sounds[name] = {}
+        for _, path in ipairs(list) do
+            table.insert(self.sounds[name], love.audio.newSource(path, 'static'))
+        end
+    end
+
     -- スプライト
     if type(args.sprite) == 'table' then
         self.sprite = args.sprite[love.math.random(#args.sprite)]
@@ -127,6 +136,18 @@ function Character:resetSprite(spriteName, h_align, v_align)
     self.spriteName = spriteName
     local w, h = self:getSpriteSize(spriteName)
     self:initializeRectangle(self.x, self.y, w, h, h_align or 'center', v_align)
+end
+
+-- サウンドの再生
+function Character:playSound(name)
+    local soundList = self.sounds[name]
+    if soundList then
+        local sound = soundList[love.math.random(#soundList)]
+        if sound then
+            sound:seek(0)
+            sound:play()
+        end
+    end
 end
 
 -- ポーズ名の取得
