@@ -89,6 +89,10 @@ function Search:tweenSearch(rotate)
         { rotation = self.character.rotation + rotate },
         'in-out-cubic',
         function ()
+            if this == nil then
+                self.timer:destroy()
+                return
+            end
             this:tweenSearch(math.pi / 2 * love.math.random(-1, 1))
         end,
         'search'
@@ -126,6 +130,10 @@ function Search:enteredState(rotate)
     self.timer:every(
         0.1,
         function ()
+            if this == nil then
+                self.timer:destroy()
+                return
+            end
             local scale = this.character.scale
 
             -- キャラクターを探す
@@ -145,6 +153,10 @@ function Search:enteredState(rotate)
     self.timer:every(
         5,
         function ()
+            if this == nil then
+                self.timer:destroy()
+                return
+            end
             this:navigateCharacter()
         end
     )
@@ -153,6 +165,10 @@ function Search:enteredState(rotate)
     self.timer:every(
         60,
         function ()
+            if this == nil then
+                self.timer:destroy()
+                return
+            end
             this.character:resetNavigation()
         end
     )
