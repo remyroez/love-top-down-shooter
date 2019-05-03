@@ -231,10 +231,12 @@ function Character:findCharacter(range, circle, targetClass)
 end
 
 -- ある地点を監視する
-function Character:watchPoint(x, y)
+function Character:watchPoint(x, y, except)
     local isFound = true
 
-    local founds = self.world:queryLine(x, y, self.x, self.y, { 'All', except = { self.type, 'frame' } })
+    except = lume.concat({ self.type, 'frame' }, except or {})
+
+    local founds = self.world:queryLine(x, y, self.x, self.y, { 'All', except = except })
     for __, found in pairs(founds) do
         if found:getType() ~= 'dynamic' and found.collision_class == 'building' then
             isFound = false

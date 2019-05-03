@@ -313,6 +313,7 @@ function Game:controlPlayer()
                 local colliders = self.state.level.world:queryLine(cx, cy, fx, fy, { 'All', except = { 'player', 'friend' } })
                 local nearestDist = player:getWeaponRange()
                 local nearest
+                local ok = true
                 for _, collider in ipairs(colliders) do
                     local entity = collider:getObject()
                     if entity and entity.alive then
@@ -321,9 +322,11 @@ function Game:controlPlayer()
                             nearestDist = dist
                             nearest = entity
                         end
+                    elseif collider:getType() ~= 'dynamic' and collider.collision_class == 'building' then
+                        ok = false
                     end
                 end
-                if nearest then
+                if ok and nearest then
                     nearest:damage(
                         player:getWeaponDamage(),
                         player.rotation,
